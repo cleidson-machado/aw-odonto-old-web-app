@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LISTA WEST DE CONTRATOS USADA INICIALMENTE NA PÁGINA DEFAULT APENAS... -->
+
+<h:form id="contratoFormListWest">
+
+<p:panel id="listaCx" header="Lista de Contratos Criados">
+
+<p:dataTable 
+				id="listaContratosEsquerda"
+				var="item" 
+				value="#{checkOutProcedimentoBean2.contratos}"
+				
+				rowKey="#{item.codigo}"
+				selectionMode="single"
+				
+				emptyMessage="Nenhuma CONTRATO cadastrado!"
+				paginator="true" 
+			 	rows="16"
+			 	
+			 	rowsPerPageTemplate="5,16"
+			 	
+			 	paginatorPosition="bottom" >
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{item.dtaInicio}" >
+	<f:facet name="header"><h:outputText value="Data" /></f:facet>
+					   <h:outputText value="#{item.dtaInicio}">
+					   <f:convertDateTime pattern="dd-MM-YYYY"/>
+					   </h:outputText>
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.statusContratual}">
+<f:facet name="header"><h:outputText value="Status" /></f:facet>
+					   <h:outputText value="#{item.statusContratual}" rendered="#{not empty item.statusContratual}" />
+					   <h:outputText value="ORÇ." rendered="#{empty item.statusContratual}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.codFichaCadastral}">
+<f:facet name="header"><h:outputText value="Contrato" /></f:facet>
+					   <h:outputText value="#{item.codFichaCadastral}" />
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

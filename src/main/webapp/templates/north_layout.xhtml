@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+     
+<!-- 	TEMPLATE PADRÃO PARA TODA A APLICAÇÃO.. NA contratosWestList, USADA COMO MARCAÇÃO -->
+<!-- 	POSSO INSETIR OUTRA PÁGINA OU AFINS NO LADO DIREITO PRA CADA INDEX DAS PASTAS QUE REPRESENTAM AS CLASSES... -->
+     
+	<f:loadBundle basename="Messages" var="msgBundle" />
+	
+    <h:head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+        <h:outputStylesheet library="css" name="Grid.css"/>
+        <h:outputStylesheet library="css" name="Step.css"/>
+		<h:outputStylesheet library="css" name="westmenu.css"/>
+    </h:head>
+
+    <h:body>
+        
+        <p:growl id="msgGlobal" sticky="true" life="1000"/>
+
+        <p:layout fullPage="true">
+        
+            <p:layoutUnit 	header="#{msgBundle.AppName}"
+            				position="north" 
+            				size="75" >
+                <ui:include src="/menus/north_menu.xhtml"/>
+            </p:layoutUnit>
+            
+            <p:layoutUnit 	header="#{msgBundle.CreatorName}" 
+            				position="south" 
+            				size="0"
+							resizable="true"
+							closable="true" 
+							collapsible="true">
+			</p:layoutUnit>
+            
+			<p:layoutUnit 	id="layoutContratosList"
+			            	position="west" 
+							size="345"
+							resizable="true"
+							collapsible="true" 
+							collapsed="false" 
+							closable="true" >
+							
+			<ui:insert 	name="contratosWestList"/>
+							
+			</p:layoutUnit>            
+
+            <p:layoutUnit 	position="center">
+                <ui:insert 	name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

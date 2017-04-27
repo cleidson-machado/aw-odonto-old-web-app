@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui" 
+				xmlns:jsf="http://xmlns.jcp.org/jsf" >
+
+<!-- LISTA WEST DA INDEX DE CONTRATOS... -->
+
+<h:form>
+
+<div class="ui-grid-row" align="center">
+<label jsf:for="email">Desenvolvido por Cleidson Pereira Machado 2016/2017</label>
+<h4 align="center">SIGA PASSOS DE 1 A 6 PARA <br/> 
+( para Iniciar e Encerrar um Ciclo de Cadastros )</h4>
+<br />
+
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/contratante_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/referencias_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<p:button 	outcome="pages/contratante/Index"
+			icon="ui-icon-extlink"
+			value="Contratante"
+			style="margin-bottom: 10px;"/>
+
+</div>
+<div class="ui-grid-col-6">
+<p:button 	outcome="pages/referencia/Index"
+			icon="ui-icon-extlink"
+			value="Referências"
+			style="margin-bottom: 10px;"/>
+</div>
+</div>
+
+<br/>
+<br/>
+
+<div class="ui-grid-row" align="center">
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/pacientes_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/enderecos_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<p:button 	outcome="pages/contratante/paciente/Index"
+			icon="ui-icon-extlink"
+			value="Pacientes"
+			style="margin-bottom: 10px;"/>
+</div>
+<div class="ui-grid-col-6">
+<p:button 	outcome="pages/endereco/Index"
+			icon="ui-icon-extlink"
+			value="Endereços"
+			style="margin-bottom: 10px;"/>
+</div>
+</div>
+
+<br/>
+<br/>
+
+<div class="ui-grid-row" align="center">
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/contratos_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<h:graphicImage value="#{resource['imgs/servicos_on.gif']}" />
+</div>
+<div class="ui-grid-col-6">
+<p:button 	outcome="pages/contrato/Index"
+			icon="ui-icon-extlink"
+			value="Contratos"
+			style="margin-bottom: 10px;"/>
+</div>
+<div class="ui-grid-col-6">
+<p:button	icon="ui-icon-extlink"
+			outcome="pages/contrato/venda/Index"		
+			value="R$ Vendas"
+			style="margin-bottom: 10px;"/>
+</div>
+</div>
+
+</h:form>
+
+</ui:composition>

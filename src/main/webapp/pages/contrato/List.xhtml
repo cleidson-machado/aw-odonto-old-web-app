@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="contratoListForm">
+
+<p:panel header="( Contratos - Lista Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo" 
+		 						actionListener="#{contratoBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal"/>
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{contratoBean.contratos}"
+				
+				emptyMessage="Nenhuma CONTRATO cadastrado!"
+				paginator="true" 
+			 	rows="11"
+			 		
+			 	paginatorPosition="bottom"  >
+
+
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 25px" sortBy="#{item.codFichaCadastral}">
+<f:facet name="header"><h:outputText value="Ficha Cadastral" /></f:facet>
+					   <h:outputText value="#{item.codFichaCadastral}" />
+</p:column>
+
+<p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{item.dtaInicio}" >
+	<f:facet name="header"><h:outputText value="Inicio" /></f:facet>
+					   <h:outputText value="#{item.dtaInicio}">
+					   <f:convertDateTime pattern="dd-MM-YYYY"/>
+					   </h:outputText>
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.statusContratual}">
+<f:facet name="header"><h:outputText value="Status" /></f:facet>
+					   <h:outputText value="#{item.statusContratual}" />
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.precoTotal}">
+<f:facet name="header"><h:outputText value="Valor" /></f:facet>
+					   <h:outputText 	value=" R$ #{item.precoTotal}" 
+					   					rendered="#{not empty item.precoTotal}">
+					   	<f:convertNumber locale="pt_br" minFractionDigits="2"/>
+					   </h:outputText>
+</p:column>
+
+<p:column style="text-align: center; width: 30px" sortBy="#{item.contratante.nome}">
+<f:facet name="header"><h:outputText value="Contratante" /></f:facet>
+					   <h:outputText value="#{item.contratante.nome} #{item.contratante.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.contratada.nomeUnidade}">
+<f:facet name="header"><h:outputText value="Contratada" /></f:facet>
+					   <h:outputText value="#{item.contratada.nomeUnidade}" />
+</p:column>
+
+<p:column headerText="Opções" style="text-align: center; width: 10px">
+
+				<p:commandButton 	icon="ui-icon-trash"
+									actionListener="#{contratoBean.excluir}"
+									update=":msgGlobal :contratoListForm:tabela">
+					
+					<p:confirm header="Confirmação" message="Deseja excluir este Contrato"
+						icon="ui-icon-alert" />
+					<f:attribute name="contratoSelecionado" value="#{item}" />
+					
+				</p:commandButton>
+
+				<p:commandButton 	icon="ui-icon-pencil"
+									actionListener="#{contratoBean.editar}"
+									update=":msgGlobal :formCadastro:painel"
+									oncomplete="PF('dialogo').show();">
+
+					<f:attribute name="contratoSelecionado" value="#{item}" />
+
+				</p:commandButton>
+				
+				<p:commandButton 	icon="ui-icon-search" >
+				
+				</p:commandButton>
+
+</p:column>
+
+</p:dataTable>
+
+</p:panel>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+</ui:composition>

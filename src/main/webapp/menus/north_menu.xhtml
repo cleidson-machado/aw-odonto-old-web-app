@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+<!-- ############################################################################################################ -->
+<!-- ############################# MENU UTILIZADO NA APLICAÇÃO ##################################### -->
+<!-- AS OPÇÕES DE: ADMINISTRAÇÃO E CADASTROS FORAM DISPOSTAS IGUAIS AQUI APENAS PARA TESTE DE LAYOUT NA PÁGINA WEB -->
+<!-- AQUI DENTRO DE ADMINISTRATIVO DEVEREMOS CRIAR AS ENTRATADA PARA CONTRATADA OU SEJA, A EMPRESA QUE ESTÁ OFERENCEDO O SERVIÇO OU CONTRATO -->
+
+<!-- ############################################################################################################ -->
+
+    <ui:composition>
+        <h:form id="menuNorth">
+            <p:menubar>
+                <p:menuitem value="#{msgBundle.Home}..." outcome="/Default" icon="ui-icon-home"/>
+                
+                <p:submenu label="CADASTROS" icon="ui-icon-gear">
+                	<p:menuitem value="Contratos" outcome="/pages/contrato/Index" />
+                		<p:separator/>
+                	<p:menuitem value="Contratadas" outcome="/pages/contratada/Index" />
+                		<p:separator/>
+                	<p:menuitem value="Contratantes" outcome="/pages/contratante/Index" />
+                		<p:separator/>
+                	<p:menuitem value="Pacientes" outcome="/pages/contratante/paciente/Index" />
+                		<p:separator/>
+                	<p:menuitem value="Referências" outcome="/pages/referencia/Index" />
+                		<p:separator/>
+                	<p:menuitem value="Enderecos" outcome="/pages/endereco/Index" />
+                		<p:separator/>
+                </p:submenu>
+                
+                <p:submenu label="PROCEDIMENTOS / MAT. EXTRA" icon="ui-icon-gear">
+                	<p:menuitem value="Cadastro Procedimentos" outcome="/pages/item/procedimento/Index" />
+                	<p:separator/>
+                </p:submenu>
+                
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

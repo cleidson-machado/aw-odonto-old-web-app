@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+
+<h:form id="procedimentoListForm">
+
+		<p:dataTable 	id="tabela" 
+						var="item" 
+						value="#{procedimentoBean.itemProcedimentos}">
+
+		<f:facet name="header">
+		 <p:commandButton 		value="Novo Procedimento" 
+		 						actionListener="#{procedimentoBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:procedimentoListForm:tabela 
+										:formCadastro:painel" />
+		 </f:facet>
+
+<!-- <p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" > -->
+<!-- <f:facet name="header"><h:outputText value="Ordem" /></f:facet> -->
+<!-- 					   <h:outputText value="#{item.codigo}" /> -->
+<!-- </p:column> -->
+
+<p:column style="text-align: center; width: 90px" sortBy="#{item.nomeItem}" >
+<f:facet name="header"><h:outputText value="Nome Procedimento" /></f:facet>
+					   <h:outputText value="#{item.nomeItem}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.preco}" >
+<f:facet name="header"><h:outputText value="Preço R$" /></f:facet>
+					   <h:outputText value="#{item.preco}">
+					   <f:convertNumber locale="pt_br" minFractionDigits="2"/>
+					   </h:outputText>
+</p:column>
+
+<p:column style="text-align: center; width: 30px" sortBy="#{item.notacaoCdiDente}" >
+<f:facet name="header"><h:outputText value="Notação CDI Dente" /></f:facet>
+					   <h:outputText value="#{item.notacaoCdiDente}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.estoque}" >
+<f:facet name="header"><h:outputText value="Estoque" /></f:facet>
+					   <h:outputText value="#{item.estoque}" />
+</p:column>
+
+<!-- <p:column style="text-align: center; width: 20px" sortBy="#{item.valorAtual}" rendered="false" > -->
+<!-- <f:facet name="header"><h:outputText value="Valor" /></f:facet> -->
+<!-- 					   <h:outputText value="#{item.valorAtual}"> -->
+<!-- 					   <f:convertNumber locale="pt_br" minFractionDigits="2"/> -->
+<!-- 					   </h:outputText> -->
+<!-- </p:column> -->
+
+<p:column headerText="Opções" style="text-align: center; width: 60px">
+
+				<p:commandButton icon="ui-icon-trash"
+					actionListener="#{procedimentoBean.excluir}"
+					update=":msgGlobal :procedimentoListForm:tabela">
+					<p:confirm header="Confirmação" message="Deseja excluir este Procedimento?"
+						icon="ui-icon-alert" />
+					<f:attribute name="procedimentoSelecionado" value="#{item}" />
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil"
+					actionListener="#{procedimentoBean.editar}"
+					update=":msgGlobal :formCadastro:painel"
+					oncomplete="PF('dialogo').show();">
+
+					<f:attribute name="procedimentoSelecionado" value="#{item}" />
+
+				</p:commandButton>
+
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+			
+
+</ui:composition>

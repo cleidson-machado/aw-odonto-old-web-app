@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	
+				widgetVar="dialogo"
+				header="Procedimentos - Cadastro" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+	<h:panelGrid id="painel" columns="2">
+	
+	<p:outputLabel value="Nome do Procedimento: " />
+		<p:inputText 	maxlength="50" 
+						size="30" 
+						value="#{procedimentoBean.itemProcedimento.nomeItem}">
+		</p:inputText>
+						
+	<p:outputLabel value="Preço: " />
+		<p:inputText 	maxlength="50" 
+						size="30" 
+						value="#{procedimentoBean.itemProcedimento.preco}">
+						<f:convertNumber locale="pt_br" minFractionDigits="2"/>
+		</p:inputText>
+	
+	<p:outputLabel value="Estoque Inicial: " />
+		<p:inputText 	maxlength="50" 
+						size="30" 
+						value="#{procedimentoBean.itemProcedimento.estoque}">
+		</p:inputText>
+		
+	<p:outputLabel value="Notação CDI Dente:" />
+		<p:selectOneMenu 		
+								value="#{procedimentoBean.itemProcedimento.notacaoCdiDente}"
+								filter="true"
+								filterMatchMode="contains" >
+
+			<f:selectItem 		itemLabel="Selecione" 
+							  	noSelectionOption="true" />
+
+			<f:selectItems 		
+								value="#{procedimentoBean.label}"
+								var="vrl"
+								itemValue="#{vrl.value}"
+								itemLabel="#{vrl.label}" />
+		
+		</p:selectOneMenu>
+
+
+	
+<!-- 	<p:outputLabel value="Valor Inicial: " rendered="false" /> -->
+<!-- 		<p:inputText 	rendered="false" -->
+<!-- 						maxlength="50"  -->
+<!-- 						size="30"  -->
+<!-- 						value="#{procedimentoBean.itemProcedimento.valorAtual}"> -->
+<!-- 						<f:convertNumber locale="pt_br" minFractionDigits="2"/> -->
+<!-- 		</p:inputText> -->
+		
+<!-- 		<p:outputLabel value="Valor Antigo: " rendered="false" /> -->
+<!-- 		<p:inputText 	rendered="false" -->
+<!-- 						maxlength="50"  -->
+<!-- 						size="30"  -->
+<!-- 						value="#{procedimentoBean.itemProcedimento.valorAntigo}"> -->
+<!-- 						<f:convertNumber locale="pt_br" minFractionDigits="2"/> -->
+<!-- 		</p:inputText> -->
+
+
+	</h:panelGrid>
+	
+	<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+								 actionListener="#{procedimentoBean.salvar}"
+								 update=":msgGlobal :formCadastro:painel :procedimentoListForm:tabela" />
+				
+				<p:commandButton value="Fechar"
+								 update=":msgGlobal :formCadastro:painel :procedimentoListForm:tabela" 
+								 oncomplete="PF('dialogo').hide();" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>	
+                
+</ui:composition>

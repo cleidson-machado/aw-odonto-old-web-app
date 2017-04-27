@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- ENDERECOS.... FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="enderecoListForm">
+
+		<p:dataTable id="tabela" var="item" value="#{enderecoBean.enderecos}">
+		
+		 <f:facet name="header">
+		 	<p:commandButton 	value="Novo Endereco Contratante"
+		 						actionListener="#{enderecoBean.novo}"
+		 						oncomplete="PF('dialogEndContratante').show()"
+		 						update=":msgGlobal 
+		 								:enderecoListForm:tabela 
+		 								:formCadastroContratante:painel" />
+		 						
+		 	<p:commandButton 	value="Novo Endereço Referência"
+		 						actionListener="#{enderecoBean.novo}"
+		 						oncomplete="PF('dialogEndReferencia').show()"
+		 						update=":msgGlobal 
+		 								:enderecoListForm:tabela 
+		 								:formCadastroReferencia:painel" />
+		 	
+		 	<p:commandButton 	value="Novo Endereço Paciente"
+		 						actionListener="#{enderecoBean.novo}"
+		 						oncomplete="PF('dialogEndPaciente').show()"
+		 						update=":msgGlobal 
+		 								:enderecoListForm:tabela 
+		 								:formCadastroPaciente:painel" />
+		 	
+		 </f:facet>
+		
+		<p:column style="text-align: center; width: 1px" sortBy="#{item.codigo}" rendered="false" >
+		<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+							   <h:outputText value="#{item.codigo}" />
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px" sortBy="#{item.rotulagem}">
+		<f:facet name="header" ><h:outputText value="Rótulo" /></f:facet>
+				<p:commandButton 
+									icon="ui-icon-search"
+									value="#{item.rotulagem}"
+								 	actionListener="#{enderecoBean.editar}"
+									update=":msgGlobal 
+											:formView:painel"
+									oncomplete="PF('viewdialog').show()" >
+				<f:attribute 	 name="enderecoSelecionado" value="#{item}" /> 
+				</p:commandButton>
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px" sortBy="#{item.dtaCadastro}" rendered="false" >
+		<f:facet name="header" ><h:outputText value="Data Cadastro" /></f:facet>
+			<h:outputText value="#{item.dtaCadastro}"><f:convertDateTime pattern="dd-MM-YYYY"/></h:outputText>
+		</p:column>
+		
+		<p:column 	style="text-align: center; width: 20px" 
+					sortBy="#{item.contratante.nome} #{item.referencia.nome}" >
+		<f:facet name="header" ><h:outputText value="Nome Completo" /></f:facet>
+	
+			<h:outputText 	rendered="#{item.rotulagem == 'Contratante'}" 
+							value="#{item.contratante.nome} #{item.contratante.sobreNome}"></h:outputText>
+			
+			<h:outputText 	rendered="#{item.rotulagem == 'Paciente'}" 
+							value="#{item.contratante.nome} #{item.contratante.sobreNome}"></h:outputText>
+			
+			<h:outputText 	rendered="#{item.rotulagem == 'Referencia'}" 
+							value="#{item.referencia.nome} #{item.referencia.sobreNome}"></h:outputText>
+		</p:column>
+		
+		<p:column style="text-align: center; width: 35px" sortBy="#{item.logradouro}" >
+		<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
+							   <h:outputText value="#{item.tipoLogradouro}: #{item.logradouro} - Nº:#{item.numImovelLote}" />
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px" sortBy="#{item.bairroDistrito}" >
+		<f:facet name="header"><h:outputText value="Bairro/Distrito" /></f:facet>
+							   <h:outputText value="#{item.bairroDistrito}" />
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px" sortBy="#{item.cepPostal}" >
+		<f:facet name="header"><h:outputText value="CEP/Cod.Postal" /></f:facet>
+							   <h:outputText value="#{item.cepPostal}" />
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px" sortBy="#{item.tipoEnd}" rendered="false" >
+		<f:facet name="header" ><h:outputText value="Endereço Tipo" /></f:facet>
+								<h:outputText value="#{item.tipoEnd}" />
+		</p:column>
+		
+		<p:column style="text-align: center; width: 10px">
+		<f:facet name="header" ><h:outputText value="Opções" /></f:facet>
+
+				<p:commandButton 	icon="ui-icon-trash"
+									actionListener="#{enderecoBean.excluir}"
+									update=":enderecoListForm:tabela :msgGlobal" >
+
+					<p:confirm 	header="Confirma a Exclusão?" 
+					            message="Atenção essa ação não poderá ser Desfeita!"
+					            icon="ui-icon-alert" />
+
+					<f:attribute 	name="enderecoSelecionado" value="#{item}" />
+				</p:commandButton>
+
+				<p:commandButton 	icon="ui-icon-pencil"
+									actionListener="#{enderecoBean.editar}"
+									update=":msgGlobal 
+											:formCadastro:painel 
+											:formCadastro:painelBotoes"
+									oncomplete="PF('dialogo').show();" >
+									
+				<f:attribute 		name="enderecoSelecionado" value="#{item}" />
+				</p:commandButton>
+				
+				<p:commandButton icon="ui-icon-search"
+								 actionListener="#{enderecoBean.editar}"
+								 update=":msgGlobal :formView:painel"
+								 oncomplete="PF('viewdialog').show()" >
+								 
+				<f:attribute 	 name="enderecoSelecionado" value="#{item}" />
+				</p:commandButton>
+		
+		</p:column>
+		
+		</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>					
+
+</ui:composition>

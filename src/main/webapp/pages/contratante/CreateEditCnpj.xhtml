@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog      
+				  widgetVar="cnpjEditDialog"
+				  header="CNPJ - View / Edit"
+				  footer="Obs: Ao adicionar CNPJ a Contratante será PJ automaticamente..."  
+				  draggable="false"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)">
+			
+	<h:form id="formCnpjEditView">
+
+	<h:panelGroup rendered="#{contratanteBean.contratante != null}" >
+	<h:panelGrid id="painel" columns="3" cellpadding="5">
+	
+		<p:outputLabel value="Nome:" for="donome" rendered="true" />
+		<p:inputText 	id="donome"
+						value="#{contratanteBean.contratante.nome}"
+						placeholder="Nome / Nome Fantasia"
+						required="true" 
+						requiredMessage="Nome é obrigatório!" 	 
+						size="20" 
+						maxlength="45"
+						readonly="true" />
+		<p:message for="donome" />
+		
+		<p:outputLabel value="Sobre Nome:" for="sobreNome" rendered="true" />
+		<p:inputText 	id="sobreNome"
+						value="#{contratanteBean.contratante.sobreNome}"
+						placeholder="Sobre Nome / Complemento"
+						required="false" 
+						requiredMessage="Um NOME é obrigatório!" 	 
+						size="30" 
+						maxlength="45"
+						readonly="true" />
+		<p:message for="sobreNome" />
+	
+		<p:outputLabel value="CNPJ: " for="cnpjNum" rendered="true" />
+		<p:inputMask 	 id="cnpjNum" value="#{contratanteBean.contratante.cnpj}"
+						 required="true" 
+						 requiredMessage="O CNPJ não foi informado ou está incompleto!"
+						 placeholder="CNPJ"	 
+						 mask="99.999.999/9999-99" 
+						 style="width:120px"
+						 rendered="true" />
+		<p:message for="cnpjNum" rendered="true" />
+
+	</h:panelGrid>
+	
+		
+	
+		<h:panelGrid columns="3">
+					<p:commandButton value="Salvar" 
+									 actionListener="#{contratanteBean.salvarCnpj}"
+									 update=":msgGlobal :formCnpjEditView:painel :contratanteListForm:tabela"
+									 validateClient="true"
+									 oncomplete="PF('cnpjEditDialog').hide();" />
+					
+					<p:commandButton value="Fechar"
+									 actionListener="#{contratanteBean.novo}"
+									 update=":contratanteListForm:tabela :formCnpjEditView:painel"
+									 oncomplete="PF('cnpjEditDialog').hide();" />
+
+					<p:commandButton 
+									icon="ui-icon-trash"
+									value="Remover CNPJ"
+									actionListener="#{contratanteBean.excluirCnpj}"
+									update="painel, contratanteListForm:tabela :msgGlobal"
+									oncomplete="PF('cnpjEditDialog').hide()" >
+
+						<p:confirm header="Confirma a Exclusão deste CNPJ?"
+							message="Essa alteração muda o Tipo da Contratante!"
+							icon="ui-icon-alert" />
+
+						<f:attribute name="contratanteSelecionada"
+							value="#{contratanteBean.contratante}" />
+
+					</p:commandButton>
+
+				</h:panelGrid>
+		
+</h:panelGroup>
+	
+	</h:form>
+	 	  
+	</p:dialog>
+
+</ui:composition>

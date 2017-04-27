@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog     widgetVar="viewdialog"
+				  header="Endereço - View" 
+				  draggable="false"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)">
+			
+	<h:form id="formView">
+
+	<h:panelGroup id="painel">
+	
+	<p:toolbar>
+		<f:facet name="left">
+			<h:outputText value="Data de Criação: " />
+			<h:outputText value="#{enderecoBean.endereco.dtaCadastro}">
+				<f:convertDateTime pattern = "dd-MM-YYYY" />
+			</h:outputText>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:panelGrid columns="2" columnClasses="column" rendered="#{enderecoBean.endereco != null}">
+
+	<h:outputText value="Logradouro:" />
+	<h:outputText value="#{enderecoBean.endereco.tipoLogradouro}: #{enderecoBean.endereco.logradouro} - Nº:#{enderecoBean.endereco.numImovelLote}" />
+
+	<h:outputText value="Bairro/Distrito:" />
+	<h:outputText value="#{enderecoBean.endereco.bairroDistrito}" />
+	
+	<p:outputLabel value="CEP/Cod.Postal: " />
+	<h:outputText value="#{enderecoBean.endereco.cepPostal}" />
+
+	<h:outputText value="Endereço Tipo:" />
+	<h:outputText value="#{enderecoBean.endereco.tipoEnd}">
+	</h:outputText>
+	
+	<h:outputText value="Complemento:" />
+	<h:outputText value="#{enderecoBean.endereco.complemento}" />
+	
+</p:panelGrid>
+
+		<p:toolbar rendered="#{enderecoBean.endereco.rotulagem == 'Contratante'}" >
+			<f:facet name="left">
+				<h:outputText value="#{enderecoBean.endereco.contratante.nome} #{enderecoBean.endereco.contratante.sobreNome}" />
+			</f:facet>
+		</p:toolbar>
+
+		<p:toolbar rendered="#{enderecoBean.endereco.rotulagem == 'Paciente'}" >
+			<f:facet name="left">
+				<h:outputText value="#{enderecoBean.endereco.contratante.nome} #{enderecoBean.endereco.contratante.sobreNome}" />
+			</f:facet>
+		</p:toolbar>
+
+		<p:toolbar rendered="#{enderecoBean.endereco.rotulagem == 'Referencia'}" >
+			<f:facet name="left">
+				<h:outputText value="#{enderecoBean.endereco.referencia.nome} #{enderecoBean.endereco.referencia.sobreNome}" />
+			</f:facet>
+		</p:toolbar>
+
+<p:commandButton value="Fechar"
+			     update="painel,:enderecoListForm:tabela,:msgGlobal" 
+				 onclick="PF('viewdialog').hide()" />
+
+<p:commandButton 
+					icon="ui-icon-trash" 
+					value="Excluir"
+					actionListener="#{enderecoBean.excluir}" 
+					update="painel, enderecoListForm:tabela :msgGlobal"
+					oncomplete="PF('viewdialog').hide()" >
+            
+            <p:confirm 
+			            header="Confirma a Exclusão?" 
+			            message="Atenção essa ação não poderá ser Desfeita!" 
+			            icon="ui-icon-alert"/>
+			
+			<f:attribute name="enderecoSelecionado" 
+						 value="#{enderecoBean.endereco}" />
+            
+</p:commandButton>
+
+	</h:panelGroup>
+	
+	</h:form>
+	 	  
+	</p:dialog>
+
+</ui:composition>

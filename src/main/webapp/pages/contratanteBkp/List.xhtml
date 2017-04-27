@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="contratanteListForm">
+
+<p:dataTable id="tabela" var="item" value="#{contratanteBean.contratantes}">
+
+ <f:facet name="header">
+ <p:commandButton 		value="Novo Padrão" 
+ 						actionListener="#{contratanteBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":msgGlobal :contratanteListForm:tabela" />
+
+<p:commandButton 		value="Novo2 Java Dialog" 
+ 						action="#{contratanteBeanDialog.create}"
+						update=":msgGlobal :contratanteListForm:tabela" />
+ </f:facet>
+
+<p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{item.codigo}" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: right; width: 60px" sortBy="#{item.nome}">
+<f:facet name="header"><h:outputText value="P. Nome / Nome Fantasia" /></f:facet>
+					   <h:outputText value="#{item.nome}" />
+</p:column>
+
+<p:column style="text-align: left; width: 65px" sortBy="#{item.sobreNome}">
+<f:facet name="header"><h:outputText value="S. Nome / Nome Empresarial" /></f:facet>
+					   <h:outputText value="#{item.sobreNome}" />
+</p:column>
+
+<p:column headerText="Opções" style="text-align: center; width: 20px">
+
+				<p:commandButton 	icon="ui-icon-trash"
+									actionListener="#{contratanteBean.excluir}"
+									update=":contratanteListForm:tabela :msgGlobal">
+									
+					<p:confirm 
+			            header="Confirma a Exclusão?" 
+			            message="Atenção essa ação não poderá ser Desfeita!"
+			            icon="ui-icon-alert" />
+					<f:attribute name="contratanteSelecionada" value="#{item}" />
+									
+				</p:commandButton>
+
+				<p:commandButton 	icon="ui-icon-pencil"
+									actionListener="#{contratanteBean.editar}"
+									update=":msgGlobal :formCadastro:painel"
+									oncomplete="PF('dialogo').show();" >
+
+				<f:attribute 		name="contratanteSelecionada" value="#{item}" />
+
+				</p:commandButton>
+
+			</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+<p:dialog 	
+	widgetVar="dialogo"
+	header="Contratantes - Cadastro" 
+	draggable="false" 
+	resizable="false" 
+	modal="true" 
+	closable="false" 
+	appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<!-- NESTE PATTERN NÃO PRECISA DO INPUT HIDEN..!! -->
+<!-- <h:inputHidden value="#{contratanteBean.contratante.codigo}" /> -->
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel value="Nome:" />
+	<p:inputText maxlength="50" 
+					size="30" value="#{contratanteBean.contratante.nome}" />
+	
+	<p:outputLabel value="Sobre Nome:" />
+	<p:inputText maxlength="50" 
+					size="30" value="#{contratanteBean.contratante.sobreNome}" />
+
+</h:panelGrid>
+
+	<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+								 actionListener="#{contratanteBean.salvar}"
+								 update=":msgGlobal :formCadastro:painel :contratanteListForm:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>				
+
+</ui:composition>

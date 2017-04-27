@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+		<p:dialog 	widgetVar="dialogo"
+					header="Endereços - Edição...View" 
+					draggable="false" 
+					resizable="false" 
+					modal="true" 
+					closable="false"
+					closeOnEscape="true" 
+					appendTo="@(body)" >
+		
+		<h:form id="formCadastro" >
+		
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		
+		<h:panelGrid id="painel" columns="2">
+		
+		<p:outputLabel 		value="Contratante:"
+								rendered="#{enderecoBean.endereco.rotulagem == 'Contratante'}" />
+			<p:selectOneMenu 	filter="true"
+								filterMatchMode="contains"
+								value="#{enderecoBean.endereco.contratante}"
+								converter="omnifaces.SelectItemsConverter" 
+								rendered="#{enderecoBean.endereco.rotulagem == 'Contratante'}" >
+				
+				<f:selectItem 	itemLabel="Selecione"
+								noSelectionOption="true"/>
+				
+				<f:selectItems 	value="#{enderecoBean.contratantes}"
+								var="contratante"
+								itemValue="#{contratante}"
+								itemLabel="#{contratante.nome} #{contratante.sobreNome}"/>
+			</p:selectOneMenu>
+			
+			<p:outputLabel 		value="Referencia"
+								rendered="#{enderecoBean.endereco.rotulagem == 'Referencia'}" />
+			<p:selectOneMenu 	filter="true"
+								filterMatchMode="contains"
+								value="#{enderecoBean.endereco.referencia}"
+								converter="omnifaces.SelectItemsConverter"
+								rendered="#{enderecoBean.endereco.rotulagem == 'Referencia'}" >
+				
+				<f:selectItem 	itemLabel="Selecione"
+								noSelectionOption="true"/>
+								
+				<f:selectItems 	value="#{enderecoBean.referencias}"
+								var="referencia"
+								itemValue="#{referencia}"
+								itemLabel="#{referencia.nome} #{referencia.sobreNome}"/>
+		
+			</p:selectOneMenu>
+			
+			<p:outputLabel 		value="Paciente"
+								rendered="#{enderecoBean.endereco.rotulagem == 'Paciente'}" />
+			<p:selectOneMenu 	filter="true"
+								filterMatchMode="contains"
+								value="#{enderecoBean.endereco.contratante}"
+								converter="omnifaces.SelectItemsConverter"
+								rendered="#{enderecoBean.endereco.rotulagem == 'Paciente'}" >
+				
+				<f:selectItem 	itemLabel="Selecione"
+								noSelectionOption="true"/>
+								
+				<f:selectItems 	value="#{enderecoBean.pacientes}"
+								var="paciente"
+								itemValue="#{paciente}"
+								itemLabel="#{paciente.nome} #{paciente.sobreNome}"/>
+		
+			</p:selectOneMenu>		
+		
+		<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+		<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+		
+			<p:outputLabel value="Tipo do Endereço:"/>
+			<p:selectOneMenu 	value="#{enderecoBean.endereco.tipoEnd}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{enderecoBean.label2}"
+								var="vlr2"
+								itemLabel="#{vlr2.label2}"
+								itemValue="#{vlr2.value2}"/>
+			</p:selectOneMenu>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+		<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+		
+			<p:outputLabel value="Tipo do Logradouro:"/>
+			<p:selectOneMenu 	value="#{enderecoBean.endereco.tipoLogradouro}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{enderecoBean.label}"
+								var="vlr"
+								itemLabel="#{vlr.label}"
+								itemValue="#{vlr.value}"/>
+			</p:selectOneMenu>
+		
+			<p:outputLabel value="Logradouro:" />
+			<p:inputText maxlength="50" 
+							size="45" value="#{enderecoBean.endereco.logradouro}" />
+							
+			<p:outputLabel value="Num. Casa, Lote... :" />
+			<p:inputText maxlength="9" 
+							size="11" value="#{enderecoBean.endereco.numImovelLote}" />
+							
+			<p:outputLabel value="Bairro:" />
+			<p:inputText maxlength="35" 
+							size="30" value="#{enderecoBean.endereco.bairroDistrito}" />
+							
+			<p:outputLabel value="CEP / Cod. Postal" />
+			<p:inputMask 	value="#{enderecoBean.endereco.cepPostal}"
+							mask="99999-999"
+							style="width:100px" />
+		
+		</h:panelGrid>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		
+		<h:panelGrid columns="2" id="painelBotoes" >
+						<p:commandButton 	value="Salvar a Edição end. Contratante" 
+											actionListener="#{enderecoBean.salvarEnderecoContratante}"
+											update=":msgGlobal 
+													:formCadastro:painel 
+													:enderecoListForm:tabela"
+											rendered="#{enderecoBean.endereco.rotulagem == 'Contratante'}" />
+			
+						<p:commandButton 	value="Salvar a Edição end. Referencia" 
+											actionListener="#{enderecoBean.salvarEnderecoReferencia}"
+											update=":msgGlobal 
+													:formCadastro:painel 
+													:enderecoListForm:tabela"
+											rendered="#{enderecoBean.endereco.rotulagem == 'Referencia'}" />
+											
+						<p:commandButton 	value="Salvar a Edição end. Paciente" 
+											actionListener="#{enderecoBean.salvarEnderecoPaciente}"
+											update=":msgGlobal 
+													:formCadastro:painel 
+													:enderecoListForm:tabela"
+											rendered="#{enderecoBean.endereco.rotulagem == 'Paciente'}" />
+						
+						<p:commandButton 	value="Fechar" 
+											oncomplete="PF('dialogo').hide();"/>
+		</h:panelGrid>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		</h:form>
+		
+		</p:dialog>
+                
+</ui:composition>

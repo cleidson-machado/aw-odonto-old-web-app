@@ -1,0 +1,38 @@
+.ui-widget {
+    font-size: 12px !important;
+}
+
+.ui-layout-north {
+    z-index:20 !important;
+    overflow:visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+    overflow:visible !important;
+}
+
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ui-datatable .ui-datatable-footer .footer-section {
+    text-align: left;
+}
+
+/* criada para retirar as bordas das layout unity, mas deve estar conflitando com algo.. verificar */
+
+
+.column {
+    font-weight: bold;
+    background-color: menu;
+}
+
+ /* borda do grid que tem imagens*/
+.grdimages{
+        /*Estes dois itens abaixo naao funcionaram direito...*/
+        /*Obs:aceita a cor branca da borda somente se estiver com 2px pra cima*/
+        /*border-style: none !important;;*/
+        /* border-color: #FFF !important;;*/
+	border: 2px solid #FFF !important;;
+}

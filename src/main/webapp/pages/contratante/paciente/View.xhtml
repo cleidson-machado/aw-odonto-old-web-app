@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog      
+				  widgetVar="viewdialog"
+				  header="Paciente - View" 
+				  draggable="false"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)">
+			
+	<h:form id="formView">
+
+	<h:panelGroup id="painel">
+	
+	<p:toolbar>
+		<f:facet name="left">
+			<h:outputText value="Data de Criação: " />
+			<h:outputText value="#{contratantePacienteBean.paciente.dtaCadastro}">
+				<f:convertDateTime pattern = "dd-MM-YYYY" />
+			</h:outputText>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:panelGrid columns="2" columnClasses="column" rendered="#{contratantePacienteBean.paciente != null}">
+
+	<h:outputText value="Nome Completo:" />
+	<h:outputText value="#{contratantePacienteBean.paciente.nome} #{contratantePacienteBean.paciente.sobreNome}" />
+
+	<h:outputText value="CPF:" />
+	<h:outputText value="#{contratantePacienteBean.paciente.cpf}" />
+	
+	<p:outputLabel value="CNPJ: " />
+	<h:outputText value="#{contratantePacienteBean.paciente.cnpj}" />
+
+	<h:outputText value="RG:" rendered="false" />
+	<h:outputText value="#{contratantePacienteBean.paciente.rg}" rendered="false" />
+
+	<h:outputText value="Data de Nascimento:" />
+	<h:outputText value="#{contratantePacienteBean.paciente.dtaNascimento}">
+		<f:convertDateTime pattern = "dd-MM-YYYY" />
+	</h:outputText>
+	
+	<h:outputText value="Tipo de entidade:" />
+	<h:outputText value="#{contratantePacienteBean.paciente.tipo}" />
+	
+</p:panelGrid>
+
+<p:commandButton value="Fechar"
+			     update="painel,:pacienteListForm:tabela,:msgGlobal" 
+				 onclick="PF('viewdialog').hide()" />
+
+<p:commandButton 
+					icon="ui-icon-trash" 
+					value="Excluir"
+					actionListener="#{contratantePacienteBean.excluir}" 
+					update="painel, pacienteListForm:tabela :msgGlobal"
+					oncomplete="PF('viewdialog').hide()" >
+            
+            <p:confirm 
+					header="Confirma a Exclusão?" 
+					message="Atenção essa ação não poderá ser Desfeita!" 
+					icon="ui-icon-alert" />
+			
+			<f:attribute name="pacienteSelecionada" 
+						 value="#{contratantePacienteBean.paciente}" />
+            
+</p:commandButton>
+
+	</h:panelGroup>
+	
+	</h:form>
+	 	  
+	</p:dialog>
+
+</ui:composition>

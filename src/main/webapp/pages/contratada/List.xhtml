@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="contratadaListForm">
+
+<p:dataTable id="tabela" var="item" value="#{contratadaBean.contratadas}">
+
+ <f:facet name="header">
+		 	<p:commandButton 	value="Nova Contratada" 
+		 						actionListener="#{contratadaBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal :contratadaListForm:tabela :formCadastro:painel" />
+ </f:facet>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="true" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: right; width: 60px" sortBy="#{item.nomeUnidade}">
+<f:facet name="header"><h:outputText value="Nome da Unidade " /></f:facet>
+					   <h:outputText value="#{item.nomeUnidade}" />
+</p:column>
+
+<p:column style="text-align: right; width: 10px" sortBy="#{item.numUnidade}">
+<f:facet name="header"><h:outputText value="Número da Unidade " /></f:facet>
+					   <h:outputText value="#{item.numUnidade}" />
+</p:column>
+
+<p:column style="text-align: right; width: 20px" sortBy="#{item.inscricaoEstadual}">
+<f:facet name="header"><h:outputText value="Inscrição Estadual" /></f:facet>
+					   <h:outputText value="#{item.inscricaoEstadual}" />
+</p:column>
+
+<p:column headerText="Opções" style="text-align: center; width: 60px">
+
+				<p:commandButton 	icon="ui-icon-trash"
+									actionListener="#{contratadaBean.excluir}"
+									update=":msgGlobal :contratadaListForm:tabela">
+					
+					<p:confirm header="Confirmação" message="Deseja excluir a Contratada"
+						icon="ui-icon-alert" />
+					<f:attribute name="contratadaSelecionada" value="#{item}" />
+					
+				</p:commandButton>
+
+				<p:commandButton 	icon="ui-icon-pencil"
+									actionListener="#{contratadaBean.editar}"
+									update=":msgGlobal :formCadastro:painel"
+									oncomplete="PF('dialogo').show();">
+
+					<f:attribute name="contratadaSelecionada" value="#{item}" />
+
+				</p:commandButton>
+
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+			
+
+</ui:composition>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="referenciaListForm">
+
+<p:dataTable id="tabela" var="itemRef" value="#{referenciaBean.referencias}">
+
+ <f:facet name="header">
+ <p:commandButton value="Novo" actionListener="#{referenciaBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":msgGlobal :referenciaListForm:tabela :formCadastro:painel" />
+ </f:facet>
+
+<p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{itemRef.codigo}" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{itemRef.codigo}" />
+</p:column>
+
+<p:column style="text-align: right; width: 60px" sortBy="#{itemRef.nome}">
+<f:facet name="header"><h:outputText value="P. Nome / Nome Fantasia" /></f:facet>
+					   <h:outputText value="#{itemRef.nome}" />
+</p:column>
+
+<p:column style="text-align: right; width: 60px" sortBy="#{itemRef.contratante.nome}">
+<f:facet name="header"><h:outputText value="P. Nome / Nome Fantasia" /></f:facet>
+					   <h:outputText value="#{itemRef.contratante.nome}" />
+</p:column>
+
+<p:column headerText="Opções" style="text-align: right; width: 60px">
+
+				<p:commandButton icon="ui-icon-trash"
+					actionListener="#{referenciaBean.excluir}"
+					update=":msgGlobal :referenciaListForm:tabela">
+					<p:confirm header="Confirmação" message="Deseja excluir a cidade"
+						icon="ui-icon-alert" />
+					<f:attribute name="referenciaSelecionada" value="#{itemRef}" />
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil"
+					actionListener="#{referenciaBean.editar}"
+					update=":msgGlobal :formCadastro:painel"
+					oncomplete="PF('dialogo').show();">
+
+					<f:attribute name="referenciaSelecionada" value="#{itemRef}" />
+
+				</p:commandButton>
+
+			</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+<p:dialog 	
+	widgetVar="dialogo"
+	header="Referencias - Cadastro" 
+	draggable="false" 
+	resizable="false" 
+	modal="true" 
+	closable="false" 
+	appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel value="Nome:" />
+	<p:inputText maxlength="50" 
+					size="30" value="#{referenciaBean.referencia.nome}" />
+	
+	<p:outputLabel value="Contratante:" />
+	<p:selectOneMenu 
+					 filter="true"
+					 filterMatchMode="contains" 
+					 value="#{referenciaBean.referencia.contratante}"
+					 converter="omnifaces.SelectItemsConverter" >
+	
+	<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+	<f:selectItems 	value="#{referenciaBean.contratantes}" 
+					var="contratante"
+					itemValue="#{contratante}" 
+					itemLabel="#{contratante.nome} #{contratante.sobreNome}" />
+	
+	</p:selectOneMenu>				
+
+</h:panelGrid>
+
+	<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+								 actionListener="#{referenciaBean.salvar}"
+								 update=":msgGlobal :formCadastro:painel :referenciaListForm:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>				
+
+</ui:composition>

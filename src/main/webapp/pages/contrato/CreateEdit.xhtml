@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	
+				widgetVar="dialogo"
+				header="Contratos - Cadastro" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel		value="Data Inicio Contratual:" for="dataIniContratual" rendered="true" />
+		<p:calendar 	id="dataIniContratual"
+						size="12"
+						showOn="button"
+						navigator="true"
+						required="false"
+						requiredMessage="A Data Início do Contrato é obrigatória"
+						placeholder="Data Cadastral"
+						pattern="dd/MM/yyyy"
+						mask="99/99/9999"
+						value="#{contratoBean.contrato.dtaInicio}" />
+
+	<p:outputLabel value="Status do Contrato: " />
+	<p:inputText 	maxlength="50" 
+					size="30" 
+					value="#{contratoBean.contrato.statusContratual}" />
+					
+	<p:outputLabel value="Ficha Cadastral: " />
+	<p:inputText 	maxlength="50" 
+					size="30" 
+					value="#{contratoBean.contrato.codFichaCadastral}" />
+					
+	<p:outputLabel value="Contratante:" />
+	<p:selectOneMenu 
+					 filter="true"
+					 filterMatchMode="contains" 
+					 value="#{contratoBean.contrato.contratante}"
+					 converter="omnifaces.SelectItemsConverter" >
+	
+	<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+	<f:selectItems 	value="#{contratoBean.contratantes}" 
+					var="contratante"
+					itemValue="#{contratante}" 
+					itemLabel="#{contratante.nome} #{contratante.sobreNome}" />
+	
+	</p:selectOneMenu>
+	
+	<p:outputLabel value="Contratada:" />
+	<p:selectOneMenu 
+					 filter="true"
+					 filterMatchMode="contains" 
+					 value="#{contratoBean.contrato.contratada}"
+					 converter="omnifaces.SelectItemsConverter" >
+	
+	<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+	<f:selectItems 	value="#{contratoBean.contratadas}" 
+					var="contratada"
+					itemValue="#{contratada}" 
+					itemLabel="#{contratada.nomeUnidade}" />
+	
+	</p:selectOneMenu>
+
+</h:panelGrid>
+
+	<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+								 actionListener="#{contratoBean.salvar}"
+								 update="@form :msgGlobal :formCadastro:painel :contratoListForm:tabela" />
+				
+				<p:commandButton value="Fechar" 
+								 oncomplete="PF('dialogo').hide();" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>	
+                
+</ui:composition>

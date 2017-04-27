@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+		<p:dialog 	widgetVar="dialogEndContratante"
+					header="Endereços - Cadastrados p/ Contratante" 
+					draggable="true" 
+					resizable="false" 
+					modal="true" 
+					closable="false"
+					closeOnEscape="true" 
+					appendTo="@(body)" >
+		
+		<h:form id="formCadastroContratante" >
+		
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		
+		<h:panelGrid id="painel" columns="2">
+		
+			<p:outputLabel		value="Contratante: * !" 
+								for="selectContratante" />
+			<p:selectOneMenu 	id="selectContratante"
+								filter="true"
+								filterMatchMode="contains"
+								value="#{enderecoBean.endereco.contratante}"
+								converter="omnifaces.SelectItemsConverter" >
+				
+				<f:selectItem 	itemLabel="Selecione"
+								noSelectionOption="true"/>
+				
+				<f:selectItems 	value="#{enderecoBean.contratantes}"
+								var="contratante"
+								itemValue="#{contratante}"
+								itemLabel="#{contratante.nome} #{contratante.sobreNome}"/>
+			</p:selectOneMenu>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" />
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		
+			<p:outputLabel 		value="Tipo do Endereço:"
+								for="selectTipoEndereco"/>
+			<p:selectOneMenu 	id="selectTipoEndereco"
+								value="#{enderecoBean.endereco.tipoEnd}"
+							 	filter="true"
+								filterMatchMode="contains"
+								required="true"
+								requiredMessage="Selecione o Tipo do Endereço!" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{enderecoBean.label2}"
+								var="vlr2"
+								itemLabel="#{vlr2.label2}"
+								itemValue="#{vlr2.value2}"/>
+			</p:selectOneMenu>
+			
+		
+		<p:separator style="visibility: show; border-bottom-color: black" />
+		<p:separator style="visibility: show; border-bottom-color: black" /> 
+		
+			<p:outputLabel 		value="Tipo do Logradouro:"
+								for="selectTipoLogradouro"/>
+			<p:selectOneMenu 	id="selectTipoLogradouro"
+								value="#{enderecoBean.endereco.tipoLogradouro}"
+							 	filter="true"
+								filterMatchMode="contains"
+								required="true"
+								requiredMessage="Selecione o Tipo do Logradouro!" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{enderecoBean.label}"
+								var="vlr"
+								itemLabel="#{vlr.label}"
+								itemValue="#{vlr.value}"/>
+			</p:selectOneMenu>
+		
+			<p:outputLabel 	value="Logradouro:"
+							for="idLogradouro" />
+			<p:inputText 	id="idLogradouro"
+							maxlength="50" 
+							size="45" 
+							value="#{enderecoBean.endereco.logradouro}"
+							required="true"
+							requiredMessage="Informe o Nome do Logradouro..." />
+							
+			<p:outputLabel 	value="Num. Casa, Lote... :"
+							for="idNumCasaLote" />
+			<p:inputText 	id="idNumCasaLote"
+							maxlength="9" 
+							size="11" 
+							value="#{enderecoBean.endereco.numImovelLote}"
+							required="true"
+							requiredMessage="Informe o Número da Casa, Lote...">
+		<f:validateLength 	minimum="1" />
+			</p:inputText> 
+							
+			<p:outputLabel 	value="Bairro:"
+							for="idBairro" />
+			<p:inputText 	id="idBairro"
+							maxlength="35" 
+							size="30" 
+							value="#{enderecoBean.endereco.bairroDistrito}"
+							required="true"
+							requiredMessage="Informe o Bairro..." />
+							
+			<p:outputLabel 	value="CEP / Cod. Postal"
+							for="idCep" />
+			<p:inputMask 	id="idCep"
+							value="#{enderecoBean.endereco.cepPostal}"
+							mask="99999-999"
+							style="width:100px"
+							required="true"
+							requiredMessage="Informe um CEP..." />		
+		
+		</h:panelGrid>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" />
+		
+			<h:panelGrid columns="3">
+						<p:commandButton 	value="Salvar" 
+											actionListener="#{enderecoBean.salvarEnderecoContratante}"
+											update=":formCadastroContratante:messages
+													:formCadastroContratante:painel 
+													:enderecoListForm:tabela" />
+
+						<p:commandButton 	value="Fechar"
+											id="btnFechar"
+											actionListener="#{enderecoBean.novo}"
+											oncomplete="PF('dialogEndContratante').hide();" />
+
+						<p:messages 		id="messages" 
+											showDetail="false" 
+											autoUpdate="true" 
+											closable="true" />
+			</h:panelGrid>
+		
+		<p:separator style="visibility: show; border-bottom-color: black" />
+		
+		</h:form>
+		
+		</p:dialog>
+                
+</ui:composition>

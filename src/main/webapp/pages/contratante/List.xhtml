@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<h:form id="contratanteListForm">
+
+<p:dataTable id="tabela" var="item" value="#{contratanteBean.contratantes}">
+
+ <f:facet name="header">
+ <p:commandButton 		value="Nova Contratante" 
+ 						actionListener="#{contratanteBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":msgGlobal
+								:formCadastro:painel
+								:formCadastro:painelBotoes" />
+ </f:facet>
+
+	<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
+	<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{item.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 5px" rendered="true" >
+	<f:facet name="header"><h:outputText value="Referências" /></f:facet>
+						 <p:commandButton icon="ui-icon-search" 
+						 				  id="btnSize"
+						 				  
+						 				  actionListener="#{contratanteBean.pesquisar}"
+						 				  update=":msgGlobal :listViewRefForm:refDataView"
+						 				  oncomplete="PF('viewdListRefDialog').show()"
+						 				  ajax="true" >
+
+						    <f:attribute  name="contratanteSelecionada" 
+										  value="#{item}" />
+										  
+										  </p:commandButton>
+						   
+	</p:column>
+	
+	<p:column style="text-align: center; width: 20px" sortBy="#{item.dtaCadastro}" rendered="false" >
+	<f:facet name="header"><h:outputText value="Data Cadastro" /></f:facet>
+					   <h:outputText value="#{item.dtaCadastro}">
+					   <f:convertDateTime pattern="dd-MM-YYYY"/>
+					   </h:outputText>
+	</p:column>
+	
+	<p:column rendered="true" style="text-align: center; width: 35px" >
+	<f:facet name="header"><h:outputText value="CNPJ" /></f:facet>
+						   <p:commandButton value="Adicionar!"
+						   					icon="ui-icon-alert"
+						   					rendered="#{empty item.cnpj}"
+						   					actionListener="#{contratanteBean.editar}"
+											update=":msgGlobal :formCnpjEditView:painel"
+											oncomplete="PF('cnpjEditDialog').show();" >
+							
+							<f:attribute 	name="contratanteSelecionada" 
+											value="#{item}" />
+													
+							</p:commandButton>
+											
+						   <p:commandButton value="( #{item.cnpj} )"
+						   					icon="ui-icon-pencil"
+						   					rendered="#{not empty item.cnpj}"
+						   					actionListener="#{contratanteBean.editar}"
+											update=":msgGlobal :formCnpjEditView:painel"
+											oncomplete="PF('cnpjEditDialog').show();" >
+						   	
+						   	<f:attribute 	name="contratanteSelecionada" 
+											value="#{item}" />
+						   	
+						   	</p:commandButton>
+						   					
+	</p:column>
+	
+	<p:column style="text-align: center; width: 50px" sortBy="#{item.nome}">
+	<f:facet name="header"><h:outputText value="CONTRATANTE" /></f:facet>
+						   <h:outputText value="#{item.nome} #{item.sobreNome}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 15px" sortBy="#{item.cpf}">
+	<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+						   <h:outputText value="#{item.cpf}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{item.tipo}">
+	<f:facet name="header"><h:outputText value="P. Tipo" /></f:facet>
+						   <h:outputText value="#{item.tipo}" />
+	</p:column>
+
+	<p:column headerText="Opções" style="text-align: center; width: 20px">
+
+				<p:commandButton 	icon="ui-icon-trash"
+									actionListener="#{contratanteBean.excluir}"
+									update=":contratanteListForm:tabela :msgGlobal">
+									
+					<p:confirm 
+					            header="Confirma a Exclusão?" 
+					            message="Atenção essa ação não poderá ser Desfeita!"
+					            icon="ui-icon-alert" />
+					
+					<f:attribute 	name="contratanteSelecionada" 
+									value="#{item}" />
+
+				</p:commandButton>
+
+				<p:commandButton 	icon="ui-icon-pencil"
+									actionListener="#{contratanteBean.editar}"
+									update=":msgGlobal
+											:formCadastro:painelBotoes 
+											:formCadastro:painel"
+									oncomplete="PF('dialogo').show();" >
+
+				<f:attribute 		name="contratanteSelecionada" 
+									value="#{item}" />
+				</p:commandButton>
+				
+				<p:commandButton
+									icon="ui-icon-search"
+									actionListener="#{contratanteBean.editar}"
+									update=":msgGlobal :formView:painel"
+									oncomplete="PF('viewdialog').show()" >
+									
+				<f:attribute 		name="contratanteSelecionada" 
+									value="#{item}" />
+				</p:commandButton>
+
+			</p:column>
+
+</p:dataTable>
+
+	<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+</ui:composition>

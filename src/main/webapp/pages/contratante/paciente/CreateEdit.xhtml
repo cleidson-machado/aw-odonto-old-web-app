@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	
+				widgetVar="dialogo"
+				header="Pacientes Copa - Cadastro" 
+				draggable="true" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+	<h:panelGrid id="painel" columns="4">
+	
+		<p:outputLabel 	value="Nome:"
+						for="nomePaciente" />
+		<p:inputText 	id="nomePaciente"
+						maxlength="50" 
+						size="30" 
+						value="#{contratantePacienteBean.paciente.nome}"
+						required="true"
+						requiredMessage="Informe o Nome..."
+						title="O Paciente poderá ser Convertido em Contratante..."/>
+		<p:message 		for="nomePaciente" display="icon" />
+		<p:tooltip 		for="nomePaciente" showEffect="clip" hideEffect="explode" position="left" />
+						
+		<p:outputLabel 	value="Sobre Nome:"
+						for="sobreNomePaciente" />
+		<p:inputText 	id="sobreNomePaciente"
+						maxlength="50" 
+						size="30" 
+						value="#{contratantePacienteBean.paciente.sobreNome}"
+						required="true"
+						requiredMessage="Informe Sobre Nome..." />
+		<p:message 		for="sobreNomePaciente" display="icon" />
+		<p:tooltip 		for="sobreNomePaciente" />
+		
+		<p:outputLabel 			value="Data de Nascimento:" 
+								for="dataNascimento" 
+								rendered="true" />
+		<p:calendar 			id="dataNascimento" 
+								size="12"
+								showOn="button"
+								navigator="true"
+								required="true"
+								requiredMessage="A Data de Nascimento é Obrigatória!"
+								placeholder="Nascimento"
+								pattern="dd/MM/yyyy" 
+								mask="99/99/9999"
+								value="#{contratantePacienteBean.paciente.dtaNascimento}" />
+		<p:message 				for="dataNascimento" display="icon" />
+		<p:tooltip 				for="dataNascimento" />
+				
+	</h:panelGrid>
+
+	<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" 
+								 actionListener="#{contratantePacienteBean.salvar}"
+								 update="	:msgGlobal
+								 			:formCadastro:painel 
+								 		 	:pacienteListForm:tabela" />
+				
+				<p:commandButton value="Fechar"
+								 actionListener="#{contratantePacienteBean.novo}"
+								 update="	:formCadastro:painel 
+								 		 	:pacienteListForm:tabela" 
+								 oncomplete="PF('dialogo').hide();" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>	
+                
+</ui:composition>

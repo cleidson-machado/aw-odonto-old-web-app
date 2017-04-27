@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	
+				widgetVar="dialogoFinaliza"
+				header="Finalizar a Venda - Salvar no Contrato" 
+				draggable="true" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="true" 
+				appendTo="@(body)">
+
+	<h:form id="formCadastroVenda" >
+	
+		<h:panelGrid id="painel" columns="2">
+			<p:outputLabel value="Data e Horário da Venda: " />
+			<h:outputText value="#{checkOutProcedimentoBean.checkOutProcedimento.dtaVenda}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" locale="pt_BR" timeZone="America/Sao_Paulo"/>
+			</h:outputText>
+		
+			<p:outputLabel value="Venda Total: R$" />
+			<h:outputText value="#{checkOutProcedimentoBean.checkOutProcedimento.valorParcial}">
+				<f:convertNumber locale="pt_br" minFractionDigits="2"/>
+			</h:outputText>
+		
+			<p:outputLabel value="Contrato:" />
+			<p:selectOneMenu 
+							 filter="true"
+							 filterMatchMode="contains" 
+							 value="#{checkOutProcedimentoBean.contrato}"
+							 converter="omnifaces.SelectItemsConverter" >
+			
+			<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+			<f:selectItems 	value="#{checkOutProcedimentoBean.contratos}" 
+							var="contrato"
+							itemValue="#{contrato}" 
+							itemLabel="#{contrato.codFichaCadastral}" />
+			
+			</p:selectOneMenu>
+		
+		</h:panelGrid>
+		
+		<h:panelGrid columns="2">
+				<p:commandButton 	value="Salvar" 
+									actionListener="#{checkOutProcedimentoBean.salvar}"
+									update=":msgGlobal" />
+				
+				<p:commandButton 	value="Fechar" 
+								 	oncomplete="PF('dialogoFinaliza').hide();" />
+	</h:panelGrid>
+	
+	</h:form>
+
+	</p:dialog>	
+                
+</ui:composition>

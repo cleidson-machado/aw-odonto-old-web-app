@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	
+				widgetVar="dialogoMudaParaContratante"
+				header="Paciente muda para Contratante - Cadastro - Edição"
+				footer="Para Transformar esta Paciente em Contratante basta adicionar um CPF Válido!" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+	
+	<h:form id="formCadastroPacienteParaContratante" >
+
+<h:panelGroup>
+	<h:panelGrid id="painel" columns="3" cellpadding="5">
+	
+		<p:outputLabel value="Nome:" for="donome" rendered="true" />
+		<p:inputText 	id="donome"
+						value="#{contratantePacienteBean.paciente.nome}"
+						placeholder="Nome / Nome Fantasia"
+						required="true" 
+						requiredMessage="Nome é obrigatório!" 	 
+						size="40" 
+						maxlength="45" />
+		<p:message for="donome" />
+		
+		<p:outputLabel value="Sobre Nome:" for="sobreNome" rendered="true" />
+		<p:inputText 	id="sobreNome"
+						value="#{contratantePacienteBean.paciente.sobreNome}"
+						placeholder="Sobre Nome / Complemento"
+						required="false" 
+						requiredMessage="Um NOME é obrigatório!" 	 
+						size="40" 
+						maxlength="45" />
+		<p:message for="sobreNome" />
+		
+		<p:outputLabel value="CPF:" for="cpfNum" rendered="true" />
+		<p:inputMask 	 id="cpfNum" value="#{contratantePacienteBean.paciente.cpf}"
+						 required="true" 
+						 requiredMessage="O CPF não foi informado ou está incompleto!"
+						 placeholder="CPF" 	 
+						 mask="999.999.999-99" 
+						 style="width:100px" />
+		<p:message for="cpfNum" />
+	
+		<p:outputLabel value="CNPJ: " for="cnpjNum" rendered="false" />
+		<p:inputMask 	 id="cnpjNum" value="#{contratantePacienteBean.paciente.cnpj}"
+						 required="false" 
+						 requiredMessage="O CNPJ é obrigatório!"
+						 placeholder="CNPJ"	 
+						 mask="99.999.999/9999-99" 
+						 style="width:120px"
+						 rendered="false" />
+		<p:message for="cnpjNum" rendered="false" />
+						 
+		<p:outputLabel value="Data de Nascimento:" for="dataNascimento" rendered="true" />
+		<p:calendar 			id="dataNascimento" 
+								size="12"
+								showOn="button"
+								navigator="true"
+								required="true"
+								requiredMessage="A Data de Nascimento é Obrigatória!"
+								placeholder="Nascimento"
+								pattern="dd/MM/yyyy" 
+								mask="99/99/9999"
+								value="#{contratantePacienteBean.paciente.dtaNascimento}" />
+		<p:message for="dataNascimento" />
+	
+	</h:panelGrid>
+	
+		<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" 
+									 actionListener="#{contratantePacienteBean.salvarValidandoCpf}"
+									 update="	:msgGlobal 
+									 			:formCadastroPacienteParaContratante:painel
+									 			:pacienteListForm:tabela"
+									 oncomplete="PF('dialogoMudaParaContratante').hide();" />
+					
+					<p:commandButton value="Fechar"
+									 actionListener="#{contratantePacienteBean.novo}"
+									 update="	@form
+									 			:formCadastroPacienteParaContratante:painel 
+									 			:pacienteListForm:tabela"
+									 oncomplete="PF('dialogoMudaParaContratante').hide();" />
+					
+		</h:panelGrid>
+		
+</h:panelGroup>
+	
+	</h:form>
+	
+	</p:dialog>
+                
+</ui:composition>

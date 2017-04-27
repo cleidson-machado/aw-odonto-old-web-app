@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="pacienteListForm">
+
+<p:dataTable id="tabela" var="item" value="#{contratantePacienteBean.pacientes}">
+
+ <f:facet name="header">
+ <p:commandButton 		value="Novo Paciente" 
+ 						actionListener="#{contratantePacienteBean.novo}"
+						oncomplete="PF('dialogoPa').show();"
+						update=":formCadastro:painel 
+								:pacienteListForm:tabela 
+								:formCadastro:painel"
+						ajax="true" />
+ </f:facet>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 35px" >
+<f:facet name="header"><h:outputText value="Converter?" /></f:facet>
+					   <p:commandButton value="em Contratante!" 
+					   					rendered="#{item.camada == 'pa'}"
+					   					actionListener="#{contratantePacienteBean.editar}"
+										oncomplete="PF('dialogoMudaParaContratante').show();"
+										update=" @form
+												:pacienteListForm:tabela
+												:formCadastroPacienteParaContratante:painel" >									
+						<f:attribute 	name="pacienteSelecionada" value="#{item}" />
+						</p:commandButton>
+						<p:commandButton	rendered="#{item.camada == 'copa'}"
+											value="Já Convertido"
+											disabled="#{item.camada == 'copa'}" />
+</p:column>
+
+<p:column style="text-align: center; width: 60px" sortBy="#{item.nome}">
+<f:facet name="header"><h:outputText value="Nome Completo" /></f:facet>
+					   <h:outputText value="#{item.nome} #{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 40px" sortBy="#{item.camada}">
+<f:facet name="header"><h:outputText value="Camada Funcional" /></f:facet>
+					   <h:outputText value="#{item.camada}" />
+</p:column>
+
+<p:column style="text-align: center; width: 30px" sortBy="#{item.nativo}">
+<f:facet name="header"><h:outputText value="Registro Nativo" /></f:facet>
+					   <h:outputText value="#{item.nativo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 25px" sortBy="#{item.cpf}">
+<f:facet name="header"><h:outputText value="Cpf" /></f:facet>
+					   <h:outputText value="#{item.cpf}" />
+</p:column>
+
+<p:column headerText="Opções" style="text-align: center; width: 50px">
+
+	<p:commandButton 	icon="ui-icon-trash"
+						actionListener="#{contratantePacienteBean.excluir}"
+						update=":msgGlobal
+								:pacienteListForm:tabela">
+									
+			<p:confirm 
+						header="Confirma a Exclusão?" 
+						message="Atenção essa ação não poderá ser Desfeita!"
+						icon="ui-icon-alert" />
+					
+				<f:attribute 	name="pacienteSelecionada" 
+								value="#{item}" />
+	</p:commandButton>
+	
+	<p:commandButton 	icon="ui-icon-pencil"
+						
+						actionListener="#{contratantePacienteBean.editar}"
+						update=":msgGlobal
+								:formCadastro:painel"
+						oncomplete="PF('dialogo').show();"
+						rendered="#{item.camada == 'copa'}" >
+				<f:attribute 	name="pacienteSelecionada" value="#{item}" />
+
+	</p:commandButton>
+	
+	<p:commandButton 	icon="ui-icon-pencil"
+						
+						actionListener="#{contratantePacienteBean.editar}"
+						update=":msgGlobal
+								:formCadastroPa:painel"
+						oncomplete="PF('dialogoPa').show();"
+						rendered="#{item.camada == 'pa'}" >
+				<f:attribute 	name="pacienteSelecionada" value="#{item}" />
+
+	</p:commandButton>
+	
+	<p:commandButton		icon="ui-icon-search"
+							actionListener="#{contratantePacienteBean.editar}"
+							update=":msgGlobal 
+									:formView:painel"
+							oncomplete="PF('viewdialog').show()" >
+									
+				<f:attribute 	name="pacienteSelecionada" 
+								value="#{item}" />
+	</p:commandButton>
+
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</h:form>
+
+			
+
+</ui:composition>

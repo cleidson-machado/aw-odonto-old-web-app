@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog      
+				  widgetVar="viewdListRefDialog"
+				  header="Referências - List View" 
+				  draggable="true"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)" width="800px">
+
+	<h:form id="listViewRefForm">
+	
+	<p:panel>
+	
+	<p:toolbar>
+		<f:facet name="left">
+			
+			<h:outputText value="Referências X Contratantes">
+				
+			</h:outputText>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:dataTable id="refDataView" 
+				 var="itemRef" 
+				 value="#{contratanteBean.referencias}" 
+				 emptyMessage="Não existem Referências Cadastradas para esta Contratante!" >
+					
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemRef.codigo}"
+				 >
+	<f:facet name="header" ><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{itemRef.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: right; width: 60px" sortBy="#{itemRef.nome}">
+	<f:facet name="header"><h:outputText value="P. Nome / Nome Fantasia" /></f:facet>
+						   <h:outputText value="#{itemRef.nome}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 60px" sortBy="#{itemRef.contratante.nome}">
+	<f:facet name="header"><h:outputText value="Contratante" /></f:facet>
+						   <h:outputText value="#{itemRef.contratante.nome} #{itemRef.contratante.sobreNome}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{itemRef.contratante.codigo}">
+	<f:facet name="header"><h:outputText value="Contratante ID" /></f:facet>
+						   <h:outputText value="#{itemRef.contratante.codigo}" />
+	</p:column>
+	
+	
+	</p:dataTable>
+	
+	</p:panel>
+	
+	</h:form>
+	
+	 	  
+	</p:dialog>
+
+</ui:composition>

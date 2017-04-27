@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+	"-//Hibernate/Hibernate Configuration DTD//EN"
+  	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- PROJETO OdontoContractC ESTUDOS DA ESTRUTURA E AFINS BASEADO NO PROJETO DROGARIA -->
+
+<hibernate-configuration>
+	<session-factory>
+		
+		<!-- IMPORTANTE!! CONFIGURAÇÃO DO DIALETO DO BANCO DE DADOS -->
+		<property name="dialect">org.hibernate.dialect.SQLServer2008Dialect</property>		
+		<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/OdontoContractE</property>		
+		
+		<!-- <property name="connection.autocommit">true</property> -->
+		<property name="connection.username">sa</property>
+		<property name="connection.password">@@!!pwd45brt</property>
+
+		<!-- Pool de Conexões -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Gerenciamento do Contexto das Sessões -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Cache de Segundo Nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Mostra as SQLs Geradas -->
+		<property name="show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="use_sql_comments">true</property>
+
+		<!-- COMANDOS MAIS COMUNS DE CRIAÇÃO, ATUALIZAÇÃO, VALIDADAÇÃO E EXCLUSÃO NO BANCO -->		
+		<property name="hibernate.hbm2ddl.auto">update</property>
+<!-- 		<property name="hibernate.hbm2ddl.auto">create</property> -->
+<!-- 		<property name="hibernate.hbm2ddl.auto">validate</property> -->
+<!-- 		<property name="hibernate.hbm2ddl.auto">create-drop</property> -->
+		
+		<!-- Mapeamento das entidades -->
+		<mapping class="br.com.odontoclinic.model.base.contratante.Contratante" />
+		<mapping class="br.com.odontoclinic.model.base.referencia.Referencia" />
+		<mapping class="br.com.odontoclinic.model.base.endereco.Endereco" />
+		<mapping class="br.com.odontoclinic.model.base.contratada.Contratada" />
+		<mapping class="br.com.odontoclinic.model.base.contrato.Contrato" />
+		<mapping class="br.com.odontoclinic.model.base.item.procedimento.ItemProcedimento" />
+		<mapping class="br.com.odontoclinic.model.base.checkout.procedimento.CheckOutProcedimento" />
+
+	</session-factory>
+</hibernate-configuration>
