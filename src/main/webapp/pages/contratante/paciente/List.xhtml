@@ -9,17 +9,45 @@
 <!-- FORMULARIO BASE DA LIST ########################### INICIO -->
 <h:form id="pacienteListForm">
 
-<p:dataTable id="tabela" var="item" value="#{contratantePacienteBean.pacientes}">
+<p:panel header="( Pacientes - Lista Base )">
 
- <f:facet name="header">
- <p:commandButton 		value="Novo Paciente" 
- 						actionListener="#{contratantePacienteBean.novo}"
-						oncomplete="PF('dialogoPa').show();"
-						update=":formCadastro:painel 
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo" 
+		 						actionListener="#{contratantePacienteBean.novo}"
+								oncomplete="PF('dialogoPa').show();"
+								update=":formCadastro:painel 
 								:pacienteListForm:tabela 
 								:formCadastro:painel"
-						ajax="true" />
- </f:facet>
+								ajax="true"/>
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable id="tabela" var="item" value="#{contratantePacienteBean.pacientes}">
 
 <p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
 <f:facet name="header"><h:outputText value="Ordem" /></f:facet>
@@ -116,8 +144,8 @@
 
 <ui:include src="/confirmation.xhtml"/>
 
-</h:form>
+</p:panel>
 
-			
+</h:form>
 
 </ui:composition>

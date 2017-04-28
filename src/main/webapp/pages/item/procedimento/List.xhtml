@@ -9,23 +9,59 @@
 
 <h:form id="procedimentoListForm">
 
-		<p:dataTable 	id="tabela" 
-						var="item" 
-						value="#{procedimentoBean.itemProcedimentos}">
+<p:panel header="( Procedimentos Odontológicos - Lista Base )">
 
-		<f:facet name="header">
-		 <p:commandButton 		value="Novo Procedimento" 
-		 						actionListener="#{procedimentoBean.novo}"
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								actionListener="#{procedimentoBean.novo}"
 								oncomplete="PF('dialogo').show();"
 								update=":msgGlobal 
 										:procedimentoListForm:tabela 
-										:formCadastro:painel" />
-		 </f:facet>
+										:formCadastro:painel"/>
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
 
-<!-- <p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" > -->
-<!-- <f:facet name="header"><h:outputText value="Ordem" /></f:facet> -->
-<!-- 					   <h:outputText value="#{item.codigo}" /> -->
-<!-- </p:column> -->
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+		
+		<p:dataTable 	id="tabela" 
+						var="item" 
+						value="#{procedimentoBean.itemProcedimentos}"
+						emptyMessage="Nenhum PROCEDIMENTO cadastrado!"
+						paginator="true" 
+			 			rows="11"
+			 			paginatorPosition="bottom" >
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="true" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 25px" sortBy="#{item.codigoItem}" rendered="true" >
+<f:facet name="header"><h:outputText value="SKU-Dente" /></f:facet>
+					   <h:outputText value="#{item.codigoItem}" />
+</p:column>
 
 <p:column style="text-align: center; width: 90px" sortBy="#{item.nomeItem}" >
 <f:facet name="header"><h:outputText value="Nome Procedimento" /></f:facet>
@@ -39,8 +75,8 @@
 					   </h:outputText>
 </p:column>
 
-<p:column style="text-align: center; width: 30px" sortBy="#{item.notacaoCdiDente}" >
-<f:facet name="header"><h:outputText value="Notação CDI Dente" /></f:facet>
+<p:column style="text-align: center; width: 15px" sortBy="#{item.notacaoCdiDente}" >
+<f:facet name="header"><h:outputText value="CDI Dente" /></f:facet>
 					   <h:outputText value="#{item.notacaoCdiDente}" />
 </p:column>
 
@@ -56,7 +92,7 @@
 <!-- 					   </h:outputText> -->
 <!-- </p:column> -->
 
-<p:column headerText="Opções" style="text-align: center; width: 60px">
+<p:column headerText="Opções" style="text-align: center; width: 30px">
 
 				<p:commandButton icon="ui-icon-trash"
 					actionListener="#{procedimentoBean.excluir}"
@@ -81,8 +117,8 @@
 
 <ui:include src="/confirmation.xhtml"/>
 
-</h:form>
+</p:panel>
 
-			
+</h:form>	
 
 </ui:composition>

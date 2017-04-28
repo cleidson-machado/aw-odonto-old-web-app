@@ -6,23 +6,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/north_layout.xhtml">
-	
-<!-- ############################################################################################################ -->
-<!-- ############################# ENDEREÇO INDEX ##################################### -->
-<!-- ############################################################################################################ -->
 
 	 <ui:define name="body">
 
-	 <p:panel header="#{msgBundle.WelcomeIntra}">
-	 
 	<ui:include src="/pages/endereco/List.xhtml" />
 	<ui:include src="/pages/endereco/CreateEdit.xhtml" />
 	<ui:include src="/pages/endereco/create/Contratante.xhtml" />
 	<ui:include src="/pages/endereco/create/Referencia.xhtml" />
 	<ui:include src="/pages/endereco/create/Paciente.xhtml" />
 	<ui:include src="/pages/endereco/View.xhtml" />
-
-	 </p:panel>
 
     </ui:define>
 

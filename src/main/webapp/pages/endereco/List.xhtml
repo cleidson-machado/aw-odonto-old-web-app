@@ -9,31 +9,66 @@
 <!-- ENDERECOS.... FORMULARIO BASE DA LIST ########################### INICIO -->
 <h:form id="enderecoListForm">
 
-		<p:dataTable id="tabela" var="item" value="#{enderecoBean.enderecos}">
-		
-		 <f:facet name="header">
-		 	<p:commandButton 	value="Novo Endereco Contratante"
+<p:panel header="( Endereços - Lista Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Endereço Contratante" 
 		 						actionListener="#{enderecoBean.novo}"
 		 						oncomplete="PF('dialogEndContratante').show()"
 		 						update=":msgGlobal 
 		 								:enderecoListForm:tabela 
-		 								:formCadastroContratante:painel" />
-		 						
-		 	<p:commandButton 	value="Novo Endereço Referência"
-		 						actionListener="#{enderecoBean.novo}"
-		 						oncomplete="PF('dialogEndReferencia').show()"
-		 						update=":msgGlobal 
-		 								:enderecoListForm:tabela 
-		 								:formCadastroReferencia:painel" />
-		 	
-		 	<p:commandButton 	value="Novo Endereço Paciente"
+		 								:formCadastroContratante:painel"/>
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Endereço Paciente" 
 		 						actionListener="#{enderecoBean.novo}"
 		 						oncomplete="PF('dialogEndPaciente').show()"
 		 						update=":msgGlobal 
 		 								:enderecoListForm:tabela 
-		 								:formCadastroPaciente:painel" />
-		 	
-		 </f:facet>
+		 								:formCadastroPaciente:painel"/>
+		 	<p:spacer width="5px"/>
+		 	<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Endereço Referência" 
+		 						actionListener="#{enderecoBean.novo}"
+		 						oncomplete="PF('dialogEndReferencia').show()"
+		 						update=":msgGlobal 
+		 								:enderecoListForm:tabela 
+		 								:formCadastroReferencia:painel"/>
+		 	<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+		<p:dataTable 	id="tabela" 
+						var="item" 
+						value="#{enderecoBean.enderecos}"
+						emptyMessage="Nenhum ENDEREÇO cadastrado!"
+						paginator="true" 
+					 	rows="11"
+					 	paginatorPosition="bottom" >
 		
 		<p:column style="text-align: center; width: 1px" sortBy="#{item.codigo}" rendered="false" >
 		<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
@@ -129,6 +164,8 @@
 		</p:dataTable>
 
 <ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
 
 </h:form>					
 

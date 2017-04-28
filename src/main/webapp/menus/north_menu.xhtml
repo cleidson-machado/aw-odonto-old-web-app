@@ -5,39 +5,78 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-      
-<!-- ############################################################################################################ -->
-<!-- ############################# MENU UTILIZADO NA APLICAÇÃO ##################################### -->
-<!-- AS OPÇÕES DE: ADMINISTRAÇÃO E CADASTROS FORAM DISPOSTAS IGUAIS AQUI APENAS PARA TESTE DE LAYOUT NA PÁGINA WEB -->
-<!-- AQUI DENTRO DE ADMINISTRATIVO DEVEREMOS CRIAR AS ENTRATADA PARA CONTRATADA OU SEJA, A EMPRESA QUE ESTÁ OFERENCEDO O SERVIÇO OU CONTRATO -->
-
-<!-- ############################################################################################################ -->
 
     <ui:composition>
         <h:form id="menuNorth">
             <p:menubar>
                 <p:menuitem value="#{msgBundle.Home}..." outcome="/Default" icon="ui-icon-home"/>
                 
-                <p:submenu label="CADASTROS" icon="ui-icon-gear">
-                	<p:menuitem value="Contratos" outcome="/pages/contrato/Index" />
+                <f:facet name="rigth"></f:facet>
+                
+                <p:submenu label="CADASTRO COMPLEMENTAR" icon="ui-icon-gear">
                 		<p:separator/>
-                	<p:menuitem value="Contratadas" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Contratadas" outcome="/pages/contratada/Index" />
                 		<p:separator/>
-                	<p:menuitem value="Contratantes" outcome="/pages/contratante/Index" />
+                		<p:menuitem value="Procedimentos Odonto..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
-                	<p:menuitem value="Pacientes" outcome="/pages/contratante/paciente/Index" />
+						<p:separator/>
+						<p:menuitem value="Material Extra..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
-                	<p:menuitem value="Referências" outcome="/pages/referencia/Index" />
-                		<p:separator/>
-                	<p:menuitem value="Enderecos" outcome="/pages/endereco/Index" />
+						<p:separator/>
+						<p:menuitem value="Terceiros / Conveniados..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
                 </p:submenu>
                 
-                <p:submenu label="PROCEDIMENTOS / MAT. EXTRA" icon="ui-icon-gear">
+                 <p:submenu label="VENDAS / CAIXA R$" icon="ui-icon-gear">
+                		<p:separator/>
+						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
+                 		<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                 </p:submenu>
+                 
+                 <p:submenu label="RELATÓRIOS" icon="ui-icon-gear">
+                		<p:separator/>
+						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
+                 		<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                 </p:submenu>
+                 
+                 <p:submenu label="SOBRE O SISTEMA" icon="ui-icon-gear">
+                		<p:separator/>
+						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
+                 		<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                		<p:separator/>
+						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
+						<p:separator/>
+                 </p:submenu>
+                
+                <p:submenu label="PROCEDIMENTOS / MAT. EXTRA" icon="ui-icon-gear" rendered="false">
                 	<p:menuitem value="Cadastro Procedimentos" outcome="/pages/item/procedimento/Index" />
                 	<p:separator/>
                 </p:submenu>
-                
+
             </p:menubar>
         </h:form>
     </ui:composition>

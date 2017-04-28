@@ -8,16 +8,51 @@
 
 <h:form id="contratanteListForm">
 
-<p:dataTable id="tabela" var="item" value="#{contratanteBean.contratantes}">
+<p:panel header="( Contratante - Lista Base )">
 
- <f:facet name="header">
- <p:commandButton 		value="Nova Contratante" 
- 						actionListener="#{contratanteBean.novo}"
-						oncomplete="PF('dialogo').show();"
-						update=":msgGlobal
-								:formCadastro:painel
-								:formCadastro:painelBotoes" />
- </f:facet>
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo" 
+		 						actionListener="#{contratanteBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal
+										:formCadastro:painel
+										:formCadastro:painelBotoes"/>
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{contratanteBean.contratantes}"
+				emptyMessage="Nenhuma CONTRATANTE cadastrada!"
+				paginator="true" 
+			 	rows="3"
+			 		
+			 	paginatorPosition="bottom" >
 
 	<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
 	<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
@@ -133,6 +168,8 @@
 </p:dataTable>
 
 	<ui:include src="/confirmation.xhtml"/>
+	
+</p:panel>
 
 </h:form>
 

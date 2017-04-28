@@ -6,27 +6,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/north_layout.xhtml">
-	
-<!-- ############################################################################################################ -->
-<!-- ############################# INDEX DA LISTAGEM INICIAL DA CONTRATANTE ##################################### -->
-<!-- O INCLUDE DO CreateNewRef está vinculado aos botões de status que mostram a existência ou não das REFERÊNCIAS -->
-<!-- ############################################################################################################ -->
 
-	 <ui:define name="body">
-
-<!-- CreateNewRef.xhtml adicionada para possibilitar a criação -->
-<!-- de nova REFERÊNCIA apartir das telas da contratante.. -->
-
-	 <p:panel header="#{msgBundle.WelcomeIntra}">
+	<ui:define name="body">
 	 
 	<ui:include src="/pages/contratante/paciente/List.xhtml" />
 	<ui:include src="/pages/contratante/paciente/CreateEdit.xhtml" />
 	<ui:include src="/pages/contratante/paciente/CreateEditPa.xhtml" />
 	<ui:include src="/pages/contratante/paciente/CreateEditChange.xhtml" />
 	<ui:include src="/pages/contratante/paciente/View.xhtml" />
-
-	 </p:panel>
-
+	
     </ui:define>
 
 </ui:composition>

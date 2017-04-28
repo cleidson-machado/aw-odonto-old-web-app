@@ -9,13 +9,50 @@
 <!-- FORMULARIO BASE DA LIST ########################### INICIO -->
 <h:form id="referenciaListForm">
 
-<p:dataTable id="tabela" var="itemRef" value="#{referenciaBean.referencias}">
+<p:panel header="( Referências - Lista Base )">
 
- <f:facet name="header">
- <p:commandButton value="Nova Referência" actionListener="#{referenciaBean.novo}"
-						oncomplete="PF('dialogo').show();"
-						update=":msgGlobal :referenciaListForm:tabela :formCadastro:painel" />
- </f:facet>
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo" 
+		 						actionListener="#{referenciaBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+								:referenciaListForm:tabela 
+								:formCadastro:painel"/>
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="itemRef" 
+				value="#{referenciaBean.referencias}"
+				emptyMessage="Nenhuma REFERÊNCIA cadastrada!"
+				paginator="true" 
+			 	rows="5"
+			 	paginatorPosition="bottom" >
 
 <p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{itemRef.codigo}" >
 <f:facet name="header"><h:outputText value="Ordem" /></f:facet>
@@ -62,8 +99,8 @@
 
 <ui:include src="/confirmation.xhtml"/>
 
-</h:form>
+</p:panel>
 
-			
+</h:form>
 
 </ui:composition>
