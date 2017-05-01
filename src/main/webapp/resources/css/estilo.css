@@ -29,3 +29,22 @@ h1 {
 	margin: 0px;
 	margin-bottom: 10px
 }
+
+.linha1 {
+	padding: 1px 1px 0px 0px;
+	margin-bottom: 1px;
+}
+
+.linha2 {
+	padding: 46px 5px;
+	margin-bottom: 10px;
+	height: 0px;
+}
+
+.linha3 {
+	padding: 1px 0px 0px 10px;
+}
+
+.linha4 {
+	padding: 0px 0px 0px 10px;
+}

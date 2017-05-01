@@ -13,7 +13,7 @@
 
 .ui-widget-header {
     text-align: center;
-    text-transform: uppercase;
+    text-transform: inherit;
 }
 
 .ui-datatable .ui-datatable-footer .footer-section {

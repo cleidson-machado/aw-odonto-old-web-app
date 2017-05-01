@@ -14,10 +14,8 @@
     <h:head>
     	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="westmenu.css"/>
         <h:outputStylesheet library="css" name="pfcrud.css"/>
-        <h:outputStylesheet library="css" name="Grid.css"/>
-        <h:outputStylesheet library="css" name="Step.css"/>
-		<h:outputStylesheet library="css" name="westmenu.css"/>
     </h:head>
 
     <h:body>
@@ -42,11 +40,13 @@
             
 			<p:layoutUnit 	id="layoutContratosList"
 			            	position="west" 
-							size="345"
+							maxSize="345"
+							minSize="345"
 							resizable="true"
+							header="... Menu de Passos para Cadastramento ..."
 							collapsible="true" 
 							collapsed="false" 
-							closable="true" >
+							closable="false"  >
 							
 			<ui:insert 	name="contratosWestList"/>
 							
