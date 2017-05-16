@@ -41,7 +41,7 @@
 	</p:column>
 	
 	<p:column style="text-align: center; width: 20px" sortBy="#{item.notacaoCdiDente}" >
-	<f:facet name="header"><h:outputText value="Número do Dente" /></f:facet>
+	<f:facet name="header"><h:outputText value="Num. Dente" /></f:facet>
 						   <h:outputText value="#{item.notacaoCdiDente}" />
 	</p:column>
 	
@@ -50,7 +50,7 @@
 						   <h:outputText value="#{item.estoque}" />
 	</p:column>
 	
-	<p:column headerText="Adicionar / Remove Item" style="text-align: center; width: 30px">
+	<p:column headerText="Add / Remove Item" style="text-align: center; width: 30px">
 				<p:commandButton 	icon="ui-icon-plus" 
 									actionListener="#{checkOutProcedimentoBean2.adicionar}"
 									update=":comprasForm:tabCheckOut 
@@ -105,13 +105,13 @@
 		</p:column>
 		
 	<p:column style="text-align: center; width: 20px" sortBy="#{itemCheckOut.valorParcial}" >
-		<f:facet name="header"><h:outputText value="Preço R$ Total" /></f:facet>
+		<f:facet name="header"><h:outputText value="R$ TOTAL" /></f:facet>
 						   <h:outputText value="#{itemCheckOut.precoParcial}">
 						   <f:convertNumber locale="pt_br" minFractionDigits="2"/>
 						   </h:outputText>
 	</p:column>
 	
-	<p:column 	headerText="Excluir Item" 
+	<p:column 	headerText="Excluir" 
 				style="text-align: center; 
 				width: 10px">
 				<p:commandButton 	icon="ui-icon-minus"

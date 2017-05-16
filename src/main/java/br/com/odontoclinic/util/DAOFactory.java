@@ -14,6 +14,8 @@ import br.com.odontoclinic.stuff.item.procedimento.ItemProcedimentoDAO;
 import br.com.odontoclinic.stuff.item.procedimento.ItemProcedimentoDAOHibernate;
 import br.com.odontoclinic.stuff.referencia.ReferenciaDAO;
 import br.com.odontoclinic.stuff.referencia.ReferenciaDAOHibernate;
+import br.com.odontoclinic.stuff.usuario.UsuarioDAO;
+import br.com.odontoclinic.stuff.usuario.UsuarioDAOHibernate;
 
 public class DAOFactory {
 
@@ -57,6 +59,12 @@ public class DAOFactory {
 		CheckOutProcedimentoDAOHibernate checkOutProcedimentoDAO = new CheckOutProcedimentoDAOHibernate();
 		checkOutProcedimentoDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
 		return checkOutProcedimentoDAO;
+	}
+
+	public static UsuarioDAO criarUsuarioDAO() {
+		UsuarioDAOHibernate usuarioDAO = new UsuarioDAOHibernate();
+		usuarioDAO.setSession(HibernateUtil.getSessionFactory().getCurrentSession());
+		return usuarioDAO;
 	}
 
 }

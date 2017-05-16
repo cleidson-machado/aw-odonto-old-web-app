@@ -3,8 +3,22 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+	
 	<display-name>OdontoContractE</display-name>
 	
+	<!-- LOCALIZAÇÃO DO FACES-CONFIG -->
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/faces-config.xml</param-value>
+	</context-param>
+	
+	<!-- INFORMAÇÃO SOBRE O ESTÁGIO DO PROJETO -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Development</param-value>
+	</context-param>
+	
+	<!-- TEMAS A UTILIZAR NO PRIMEFACES -->
 	<context-param>
 	<param-name>primefaces.THEME</param-name>
 	<param-value>afterwork</param-value>

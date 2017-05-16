@@ -9,7 +9,7 @@
 <!-- FORMULARIO BASE DA LIST ########################### INICIO -->
 <h:form id="contratadaListForm">
 
-<p:panel header="( Contratada - Lista Base )">
+<p:panel header="( Contratadas - Lista Base )">
 
 <p:toolbar>
 	<f:facet name="left">
@@ -54,27 +54,27 @@
 			 	rows="5"
 			 	paginatorPosition="bottom"  >
 
-<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="true" >
+<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
 <f:facet name="header"><h:outputText value="Ordem" /></f:facet>
 					   <h:outputText value="#{item.codigo}" />
 </p:column>
 
-<p:column style="text-align: right; width: 60px" sortBy="#{item.nomeUnidade}">
+<p:column style="text-align: center; width: 40px" sortBy="#{item.nomeUnidade}">
 <f:facet name="header"><h:outputText value="Nome da Unidade " /></f:facet>
 					   <h:outputText value="#{item.nomeUnidade}" />
 </p:column>
 
-<p:column style="text-align: right; width: 10px" sortBy="#{item.numUnidade}">
-<f:facet name="header"><h:outputText value="Número da Unidade " /></f:facet>
+<p:column style="text-align: center; width: 10px" sortBy="#{item.numUnidade}">
+<f:facet name="header"><h:outputText value="Num. da Unidade " /></f:facet>
 					   <h:outputText value="#{item.numUnidade}" />
 </p:column>
 
-<p:column style="text-align: right; width: 20px" sortBy="#{item.inscricaoEstadual}">
+<p:column style="text-align: center; width: 20px" sortBy="#{item.inscricaoEstadual}">
 <f:facet name="header"><h:outputText value="Inscrição Estadual" /></f:facet>
 					   <h:outputText value="#{item.inscricaoEstadual}" />
 </p:column>
 
-<p:column headerText="Opções" style="text-align: center; width: 60px">
+<p:column headerText="Opções" style="text-align: center; width: 10px">
 
 				<p:commandButton 	icon="ui-icon-trash"
 									actionListener="#{contratadaBean.excluir}"

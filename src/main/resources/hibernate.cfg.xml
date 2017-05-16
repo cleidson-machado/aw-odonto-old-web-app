@@ -45,6 +45,7 @@
 		<mapping class="br.com.odontoclinic.model.base.contrato.Contrato" />
 		<mapping class="br.com.odontoclinic.model.base.item.procedimento.ItemProcedimento" />
 		<mapping class="br.com.odontoclinic.model.base.checkout.procedimento.CheckOutProcedimento" />
+		<mapping class="br.com.odontoclinic.model.base.usuario.Usuario" />
 
 	</session-factory>
 </hibernate-configuration>

@@ -4,59 +4,45 @@
 				xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns:h="http://java.sun.com/jsf/html"
 				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:p="http://primefaces.org/ui">
+				xmlns:p="http://primefaces.org/ui" 
+				xmlns:jsf="http://xmlns.jcp.org/jsf" >
 
-<!-- LISTA WEST DE CONTRATOS USADA INICIALMENTE NA PÁGINA DEFAULT APENAS... -->
+	<div class="west-grid west-grid-responsive">
+		<div class="west-grid-row" id="navegabtn">
 
-<h:form id="contratoFormListWest">
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-circle-triangle-w" 
+							value="anterior"
+							outcome="/pages/endereco/Index"/>
+			</div>
 
-<p:panel id="listaCx" header="Lista de Contratos Criados">
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-home" 
+							value="Home"
+							outcome="/Default"/>
+			</div>
 
-<p:dataTable 
-				id="listaContratosEsquerda"
-				var="item" 
-				value="#{checkOutProcedimentoBean2.contratos}"
-				
-				rowKey="#{item.codigo}"
-				selectionMode="single"
-				
-				emptyMessage="Nenhuma CONTRATO cadastrado!"
-				paginator="true" 
-			 	rows="16"
-			 	
-			 	rowsPerPageTemplate="5,16"
-			 	
-			 	paginatorPosition="bottom" >
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-circle-triangle-e" 
+							value="proximo"
+							outcome="/pages/contrato/Index"/>
+			</div>
 
-<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
-<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
-					   <h:outputText value="#{item.codigo}" />
-</p:column>
+		</div>
 
-<p:column rendered="true" style="text-align: center; width: 10px" sortBy="#{item.dtaInicio}" >
-	<f:facet name="header"><h:outputText value="Data" /></f:facet>
-					   <h:outputText value="#{item.dtaInicio}">
-					   <f:convertDateTime pattern="dd-MM-YYYY"/>
-					   </h:outputText>
-</p:column>
+		<div class="west-grid-row" id="imgpasso">	
+			<h:graphicImage value="/resources/imgs/05passotba.png" />
+		</div>
 
-<p:column style="text-align: center; width: 10px" sortBy="#{item.statusContratual}">
-<f:facet name="header"><h:outputText value="Status" /></f:facet>
-					   <h:outputText value="#{item.statusContratual}" rendered="#{not empty item.statusContratual}" />
-					   <h:outputText value="ORÇ." rendered="#{empty item.statusContratual}" />
-</p:column>
-
-<p:column style="text-align: center; width: 20px" sortBy="#{item.codFichaCadastral}">
-<f:facet name="header"><h:outputText value="Contrato" /></f:facet>
-					   <h:outputText value="#{item.codFichaCadastral}" />
-</p:column>
-
-</p:dataTable>
-
-<ui:include src="/confirmation.xhtml"/>
-
-</p:panel>
-
-</h:form>
+		<div class="west-grid-row">
+			<div class="west-grid-col-8" id="txtdescritivo">
+				<label>VENDAS IN --- pretium quam et urna. Fusce nibh. Duis risus. Curabitur sagittis hendrerit ante. Aliquam erat volutpat. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Duis condimentum augue id magna semper rutrum. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Fusce consectetuer risus a nunc. Aliquam ornare wisi eu metus.  Duis condimentum augue id magna semper rutrum. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Integer pellentesque quam vel velit. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Integer pellentesque quam vel velit.</label>
+			</div>
+			<div class="west-grid-col-4">
+				<h:graphicImage value="#{resource['imgs/icone_lateral.png']}" />
+			</div>
+		</div>
+		
+	</div>
 
 </ui:composition>
