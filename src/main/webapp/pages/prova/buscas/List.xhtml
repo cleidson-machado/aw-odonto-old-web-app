@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST CONTRIBUINTE ########################### INICIO -->
+<h:form id="contribuinteListForm">
+
+<p:panel header="( BUSCA DE CONTRIBUINTES - Listagem Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo"
+								title="Novo Contribuinte..." 
+		 						actionListener="#{contribuinteBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:contribuinteListForm:tabela
+										:formCadastro:painel
+										:formCadastro:btns"
+								rendered="false" />
+			<p:spacer width="5px"/>
+			<p:button icon="ui-icon-closethick"
+					  outcome="/pages/prova/Index"
+					  value="Voltar"
+					  rendered="true" />
+							 
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" rendered="false" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" rendered="false" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{contribuinteBean.contribuintes}"
+				emptyMessage="Nenhum contribuinte cadastrado!"
+				paginator="true" 
+			 	rows="5"
+			 	paginatorPosition="bottom"  >
+			 	
+<p:column style="text-align: center; width: 25%" sortBy="#{item.nome}" 
+												 filterBy="#{item.nome}"
+												 filterMatchMode="contains"
+												 rendered="true" >
+<f:facet name="header"><h:outputText value="Contribuinte NOME COMPLETO" /></f:facet>
+					   <h:outputText value="#{item.nome} #{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.cpf}" 
+												 filterBy="#{item.cpf}"
+												 filterMatchMode="contains"
+												 rendered="true" >
+<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+					   <h:outputText value="#{item.cpf}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.numContribuinte}" 
+												 filterBy="#{item.numContribuinte}"
+												 filterMatchMode="contains"
+												 rendered="true" >
+<f:facet name="header"><h:outputText value="Contribuinte NUM." /></f:facet>
+					   <h:outputText value="#{item.numContribuinte}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.qtdImovel}"
+												 filterBy="#{item.qtdImovel}"
+												 filterMatchMode="contains" 
+												 rendered="true" >
+<f:facet name="header"><h:outputText value="QTD. IMÓVEIS" /></f:facet>
+					   <h:outputText value="#{item.qtdImovel}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.rua}" 
+												 filterBy="#{item.rua}"
+												 filterMatchMode="contains"
+												 rendered="false" >
+<f:facet name="header"><h:outputText value="RUA / ENDEREÇO" /></f:facet>
+					   <h:outputText value="#{item.rua}" />
+					
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 14%">
+	
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!" >
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-folder-open"
+									title="Visualização do Registro!" >
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!" >
+				</p:commandButton>
+	
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+	
+
+</ui:composition>

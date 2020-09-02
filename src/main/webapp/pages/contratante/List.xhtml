@@ -33,7 +33,8 @@
 			<p:commandButton icon="ui-icon-print" 
 							 disabled="false" 
 							 rendered="true"
-							 title="Relatórios GERAIS DO SISTEMA!"/>
+							 title="Relatórios GERAIS DO SISTEMA!"
+							 actionListener="#{contratanteBean.imprimir}"/>
 
 			<p:spacer width="5px"/>
 			<p:commandButton value="Ajuda" 
@@ -69,10 +70,9 @@
 						 				  oncomplete="PF('viewdListRefDialog').show()"
 						 				  ajax="true" >
 
-						    <f:attribute  name="contratanteSelecionada" 
-										  value="#{item}" />
+						    <f:attribute  name="contratanteSelecionada" value="#{item}" />
 										  
-										  </p:commandButton>
+						 </p:commandButton>
 						   
 	</p:column>
 	
@@ -153,14 +153,14 @@
 									value="#{item}" />
 				</p:commandButton>
 				
-				<p:commandButton
-									icon="ui-icon-search"
-									actionListener="#{contratanteBean.editar}"
-									update=":msgGlobal :formView:painel"
-									oncomplete="PF('viewdialog').show()" >
+				<p:commandButton icon="ui-icon-search"
+								 actionListener="#{contratanteBean.editar}"
+								 update=":msgGlobal :formView:painel"
+								 oncomplete="PF('viewdialog').show()" >
 									
-				<f:attribute 		name="contratanteSelecionada" 
-									value="#{item}" />
+				<f:attribute 	name="contratanteSelecionada" 
+								value="#{item}" />
+
 				</p:commandButton>
 
 			</p:column>

@@ -31,6 +31,9 @@ public class GenericCadastro extends GenericPrimaryKey {
 	@Column(name = "num_rg", length = 20)
 	private String Rg;
 	
+	//CRIADA ESPECIALEMNTE PARA PROJETO PAINEL GERENCIAL
+	@Column(name = "num_ramal", length = 20)
+	private String Ramal;
 	
 	@Column(name = "fone1", length = 50)
 	private String Fone1;
@@ -119,6 +122,14 @@ public class GenericCadastro extends GenericPrimaryKey {
 
 	public void setRg(String rg) {
 		Rg = rg;
+	}
+	
+	public String getRamal() {
+		return Ramal;
+	}
+	
+	public void setRamal(String ramal) {
+		Ramal = ramal;
 	}
 
 	public String getFone1() {
@@ -225,6 +236,7 @@ public class GenericCadastro extends GenericPrimaryKey {
 		result = prime * result + ((Fone2 == null) ? 0 : Fone2.hashCode());
 		result = prime * result + ((Fone3 == null) ? 0 : Fone3.hashCode());
 		result = prime * result + ((Nome == null) ? 0 : Nome.hashCode());
+		result = prime * result + ((Ramal == null) ? 0 : Ramal.hashCode());
 		result = prime * result + ((Rg == null) ? 0 : Rg.hashCode());
 		result = prime * result + ((Sexo == null) ? 0 : Sexo.hashCode());
 		result = prime * result + ((SobreNome == null) ? 0 : SobreNome.hashCode());
@@ -301,6 +313,11 @@ public class GenericCadastro extends GenericPrimaryKey {
 				return false;
 		} else if (!Nome.equals(other.Nome))
 			return false;
+		if (Ramal == null) {
+			if (other.Ramal != null)
+				return false;
+		} else if (!Ramal.equals(other.Ramal))
+			return false;
 		if (Rg == null) {
 			if (other.Rg != null)
 				return false;
@@ -323,7 +340,6 @@ public class GenericCadastro extends GenericPrimaryKey {
 			return false;
 		return true;
 	}
-	
-	
+
 
 }

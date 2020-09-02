@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+/*APENAS TESTE USADO NA PÁGINA DE LOGIN..*/
+
+.fndTelaLogin{
+	background-color: #008080;
+}
+
+#titulo{
+    padding: 1px 1px;
+    margin-bottom: 5px;
+}
+
+#imgpasso {
+	padding: 50px 1px 1px 1px;
+	margin-bottom:1px;
+}
+
+#navegabtn {
+	padding: 5px 5px;
+}
+
+#txtdescritivo{
+	padding: 1px 1px 1px 6px;
+}
+
+.west-grid {
+    margin-bottom: 10px;
+}
+
+.west-grid {
+    clear: both;
+    padding: 0px;
+    margin: 0px;
+}
+
+.west-grid:before, .west-grid:after {
+    content: "";
+    display: table;
+}
+
+.west-grid .west-grid-row div {
+    background-color: transparent;
+    padding: 1px 5px;     
+}
+
+.west-grid-col-1{
+   padding: 5px 5px 5px 0px; 
+}
+
+.west-grid-col-3{
+    /*padding: 0px 50px 0px 0px;*/
+}
+
+.west-grid-col-2{
+    padding: 0px 0px 8px 0px;
+}
+
+div {
+    display: block;
+}
+
+.west-grid-col-1 {
+    width: 8.33333%;
+}
+
+.west-grid-col-2 {
+    width: 16.66666%;
+}
+
+.west-grid-col-3 {
+    width: 25%;
+}
+
+.west-grid-col-4 {
+    width: 33.33333%;
+}
+
+.west-grid-col-5 {
+    width: 41.66666%;
+}
+
+.west-grid-col-6 {
+    width: 50%;
+}
+
+.west-grid-col-8 {
+    width: 66.66666%;
+}
+
+.west-grid-col-9 {
+    width: 75%;
+}
+
+.west-grid-col-12 {
+    width: 100%;
+}
+
+.west-grid-col-1, 
+.west-grid-col-2, 
+.west-grid-col-3, 
+.west-grid-col-4, 
+.west-grid-col-5, 
+.west-grid-col-6, 
+.west-grid-col-7, 
+.west-grid-col-8, 
+.west-grid-col-9, 
+.west-grid-col-10, 
+.west-grid-col-11, 
+.west-grid-col-12{
+    float: left;
+    /*MUITO IMPORTANTE MANTEM TUDO JUNTO MAS LINHAS..*/
+    box-sizing: border-box;
+}
+
+@media (min-width: 100%){
+    .west-grid{
+        max-width: 100%;
+        padding: 0;
+        
+        /*Centraliza tudo*/
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    
+    /* ESTILOS DO DATA GRID*/   
+    .west-panelgrid, .ui.panelgrid-cell{
+        /*border-style: none !important;*/
+    }       
+}
+
+@media (max-width: 640px){
+.west-grid-responsive .west-grid-col-1, 
+.west-grid-responsive .west-grid-col-2, 
+.west-grid-responsive .west-grid-col-3, 
+.west-grid-responsive .west-grid-col-4, 
+.west-grid-responsive .west-grid-col-5, 
+.west-grid-responsive .west-grid-col-6, 
+.west-grid-responsive .west-grid-col-7, 
+.west-grid-responsive .west-grid-col-8, 
+.west-grid-responsive .west-grid-col-9, 
+.west-grid-responsive .west-grid-col-10, 
+.west-grid-responsive .west-grid-col-11, 
+.west-grid-responsive .west-grid-col-12 {
+    width: 100%;
+    float: none;
+}
+}
+
+div {
+    display: block;
+}

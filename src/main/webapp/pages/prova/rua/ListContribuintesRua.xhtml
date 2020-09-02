@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG CONTRIBUINTES POR RUA ########################### INICIO -->
+
+	<p:dialog widgetVar="viewdListContribuinteDialog"
+			  header="Contribuintes X Rua - List View" 
+			  draggable="true"  
+			  resizable="false"
+			  modal="true" 
+			  closeOnEscape="true"
+			  appendTo="@(body)" width="800px">
+
+	<h:form id="listViewContribuintesRuaForm">
+	
+	<p:panel>
+	<p:toolbar id="contribuintesTollBar">
+		<f:facet name="left">
+			<h:outputText rendered="#{not empty ruaBean.contribuintes}" 
+		value="Foram encontrados ( #{ruaBean.contribuintes.size()} ) CONTRIBUINTES para Logradouro: ( #{ruaBean.rua.nomeRua} )" />
+		</f:facet>
+	</p:toolbar>
+	
+	<p:dataTable id="contribuintesDataTable"
+				 var="itemContribuinte" 
+				 value="#{ruaBean.contribuintes}" 
+				 emptyMessage="Não existem CONTRIBUINTES Cadastrados RUA Selecionada!" >
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemContribuinte.codigo}">
+	<f:facet name="header" ><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{itemContribuinte.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: right; width: 60px" sortBy="#{itemContribuinte.nome}">
+	<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+						   <h:outputText value="#{itemContribuinte.nome}" />
+	</p:column>
+	
+	<p:column style="text-align: left; width: 60px" sortBy="#{itemContribuinte.sobreNome}">
+	<f:facet name="header"><h:outputText value="Sobre Nome" /></f:facet>
+						   <h:outputText value="#{itemContribuinte.sobreNome}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{itemContribuinte.rua.codigo}">
+	<f:facet name="header"><h:outputText value="Rua ID" /></f:facet>
+						   <h:outputText value="#{itemContribuinte.rua.codigo}" />
+	</p:column>
+	
+	</p:dataTable>
+	
+	</p:panel>
+	
+	</h:form>
+
+	</p:dialog>
+
+</ui:composition>

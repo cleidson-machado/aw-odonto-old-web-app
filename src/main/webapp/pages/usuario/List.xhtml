@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST ########################### INICIO -->
+<h:form id="usuarioListForm">
+
+<p:panel header="( Usuarios - Lista Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo"
+								title="Novo Usuário..." 
+		 						actionListener="#{usuarioBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:usuarioListForm:tabela 
+										:formCadastro:painel
+										:formCadastro:btns" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-search" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{usuarioBean.usuarios}"
+				emptyMessage="Nenhum usuario cadastrado!"
+				paginator="true" 
+			 	rows="15"
+			 	paginatorPosition="bottom"  >
+			 	
+<p:column headerText="Senhas" style="text-align: center; width: 14%">
+
+					<p:commandButton 	icon="ui-icon-key" 
+										title="Alteração de Senha!"
+										value="Pwd"
+										actionListener="#{usuarioBean.editar}"
+										update=":msgGlobal 
+												:formChangePass:painel
+												:formChangePass:btnPass"
+										oncomplete="PF('changePassWd').show()"
+										rendered="#{item.senha != null}" >
+					
+					<f:attribute 		name="usuarioSelecionado"
+										value="#{item}"/>
+					
+					</p:commandButton>
+					
+					<p:commandButton 	icon="ui-icon-alert" 
+										title="Criação de Senha!"
+										value="Pwd"
+										actionListener="#{usuarioBean.editar}"
+										update=":msgGlobal 
+												:formChangePass:painel
+												:formChangePass:btnPass"
+										oncomplete="PF('changePassWd').show()"
+										rendered="#{item.senha == null}" >
+					
+					<f:attribute 		name="usuarioSelecionado"
+										value="#{item}"/>
+					
+					</p:commandButton>
+					
+					<p:spacer width="5px"/>
+					<p:commandButton	icon="ui-icon-unlocked"
+										title="Resete da Senha!"
+										actionListener="#{usuarioBean.resetarPassWd}"
+										update=":msgGlobal 
+												:usuarioListForm:tabela"
+										disabled="#{item.senha == null}" >
+					
+						<p:confirm 		header="ATENÇÃO! ( O RESET apaga a senha do Usuário! )" 
+									message="Deseja RESETAR a SENHA! para: #{item.nome} "
+									icon="ui-icon-alert" />
+							
+						<f:attribute name="usuarioSelecionado" value="#{item}" />
+					
+					</p:commandButton>
+
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.tipo}" rendered="true" >
+<f:facet name="header"><h:outputText value="Nível de Acesso" /></f:facet>
+					   <h:outputText value="ADMINISTRADOR" rendered="#{item.tipo == 'A'}" />
+					   <h:outputText value="USUÁRIO" rendered="#{item.tipo == 'U'}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20%" sortBy="#{item.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="Nome Completo" /></f:facet>
+					   <h:outputText value="#{item.nome} #{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20%" sortBy="#{item.email1}" rendered="true" >
+<f:facet name="header"><h:outputText value="E-mail" /></f:facet>
+					   <h:outputText value="#{item.email1}" />
+</p:column>
+
+<p:column style="text-align: center; width: 12%" sortBy="#{item.cpf}" rendered="true" >
+<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+					   <h:outputText value="#{item.cpf}" />
+</p:column>
+
+<p:column style="text-align: center; width: 10%" shorBy="#{item.ativo}" rendered="true">
+<f:facet name="header"> <h:outputText value="ON / OFF" /> </f:facet>
+						
+						<p:commandButton 	icon="ui-icon-lightbulb"
+											title="Status Ativo!"
+											value="ON" 
+											rendered="#{item.ativo == true}"
+											actionListener="#{usuarioBean.desativaBtn}"
+											update=":msgGlobal
+													:usuarioListForm:tabela" >
+							
+							<p:confirm 	header="Usuário: #{item.nome}" 
+										message="Deseja DESATIVAR este USUÁRIO?..."
+										icon="ui-icon-alert" />
+							
+							<f:attribute 	name="usuarioSelecionado"
+											value="#{item}"/>
+											
+						</p:commandButton>
+						
+						
+						<p:commandButton 	icon="ui-icon-circle-triangle-s"
+											title="Status Inativo!"
+											value="OFF" 
+											rendered="#{item.ativo != true}"
+											actionListener="#{usuarioBean.ativaBtn}"
+											update=":msgGlobal
+													:usuarioListForm:tabela"
+											disabled="#{item.senha == null}" >
+						
+							<p:confirm 	header="Usuário: #{item.nome}" 
+										message="Deseja ATIVAR este USUÁRIO?..."
+										icon="ui-icon-alert" />
+										
+							<f:attribute 	name="usuarioSelecionado"
+											value="#{item}"/>
+						
+						</p:commandButton>
+</p:column>
+
+<p:column headerText="Opções" style="text-align: center; width: 14%">
+
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!"
+									actionListener="#{usuarioBean.editar}"
+									update=":msgGlobal 
+											:formCadastro:painel
+											:formCadastro:btns"
+									oncomplete="PF('dialogo').show();" >
+
+					<f:attribute name="usuarioSelecionado" value="#{item}" />
+
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-search"
+									title="Visualização do Registro!"
+									actionListener="#{usuarioBean.editar}"
+									update=":msgGlobal :formView:painel"
+									oncomplete="PF('viewdialog').show()" >
+				
+				<f:attribute 		name="usuarioSelecionado"
+									value="#{item}"/>
+				
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!"
+									actionListener="#{usuarioBean.excluir}"
+									update=":msgGlobal 
+											:usuarioListForm:tabela">
+						
+				<p:confirm 		header="ATENÇÃO! ( A Exclusão de Usuário é definitiva! )" 
+								message="Deseja EXCLUIR o REGISTRO para: #{item.nome} "
+								icon="ui-icon-alert" />
+						
+					<f:attribute name="usuarioSelecionado" value="#{item}" />
+					
+				</p:commandButton>
+
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>	
+
+</ui:composition>

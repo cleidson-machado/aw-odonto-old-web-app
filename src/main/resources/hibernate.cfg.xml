@@ -3,19 +3,33 @@
 	"-//Hibernate/Hibernate Configuration DTD//EN"
   	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-<!-- PROJETO OdontoContractC ESTUDOS DA ESTRUTURA E AFINS BASEADO NO PROJETO DROGARIA -->
+<!-- PROJETO OdontoContractE ESTUDOS DA ESTRUTURA E AFINS BASEADO NO PROJETO DROGARIA -->
 
 <hibernate-configuration>
 	<session-factory>
 		
 		<!-- IMPORTANTE!! CONFIGURAÇÃO DO DIALETO DO BANCO DE DADOS -->
-		<property name="dialect">org.hibernate.dialect.SQLServer2008Dialect</property>		
-		<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-		<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/OdontoContractE</property>		
+		<!-- ESSE LOGO ABAIXO USADO EXCLUSIVAMENTE PARA SQL SERVER MICROSOFT -->
+		<!-- <property name="dialect">org.hibernate.dialect.SQLServer2008Dialect</property>		 -->
 		
+		<!-- TESTAR O DIALETO ABAIXO DEPOIS PARA O MySQL POIS NÃO TENHO CERTEZA AINDA SE FUNCIONA OU NÃO -->
+		<!-- <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property> -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- DRIVER -->
+		<!-- <property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property> -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+
+		<!-- CAMINHO DA CONEXÃO -->
+		<!-- OBS: ANOTAÇÃO NO FINAL DA connection.url para forçar uso do SSL false -->
+		<!-- <property name="connection.url">jdbc:mysql://127.0.0.1:3306/odontocontracte?useSSL=false</property> -->
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/odontocontracte?useTimezone=true&amp;serverTimezone=UTC</property>
+		<!-- <property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/OdontoContractE</property> -->
+
 		<!-- <property name="connection.autocommit">true</property> -->
-		<property name="connection.username">sa</property>
-		<property name="connection.password">@@!!pwd45brt</property>
+		<!-- <property name="connection.username">sa</property> -->
+		<property name="connection.username">root</property>
+		<property name="connection.password">kabala</property>
 
 		<!-- Pool de Conexões -->
 		<property name="connection.pool_size">1</property>
@@ -33,10 +47,10 @@
 
 		<!-- COMANDOS MAIS COMUNS DE CRIAÇÃO, ATUALIZAÇÃO, VALIDADAÇÃO E EXCLUSÃO NO BANCO -->		
 		<property name="hibernate.hbm2ddl.auto">update</property>
-<!-- 		<property name="hibernate.hbm2ddl.auto">create</property> -->
-<!-- 		<property name="hibernate.hbm2ddl.auto">validate</property> -->
-<!-- 		<property name="hibernate.hbm2ddl.auto">create-drop</property> -->
-		
+		<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
+		<!-- <property name="hibernate.hbm2ddl.auto">validate</property> -->
+		<!-- <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
+
 		<!-- Mapeamento das entidades -->
 		<mapping class="br.com.odontoclinic.model.base.contratante.Contratante" />
 		<mapping class="br.com.odontoclinic.model.base.referencia.Referencia" />
@@ -46,6 +60,21 @@
 		<mapping class="br.com.odontoclinic.model.base.item.procedimento.ItemProcedimento" />
 		<mapping class="br.com.odontoclinic.model.base.checkout.procedimento.CheckOutProcedimento" />
 		<mapping class="br.com.odontoclinic.model.base.usuario.Usuario" />
+		
+		<!-- Mapeamento das entidades DA PROVA -->
+		<mapping class="br.com.odontoclinic.model.base.prova.Rua" />
+		<mapping class="br.com.odontoclinic.model.base.prova.Contribuinte" />
+		<mapping class="br.com.odontoclinic.model.base.prova.Imovel" />
+		
+		<!-- Mapeamento das entidades DO PROJETO NOVO PAINEL GERENCIAL -->
+		<mapping class="br.com.odontoclinic.model.base.gestudo.Painel" />
+		<mapping class="br.com.odontoclinic.model.base.gestudo.Assunto" />
+		<mapping class="br.com.odontoclinic.model.base.gestudo.Cliente" />
+		<mapping class="br.com.odontoclinic.model.base.gestudo.Historico" />
+<!-- 	<mapping class="br.com.odontoclinic.model.base.gestudo.Ticket" /> -->
+
+		<!-- Mapeamento das entidades DA PROVA NASTEK -->
+		<mapping class="br.com.odontoclinic.model.base.prova.Produto" />
 
 	</session-factory>
 </hibernate-configuration>

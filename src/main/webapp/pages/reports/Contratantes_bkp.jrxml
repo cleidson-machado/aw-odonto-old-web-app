@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Contratantes" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="418aa6f8-b0fd-4f2a-a37d-083f2115eb09">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="OdontoContractE Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT dbo."Contratante".sobre_nome,
+	dbo."Contratante".nome,
+	dbo."Contratante".dta_nascimento,
+	dbo."Contratante".dta_cadastro,
+	dbo."Contratante".num_cpf,
+	dbo."Contratante".num_cnpj
+FROM dbo."Contratante"
+ORDER BY dbo."Contratante".nome DESC]]>
+	</queryString>
+	<field name="sobre_nome" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="dta_nascimento" class="java.sql.Date"/>
+	<field name="dta_cadastro" class="java.sql.Date"/>
+	<field name="num_cpf" class="java.lang.String"/>
+	<field name="num_cnpj" class="java.lang.String"/>
+	<background>
+		<band height="85" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#D9CACA" uuid="9734aac9-714e-4abd-8e06-22dba353e4bc"/>
+				<graphicElement>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="220" y="0" width="100" height="20" uuid="abc2c1e2-d936-4e77-a9bc-a71f257891f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="100" height="20" uuid="8012e135-448c-4105-abb6-ecafbccc158d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="e08bd7cf-d9b1-4d08-bab3-92901a8dc80d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Primeiro Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="100" height="20" uuid="5e0e12cc-0d4f-453e-b9c9-00f652d9fe42"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="100" height="20" uuid="3f386d06-b313-4045-9b29-493343298ca6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nascimento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="110" y="0" width="100" height="15" uuid="fb2b2066-5cac-4f87-965c-bb7179f703e6"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dta_nascimento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="220" y="0" width="100" height="15" uuid="04ed3ac6-36bc-487d-9ac8-806b68b06f39">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{dta_cadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="15" uuid="c0aefda6-a1d1-4f49-b682-06a0c9b8fcf1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="15" uuid="e17092a0-67ff-4947-bc17-934c75b2187c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{num_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="15" uuid="1f1dfa02-ac4f-4baf-8ed0-3761b46c3d7f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{num_cpf}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-1" width="555" height="1" uuid="02984ecb-a25f-4d09-9fe1-14572da1319d"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="14" width="555" height="1" uuid="fedcaf3c-5754-42da-849e-8abcbe19d186"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

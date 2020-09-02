@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+     
+	<f:loadBundle basename="Messages" var="msgBundle" />
+	
+<!-- 	LAYOUT CRIADO ESPECÍFICAMENTE PARA PROJETO PAINEL GERENCIAL -->
+	
+    <h:head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <h:outputStylesheet library="css" name="westmenu.css"/>
+        <h:outputStylesheet library="css" name="pfcrud.css"/>
+    </h:head>
+
+    <h:body>
+        
+        <p:growl id="msgGlobal" sticky="true" life="1000"/>
+
+        <p:layout fullPage="true">
+        
+            <p:layoutUnit 	header="#{msgBundle.AppName}"
+            				position="north" 
+            				size="75" >
+                <ui:include src="/menus/north_menu.xhtml"/>
+            </p:layoutUnit>
+            
+            <p:layoutUnit 	header="PAINEL INDÍCES / Observações Afins" 
+            				position="south" 
+            				size="0"
+							resizable="true"
+							closable="true" 
+							collapsible="true" >
+			</p:layoutUnit>
+            
+			<p:layoutUnit 	id="layoutPainelList"
+			            	position="west" 
+							maxSize="345"
+							minSize="345"
+							header="... Menu Interativo ..."
+							resizable="true"
+							collapsed="false" 
+							closable="true"
+							collapsible="true"
+							rendered="false"  >
+							
+			<ui:insert 	name="painelWestList"/>
+							
+			</p:layoutUnit>            
+
+            <p:layoutUnit 	position="center">
+                <ui:insert 	name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

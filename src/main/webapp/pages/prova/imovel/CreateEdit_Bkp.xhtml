@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DOS IMOVEIS ########################### INICIO -->
+
+<p:dialog widgetVar="dialogo"
+		  header="Imóveis - Cadastro" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="true"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel  value="CONTRIB.: " />
+	<p:selectOneMenu filter="true"
+					 filterMatchMode="contains"
+					 value="#{imovelBean.imovel.contribuinte}"
+					 converter="omnifaces.SelectItemsConverter" >
+				
+				<f:selectItem itemLabel="Contribuinte..."
+							  noSelectionOption="true"/>
+				
+				<f:selectItems value="#{contribuinteBean.contribuintes}"
+							   var="contribuinte"
+							   itemValue="#{contribuinte}"
+							   itemLabel="#{contribuinte.nome} #{contribuinte.sobreNome}"/>
+	</p:selectOneMenu>
+
+	<p:outputLabel  value="ZONA: " />
+	<p:selectOneMenu 	value="#{imovelBean.imovel.zona}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{imovelBean.label1}"
+								var="vlr"
+								itemLabel="#{vlr.label1}"
+								itemValue="#{vlr.value1}"/>
+	</p:selectOneMenu>
+	
+	<p:outputLabel  value="SETOR: " />
+	<p:selectOneMenu 	value="#{imovelBean.imovel.setor}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{imovelBean.label2}"
+								var="vlr"
+								itemLabel="#{vlr.label2}"
+								itemValue="#{vlr.value2}"/>
+	</p:selectOneMenu>
+					
+	<p:outputLabel  value="QUADRA: " />
+	<p:selectOneMenu 	value="#{imovelBean.imovel.quadra}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{imovelBean.label3}"
+								var="vlr"
+								itemLabel="#{vlr.label3}"
+								itemValue="#{vlr.value3}"/>
+	</p:selectOneMenu>
+					
+	<p:outputLabel  value="LOTE: " />
+	<p:selectOneMenu 	value="#{imovelBean.imovel.lote}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{imovelBean.label4}"
+								var="vlr"
+								itemLabel="#{vlr.label4}"
+								itemValue="#{vlr.value4}"/>
+	</p:selectOneMenu>
+
+	<p:outputLabel  value="UNIDADE: " />
+	<p:inputText 	maxlength="5" 
+					size="10" value="#{imovelBean.imovel.unidade}" />
+	
+	<p:outputLabel  value="INSCRIÇÃO: " rendered="false" />
+	<p:inputText 	maxlength="5" 
+					size="10" value="#{imovelBean.imovel.inscricao}" rendered="false" />
+
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnSalvar"
+				 rendered="#{imovelBean.imovel.codigo == null}"
+				 value="Salvar" 
+				 actionListener="#{imovelBean.salvar}"
+				 update=":msgGlobal 
+				 		:formCadastro:painel 
+				 		:listForm:tabela" />
+				 		
+<p:commandButton id="btnEditar"
+				 rendered="#{imovelBean.imovel.codigo != null}"
+				 value="Editar" 
+				 actionListener="#{imovelBean.editarSalvarImovelContribuinte}"
+				 update=":msgGlobal 
+					     :formCadastro:painel 
+					     :listForm:tabela"
+				 oncomplete="PF('dialogo').hide();" />
+
+<p:commandButton id="btnFechar" 
+				 value="Fechar"
+			     actionListener="#{imovelBean.novo}"
+				 update=":formCadastro:painel
+						 :formCadastro:btns"
+				 oncomplete="PF('dialogo').hide();" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

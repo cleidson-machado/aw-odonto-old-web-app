@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f838360-9375-461e-98ee-d93580f0dd72">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[b2RvbnRvY29udHJhY3RlLmNvbnRyYXRhbnRlIEFTICwzMCwxMzksMDIyOTVkMzEtZGRkNy00Mjc2
+LTgyYzYtMjEzMWU3N2Y2YTZjOw==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="OdontoContractE Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT odontocontracte.contratante.num_cnpj,
+	odontocontracte.contratante.num_cpf,
+	odontocontracte.contratante.dta_cadastro,
+	odontocontracte.contratante.dta_nascimento,
+	odontocontracte.contratante.sobre_nome,
+	odontocontracte.contratante.nome
+FROM odontocontracte.contratante]]>
+	</queryString>
+	<field name="num_cnpj" class="java.lang.String"/>
+	<field name="num_cpf" class="java.lang.String"/>
+	<field name="dta_cadastro" class="java.sql.Timestamp"/>
+	<field name="dta_nascimento" class="java.sql.Timestamp"/>
+	<field name="sobre_nome" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="100" height="19" uuid="137c69d9-b4f7-4b10-acd2-cae968c35070"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

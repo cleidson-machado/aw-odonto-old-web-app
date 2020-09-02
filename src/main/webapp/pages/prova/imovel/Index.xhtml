@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/north_layout.xhtml">
+
+<!-- INDEX DO IMOVEL -->
+	
+<!-- ESTUDAR OS SELECTIONS	 -->
+<!-- https://www.primefaces.org/showcase/ui/data/datatable/selection.xhtml -->
+
+<!-- MENUS DE CONTEXTO -->
+<!-- https://www.primefaces.org/showcase/ui/data/datatable/contextMenu.xhtml -->
+
+<!-- FALTA FAZER AINDA -->
+<!-- ARRUMAR O BUSCAS DOS IMÓVEIS -->
+<!-- CRIAR NA SEQUENCIA DESDE IMÓVEIS -->
+
+<!-- CRIAR ALGORÍTIMO PRA SALVAR NA TABELA A QUANTIDADE DE CADA IMÓVEL POR CONTRIBUINTE -->
+<!-- E EXIBIR ESSA QUANTIDADE EM NÚMERO NA DATA TABLE DE CONTRIBUINTE -->
+
+
+<!-- OK JÁ CONCLUIDO -->
+<!-- COLOCAR NOME DO CONTRIBUINTE NO overlayPanel DA LIST RESPECTIVA EM FORMA DE TOOLBAR -->
+	
+	<ui:define name="title">
+		<h:outputText value="IMÓVEIS - PROVA"></h:outputText>
+	</ui:define>
+	
+	<ui:define name="contratosWestList">
+	<ui:include src="/pages/prova/imovel/ListWest.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+	<ui:include src="/pages/prova/imovel/List.xhtml" />
+	<ui:include src="/pages/prova/imovel/CreateEdit.xhtml" />
+	<ui:include src="/pages/prova/imovel/View.xhtml" />
+    </ui:define>
+
+</ui:composition>

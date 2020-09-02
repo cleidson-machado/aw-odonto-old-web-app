@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DE CADASTRO DOS IMÓVEIS ########################### INICIO -->
+<p:dialog 	
+				widgetVar="dialogoImovel"
+				header="IMÓVEIS - Cadastro" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastroImovel" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel value="ZONA : " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{imovelBean.imovel.zona}" />
+					
+	<p:outputLabel value="SETOR: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{imovelBean.imovel.setor}" />
+	
+	<p:outputLabel value="QUADRA: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{imovelBean.imovel.quadra}" />
+
+	<p:outputLabel value="LOTE:" />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{imovelBean.imovel.lote}" />
+					
+	<p:outputLabel value="UNIDADE:" />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{imovelBean.imovel.unidade}" />
+	
+	<p:outputLabel value="INSCRIÇÃO:" />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{imovelBean.imovel.inscricao}" />
+					
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+				<p:commandButton id="btnSalvar"
+								 rendered="#{imovelBean.imovel.codigo == null}"
+								 value="Salvar" 
+								 actionListener="#{imovelBean.salvar}"
+								 update="	:msgGlobal 
+								 			:formCadastroImovel:painel 
+								 			:contribuinteListForm:tabela" />
+				
+				<p:commandButton id="btnEditar"
+								 rendered="#{contribuinteBean.contribuinte.codigo != null}"
+								 value="Editar" 
+								 actionListener="#{imovelBean.editar}"
+								 update="	:msgGlobal 
+								 			:formCadastroImovel:painel 
+								 			:contribuinteListForm:tabela"
+								 oncomplete="PF('dialogoImovel').hide();" />
+				
+				<p:commandButton process="@this"
+								 value="Fechar"
+								 actionListener="#{imovelBean.novo}"
+								 update=":formCadastroImovel:painel
+										 :formCadastroImovel:btns"
+								 oncomplete="PF('dialogoImovel').hide();" />
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+
+</ui:composition>

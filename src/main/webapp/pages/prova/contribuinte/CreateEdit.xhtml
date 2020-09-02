@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DO CONTRIBUINTE ########################### INICIO -->
+
+<p:dialog widgetVar="dialogo"
+		  header="Contribuinte - Cadastro" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="false"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+	
+	<p:outputLabel  value="RUA NOME:" />
+		<p:selectOneMenu filter="true"
+						 filterMatchMode="contains"
+						 value="#{contribuinteBean.contribuinte.rua}"
+						 converter="omnifaces.SelectItemsConverter" >
+				
+				<f:selectItem itemLabel="Selecione"
+							  noSelectionOption="true"/>
+				
+				<f:selectItems value="#{ruaBean.ruas}"
+							   var="rua"
+							   itemValue="#{rua}"
+							   itemLabel="#{rua.nomeRua}"/>
+        </p:selectOneMenu>
+
+	<p:outputLabel  value="NOME:" />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{contribuinteBean.contribuinte.nome}" />
+	
+	<p:outputLabel  value="SOBRE NOME:" />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{contribuinteBean.contribuinte.sobreNome}" />
+
+	<p:outputLabel  value="CPF:" />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{contribuinteBean.contribuinte.cpf}" />
+					
+	<p:outputLabel  value="NUMERO:" />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{contribuinteBean.contribuinte.numContribuinte}" />
+
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnSalvar"
+				 rendered="#{contribuinteBean.contribuinte.codigo == null}"
+				 value="Salvar" 
+				 actionListener="#{contribuinteBean.salvar}"
+				 update=":msgGlobal 
+				 		 :formCadastro:painel 
+				 		 :listForm:tabela" />
+				 		
+<p:commandButton id="btnEditar"
+				 rendered="#{contribuinteBean.contribuinte.codigo != null}"
+				 value="Editar" 
+				 actionListener="#{contribuinteBean.editarSalvarContribuinteRua}"
+				 update=":msgGlobal 
+					     :formCadastro:painel 
+					     :listForm:tabela"
+				 oncomplete="PF('dialogo').hide();" />
+
+<p:commandButton id="btnFechar" 
+				 value="Fechar"
+			     actionListener="#{contribuinteBean.novo}"
+				 update=":formCadastro:painel
+						 :formCadastro:btns"
+				 oncomplete="PF('dialogo').hide();" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

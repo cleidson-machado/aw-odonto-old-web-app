@@ -69,5 +69,12 @@ public class ReferenciaDAOHibernate implements ReferenciaDAO {
 		List<Referencia> resultados = consulta.list();
 		return resultados;
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }

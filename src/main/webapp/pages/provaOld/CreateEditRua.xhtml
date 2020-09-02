@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DE CADASTRO DAS RUAS ########################### INICIO -->
+<p:dialog 	
+				widgetVar="dialogoRua"
+				header="ENDEREÇOS - Cadastro" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastroRua" >
+
+<h:panelGrid id="painel" columns="2">
+	
+	<p:outputLabel value="TESTE ID CONTRIB.: " />
+	<p:inputText 	maxlength="50" 
+					size="30"
+					placeholder="#{contribuinteBean.contribuinte.codigo}" />
+
+	<p:outputLabel value="FINALIDADE: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{ruaBean.rua.tipoEnd}" />
+	
+	<p:outputLabel value="TIPO: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{ruaBean.rua.tipoLogradouro}" />
+					
+	<p:outputLabel value="NOME: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{ruaBean.rua.logradouro}" />
+
+	<p:outputLabel value="NÚM.: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{ruaBean.rua.numImovelLote}" />
+	
+	<p:outputLabel value="BAIRRO: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{ruaBean.rua.bairroDistrito}" />
+	
+	<p:outputLabel value="CEP: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{ruaBean.rua.cepPostal}" />
+					
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+				<p:commandButton id="btnSalvar"
+								 rendered="#{imovelBean.imovel.codigo == null}"
+								 value="Salvar" 
+								 actionListener="#{imovelBean.salvarCapturandoID}"
+								 update="	:msgGlobal 
+								 			:formCadastroRua:painel 
+								 			:contribuinteListForm:tabela" >
+				
+				<f:attribute 	name="imovelSelecionado" value="#{imovelBean.imovel}" />
+				
+				</p:commandButton>
+				
+				<p:commandButton id="btnEditar"
+								 rendered="#{contribuinteBean.contribuinte.codigo != null}"
+								 value="Editar" 
+								 actionListener="#{imovelBean.editar}"
+								 update="	:msgGlobal 
+								 			:formCadastroRua:painel 
+								 			:contribuinteListForm:tabela"
+								 oncomplete="PF('dialogoRua').hide();" />
+				
+				<p:commandButton process="@this"
+								 value="Fechar"
+								 actionListener="#{imovelBean.novo}"
+								 update=":formCadastroRua:painel
+										 :formCadastroRua:btns"
+								 oncomplete="PF('dialogoRua').hide();" />
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+
+</ui:composition>

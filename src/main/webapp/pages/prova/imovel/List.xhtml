@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LIST IMOVEIS ########################### INICIO -->
+<h:form id="listForm">
+
+<p:panel header="( IMOVEL - Listagem Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Imovel"
+								title="Cadastro de Imoveis..." 
+		 						actionListener="#{dtContextImovelView.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastro:painel
+										:formCadastro:btns" />
+			<p:spacer width="5px"/>
+			<p:button icon="ui-icon-search"
+					  outcome="/pages/prova/imovel/busca/Index"
+					  value="Buscas" />
+							 
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item"
+				value="#{dtContextImovelView.imoveis}"
+				emptyMessage="Nenhum IMÓVEL cadastrado!"
+				
+				paginator="true" 
+			 	rows="15"
+			 	paginatorPosition="bottom"
+			 	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			 	rowsPerPageTemplate="5,10,15"
+			 	
+			 	selectionMode="single"
+			 	selection="#{dtContextImovelView.imovel}" 
+			 	rowKey="#{item.codigo}" >
+
+<p:column style="text-align: center; width: 9%" sortBy="#{item.contribuinte.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="NOME do CONTRIBUINTE" /></f:facet>
+					   <h:outputText value="#{item.contribuinte.nome} #{item.contribuinte.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.zona}" rendered="true" >
+<f:facet name="header"><h:outputText value="ZONA" /></f:facet>
+					   <h:outputText value="#{item.zona}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.quadra}" rendered="true" >
+<f:facet name="header"><h:outputText value="SETOR" /></f:facet>
+					   <h:outputText value="#{item.setor}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.lote}" rendered="true" >
+<f:facet name="header"><h:outputText value="QUADRA" /></f:facet>
+					   <h:outputText value="#{item.quadra}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.inscricao}" rendered="true" >
+<f:facet name="header"><h:outputText value="LOTE" /></f:facet>
+					   <h:outputText value="#{item.lote}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.inscricao}" rendered="true" >
+<f:facet name="header"><h:outputText value="UNIDADE" /></f:facet>
+					   <h:outputText value="#{item.unidade}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.inscricao}" rendered="true" >
+<f:facet name="header"><h:outputText value="INSCRIÇÃO" /></f:facet>
+					   <h:outputText value="#{item.inscricao}" />
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 6%" rendered="false">
+	
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!"
+									actionListener="#{dtContextImovelView.editar}"
+									update=":msgGlobal 
+											:listForm:tabela
+											:formCadastro:painel
+											:formCadastro:btns"
+									
+									oncomplete="PF('dialogo').show();" >
+									
+				<f:attribute 		name="imovelSelecionado" value="#{item}" />
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-folder-open"
+									title="Visualização do Registro!" >
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!" 
+									actionListener="#{dtContextImovelView.excluir}"
+									update=":msgGlobal 
+											:listForm:tabela" >
+				
+				<p:confirm 	header="Confirma a Exclusão?" 
+							message="Atenção essa ação não poderá ser Desfeita!"
+							icon="ui-icon-alert" />
+									
+				<f:attribute 		name="imovelSelecionado" value="#{item}" />
+				</p:commandButton>
+	
+</p:column>
+
+				<f:facet name="footer">
+			        Ao todo existem ( #{(dtContextImovelView.imoveis.size())} ) registros.
+			    </f:facet>
+
+</p:dataTable>
+
+<p:contextMenu for="tabela">
+
+		<p:menuitem value="Editar" 
+        			icon="ui-icon-pencil"
+					update=":formCadastro:painel
+							:formCadastro:btns"
+					oncomplete="PF('dialogo').show();" />
+        			
+        <p:menuitem value="Visualizar" 
+        			icon="ui-icon-folder-open"
+        			update=":formView"
+        			oncomplete="PF('viewDialog').show();" />
+
+        <p:menuitem value="Apagar" 
+        			icon="ui-icon-trash"
+        			update=":msgGlobal 
+						    :listForm:tabela"
+				    actionListener="#{dtContextImovelView.excluir2}" >
+		
+		<p:confirm 	header="Confirma a Exclusão?" 
+					message="Atenção essa ação não poderá ser Desfeita!"
+					icon="ui-icon-alert" />
+		
+		</p:menuitem>
+
+</p:contextMenu>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

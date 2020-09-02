@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG IMÓVEL POR CONTRIBUINTE ########################### INICIO -->
+
+	<p:dialog widgetVar="listViewImoveisDialog"
+			  header="Imóveis X Contribuinte - List View" 
+			  draggable="true"  
+			  resizable="false"
+			  modal="true" 
+			  closeOnEscape="true"
+			  appendTo="@(body)" width="900px">
+
+	<h:form id="listViewImoveisForm">
+	
+	<p:panel>
+	<p:toolbar id="imoveisTollBar">
+		<f:facet name="left">
+			<h:outputText rendered="#{not empty contribuinteBean.imoveis}" 
+			value="Foram encontrados ( #{contribuinteBean.imoveis.size()} ) 
+			IMÓVEIS para Contribuinte ( #{contribuinteBean.contribuinte.nome} #{contribuinteBean.contribuinte.sobreNome} )" />
+			
+			<h:outputText rendered="#{empty contribuinteBean.imoveis}" 
+			value="O CONTRIBUINTE ( #{contribuinteBean.contribuinte.nome} #{contribuinteBean.contribuinte.sobreNome} )
+			NÃO POSSUI IMÓVEIS!" />
+			
+		</f:facet>
+	</p:toolbar>
+	
+	<p:dataTable id="imoveisDataTable"
+				 var="item" 
+				 value="#{contribuinteBean.imoveis}" 
+				 emptyMessage="Não existem IMÓVEIS Cadastrados para o CONTRIBUINTE Selecionado!" >
+	
+	<p:column style="text-align: center; width: 15px" sortBy="#{item.codigo}">
+	<f:facet name="header" ><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{item.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.zona}">
+	<f:facet name="header"><h:outputText value="ZONA" /></f:facet>
+						   <h:outputText value="#{item.zona}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.setor}">
+	<f:facet name="header"><h:outputText value="SETOR" /></f:facet>
+						   <h:outputText value="#{item.setor}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.quadra}">
+	<f:facet name="header"><h:outputText value="QUADRA" /></f:facet>
+						   <h:outputText value="#{item.quadra}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.lote}">
+	<f:facet name="header"><h:outputText value="LOTE" /></f:facet>
+						   <h:outputText value="#{item.lote}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.unidade}">
+	<f:facet name="header"><h:outputText value="UNIDADE" /></f:facet>
+						   <h:outputText value="#{item.unidade}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.inscricao}">
+	<f:facet name="header"><h:outputText value="INSCRIÇÃO" /></f:facet>
+						   <h:outputText value="#{item.inscricao}" />
+	</p:column>
+	
+	</p:dataTable>
+	
+	</p:panel>
+	
+	</h:form>
+
+	</p:dialog>
+
+</ui:composition>

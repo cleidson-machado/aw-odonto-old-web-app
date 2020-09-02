@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DO CONTRIBUINTE ########################### INICIO -->
+<p:dialog 	
+				widgetVar="dialogo"
+				header="Contribuintes - Cadastro" 
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="false" 
+				appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel value="Nome : " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{contribuinteBean.contribuinte.nome}" />
+					
+	<p:outputLabel value="Sobre Nome: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{contribuinteBean.contribuinte.sobreNome}" />
+	
+	<p:outputLabel value="CPF: " />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{contribuinteBean.contribuinte.cpf}" />
+
+	<p:outputLabel value="Contrib. NUM:" />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{contribuinteBean.contribuinte.numContribuinte}" />
+					
+	<p:outputLabel value="QTD IMOVEIS:" />
+	<p:inputText 	maxlength="30" 
+					size="30" value="#{contribuinteBean.contribuinte.qtdImovel}" />
+					
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+				<p:commandButton id="btnSalvar"
+								 rendered="#{contribuinteBean.contribuinte.codigo == null}"
+								 value="Salvar" 
+								 actionListener="#{contribuinteBean.salvar}"
+								 update="	:msgGlobal 
+								 			:formCadastro:painel 
+								 			:contribuinteListForm:tabela" />
+				
+				<p:commandButton id="btnEditar"
+								 rendered="#{contribuinteBean.contribuinte.codigo != null}"
+								 value="Editar" 
+								 actionListener="#{contribuinteBean.editar}"
+								 update="	:msgGlobal 
+								 			:formCadastro:painel 
+								 			:contribuinteListForm:tabela"
+								 oncomplete="PF('dialogo').hide();" />
+				
+				<p:commandButton process="@this"
+								 value="Fechar"
+								 actionListener="#{contribuinteBean.novo}"
+								 update=":formCadastro:painel
+										 :formCadastro:btns"
+								 oncomplete="PF('dialogo').hide();" />
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+
+</ui:composition>

@@ -84,7 +84,6 @@ public class ReferenciaBean implements Serializable {
 	public void salvar(){
 		try {
 			ReferenciaRN referenciaRN = new ReferenciaRN();
-			
 			referenciaRN.salvar(referencia);
 			
 			referencia = new Referencia();

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- CONTRIBUINTE VIEW -->
+
+	<p:dialog     widgetVar="viewContribuintedialog"
+				  header="CONTRIBUINTE - View" 
+				  draggable="false"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)">
+			
+	<h:form id="formContrbuinteView">
+
+	<h:panelGroup id="painel">
+	
+	<p:toolbar>
+		<f:facet name="left">
+			<h:outputText value="Data de Criação: " />
+			<h:outputText value="xxxxxx">
+				
+			</h:outputText>
+		</f:facet>
+	</p:toolbar>
+	
+	<p:panelGrid columns="2" columnClasses="column" rendered="#{contribuinteBean.contribuinte != null}">
+
+	<h:outputText value="Nome:" />
+	<h:outputText value="#{contribuinteBean.contribuinte.nome} #{contribuinteBean.contribuinte.sobreNome}" />
+
+	<h:outputText value="CPF:" />
+	<h:outputText value="#{contribuinteBean.contribuinte.cpf}" />
+	
+	<p:outputLabel value="Contrib. NUM:" />
+	<h:outputText value="#{contribuinteBean.contribuinte.numContribuinte}" />
+
+	<h:outputText value="QTD IMOVEIS:" />
+	<h:outputText value="#{contribuinteBean.contribuinte.qtdImovel}">
+	</h:outputText>
+	
+</p:panelGrid>
+
+<p:commandButton value="Fechar"
+			     update="painel,
+						:contribuinteListForm:tabela,
+						:msgGlobal" 
+				 onclick="PF('viewContribuintedialog').hide()" />
+
+<p:commandButton process="@this"
+				 icon="ui-icon-trash" 
+				 value="Excluir"
+                 actionListener="#{contribuinteBean.excluir}" 
+                 update="painel,
+						:contribuinteListForm:tabela,
+						:msgGlobal"
+                 oncomplete="PF('viewContribuintedialog').hide()" >
+            
+            <p:confirm 
+			            header="Confirma a Exclusão?" 
+			            message="Atenção essa ação não poderá ser Desfeita!" 
+			            icon="ui-icon-alert"/>
+			
+			<f:attribute name="contribuinteSelecionado" 
+			             value="#{contribuinteBean.contribuinte}" />
+            
+</p:commandButton>
+
+	</h:panelGroup>
+	
+	</h:form>
+	 	  
+	</p:dialog>
+
+</ui:composition>

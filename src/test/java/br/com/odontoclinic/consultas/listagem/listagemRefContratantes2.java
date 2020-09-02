@@ -26,7 +26,7 @@ public class listagemRefContratantes2 {
 		// #####################################################################################		
 		ReferenciaRN referenciaRN = new ReferenciaRN();
 		
-		long codigo = 42L;
+		long codigo = 2L;
 	
 		List<Referencia> testeConsulta = referenciaRN.listaRefContratante(codigo);
 		

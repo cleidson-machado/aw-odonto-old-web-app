@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DOS IMOVEIS ########################### INICIO -->
+
+<p:dialog widgetVar="dialogo"
+		  header="Imóveis - Cadastro" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="true"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="painel" columns="2">
+
+	<p:outputLabel  value="CONTRIB.: " rendered="false" />
+	<p:commandButton value="NOVO" />
+	<p:selectOneMenu filter="true"
+					 filterMatchMode="contains"
+					 value="#{dtContextImovelView.imovel.contribuinte}"
+					 converter="omnifaces.SelectItemsConverter" >
+				
+				<f:selectItem itemLabel="Contribuinte..."
+							  noSelectionOption="true"/>
+				
+				<f:selectItems value="#{contribuinteBean.contribuintes}"
+							   var="contribuinte"
+							   itemLabel="#{contribuinte.nome} #{contribuinte.sobreNome}"
+							   itemValue="#{contribuinte}" />
+	</p:selectOneMenu>
+
+	<p:outputLabel  value="ZONA: " />
+	<p:selectOneMenu 	value="#{dtContextImovelView.imovel.zona}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{dtContextImovelView.label1}"
+								var="vlr"
+								itemLabel="#{vlr.label1}"
+								itemValue="#{vlr.value1}"/>
+	</p:selectOneMenu>
+	
+	<p:outputLabel  value="SETOR: " />
+	<p:selectOneMenu 	value="#{dtContextImovelView.imovel.setor}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{dtContextImovelView.label2}"
+								var="vlr"
+								itemLabel="#{vlr.label2}"
+								itemValue="#{vlr.value2}"/>
+	</p:selectOneMenu>
+					
+	<p:outputLabel  value="QUADRA: " />
+	<p:selectOneMenu 	value="#{dtContextImovelView.imovel.quadra}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{dtContextImovelView.label3}"
+								var="vlr"
+								itemLabel="#{vlr.label3}"
+								itemValue="#{vlr.value3}"/>
+	</p:selectOneMenu>
+					
+	<p:outputLabel  value="LOTE: " />
+	<p:selectOneMenu 	value="#{dtContextImovelView.imovel.lote}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="true" />
+				<f:selectItems 	value="#{dtContextImovelView.label4}"
+								var="vlr"
+								itemLabel="#{vlr.label4}"
+								itemValue="#{vlr.value4}"/>
+	</p:selectOneMenu>
+
+	<p:outputLabel  value="UNIDADE: " />
+	<p:inputText 	maxlength="5" 
+					size="10" value="#{dtContextImovelView.imovel.unidade}" />
+					
+	<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+	<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+	
+	<p:outputLabel  value="COM IMÓVEL: " rendered="true" />
+	<p:selectOneMenu 			value="#{dtContextImovelView.imovel.contribuinte.tipo}"
+							 	filter="true"
+								filterMatchMode="contains" >
+				
+				<f:selectItem 	itemLabel="Selecione    "
+								noSelectionOption="TRUE" />
+				
+				<f:selectItems 	value="#{dtContextImovelView.label4}"
+								var="vlr"
+								itemLabel="#{vlr.label4}"
+								itemValue="#{vlr.value4}"/>
+	</p:selectOneMenu>
+	
+	<p:outputLabel  value="INSCRIÇÃO: " rendered="false" />
+	<p:inputText 	maxlength="5" 
+					size="10" value="#{dtContextImovelView.imovel.inscricao}" rendered="false" />
+
+</h:panelGrid>
+
+<p:separator style="visibility: show; border-bottom-color: black" ></p:separator>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnSalvar"
+				 rendered="#{dtContextImovelView.imovel.codigo == null}"
+				 value="Salvar" 
+				 actionListener="#{dtContextImovelView.salvar}"
+				 update=":msgGlobal 
+				 		:formCadastro:painel 
+				 		:listForm:tabela" />
+				 		
+<p:commandButton id="btnEditar"
+				 rendered="#{dtContextImovelView.imovel.codigo != null}"
+				 value="Editar" 
+				 actionListener="#{dtContextImovelView.editarSalvarImovelContribuinte}"
+				 update=":msgGlobal 
+					     :formCadastro:painel 
+					     :listForm:tabela"
+				 oncomplete="PF('dialogo').hide();" />
+
+<p:commandButton id="btnFechar" 
+				 value="Fechar"
+			     actionListener="#{dtContextImovelView.novo}"
+				 update=":formCadastro:painel
+						 :formCadastro:btns"
+				 oncomplete="PF('dialogo').hide();" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

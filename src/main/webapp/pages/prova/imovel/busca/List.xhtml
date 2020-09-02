@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LIST IMOVEIS BUSCA ########################### INICIO -->
+<h:form id="listForm">
+
+<p:panel header="( IMOVEL - BUSCAS afins... )">
+<p:toolbar rendered="true">
+	<f:facet name="left">
+			<p:outputPanel>
+				<p:spacer width="5px"/>
+					<p:button icon="ui-icon-circle-arrow-w"
+							  outcome="/pages/prova/imovel/Index"
+							  value="Voltar"
+							  rendered="true" />
+				
+				<p:spacer width="5px"/>
+					<p:button icon="ui-icon-search"
+							  value="Buscas"
+							  rendered="false" />
+					<p:commandButton 	icon="ui-icon-search"
+										value="SEM Contribuintes"
+				 						actionListener="#{dtContextImovelView.imoveisSemContribuintes}"
+										update=":msgGlobal 
+												:listForm:tabela" >
+					</p:commandButton>
+				<p:spacer width="5px"/>
+					<p:commandButton 	icon="ui-icon-search"
+										value="COM Contribuintes"
+				 						actionListener="#{dtContextImovelView.imoveisComContribuintes}"
+										update=":msgGlobal 
+												:listForm:tabela" >
+					</p:commandButton>
+				
+				<p:spacer width="5px"/>
+					<p:commandButton 	icon="ui-icon-search"
+										value="TODOS"
+				 						actionListener="#{dtContextImovelView.imoveisTodos}"
+										update=":msgGlobal 
+												:listForm:tabela"
+										rendered="false" >
+					</p:commandButton>
+				<p:spacer width="5px"/>
+					<p:commandButton 	icon="ui-icon-search"
+										value="Busca Nome / Sobre Nome"
+				 						actionListener="#{dtContextImovelView.novo}"
+				 						oncomplete="PF('dialogoBusca').show();"
+										update=":msgGlobal 
+												:listForm:tabela" >
+					</p:commandButton>
+			</p:outputPanel>
+	</f:facet>
+	<f:facet name="right">
+				<p:outputPanel rendered="true">
+				
+						<p:commandButton icon="ui-icon-closethick" 
+										 value="LIMPAR"
+										 actionListener="#{dtContextImovelView.imoveisTodos}"
+										 update=":msgGlobal 
+												:listForm:tabela">
+						</p:commandButton>
+						
+					</p:outputPanel>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{dtContextImovelView.imoveis}"
+				emptyMessage="Nenhum IMÓVEL cadastrado!"
+				paginator="true" 
+			 	rows="15"
+			 	paginatorPosition="bottom"  >
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.zona}" 
+									 			filterBy="#{item.zona}"
+												filterMatchMode="contains"
+									 			rendered="true" >
+<f:facet name="header"><h:outputText value="ZONA" /></f:facet>
+					   <h:outputText value="#{item.zona}" />
+</p:column>
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.setor}" 
+												filterBy="#{item.setor}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="SETOR" /></f:facet>
+					   <h:outputText value="#{item.setor}" />
+</p:column>
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.quadra}" 
+												filterBy="#{item.quadra}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="QUADRA" /></f:facet>
+					   <h:outputText value="#{item.quadra}" />
+</p:column>
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.lote}" 
+												filterBy="#{item.lote}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="LOTE" /></f:facet>
+					   <h:outputText value="#{item.lote}" />
+</p:column>
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.unidade}" 
+												filterBy="#{item.unidade}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="UNIDADE" /></f:facet>
+					   <h:outputText value="#{item.unidade}" />
+</p:column>
+
+<p:column style="text-align: center; width: 6%" sortBy="#{item.inscricao}" 
+												filterBy="#{item.inscricao}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="INSCRIÇÃO" /></f:facet>
+					   <h:outputText value="#{item.inscricao}" />
+</p:column>
+
+<p:column style="text-align: center; width: 9%" sortBy="#{item.contribuinte.nome} #{item.contribuinte.sobreNome}" 
+												filterBy="#{item.contribuinte.nome} #{item.contribuinte.sobreNome}"
+												filterMatchMode="contains"
+												rendered="true" >
+<f:facet name="header"><h:outputText value="NOME do CONTRIBUINTE" /></f:facet>
+					   <h:outputText value="#{item.contribuinte.nome} #{item.contribuinte.sobreNome}" />
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 6%" rendered="false" >
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!"
+									actionListener="#{dtContextImovelView.editar}"
+									update=":msgGlobal 
+											:listForm:tabela
+											:formCadastro:painel
+											:formCadastro:btns"
+									
+									oncomplete="PF('dialogo').show();" >
+									
+				<f:attribute 		name="imovelSelecionado" value="#{item}" />
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-folder-open"
+									title="Visualização do Registro!"
+									rendered="false" >
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!"
+									rendered="false" >
+				</p:commandButton>
+	
+</p:column>
+
+</p:dataTable>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

@@ -7,18 +7,21 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/north_layout.xhtml">
 	
-	<!-- INDEX DA SESSÃO DA CRUD DE CONTRATO -->
+	<!-- INDEX DA SESSÃO DE CRUD NOS CONTRATOS -->
+	<!-- AQUI DEIXEI O DATA TABLE DOS CONTRATOS NA DEFAULT JUNTO COM A LISTA DE.. -->
+	<!-- BOTÕES COM A BASE DAS FASES DE NAVEGAÇÃO AFIM -->
 	
 	<ui:define name="title">
 		<h:outputText value="Index Site..."></h:outputText>
 	</ui:define>
 
+	<!-- LISTA DOS SIGA OS PASSOS ABAIXO -->
 	<ui:define name="contratosWestList">
 			<ui:include src="/pages/contrato/ListWest.xhtml" />
 	</ui:define>
 
-	 <ui:define name="body">
-	 
+	<ui:define name="body">
+
 	<ui:include src="/pages/contrato/List.xhtml" />
 	<ui:include src="/pages/contrato/CreateEdit.xhtml" />
 

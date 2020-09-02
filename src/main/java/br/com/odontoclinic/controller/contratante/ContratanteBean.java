@@ -1,13 +1,17 @@
 package br.com.odontoclinic.controller.contratante;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.odontoclinic.model.base.contratante.Contratante;
@@ -16,6 +20,11 @@ import br.com.odontoclinic.regras.validacao.ValidateCpfCnpj;
 import br.com.odontoclinic.stuff.contratante.ContratanteENum;
 import br.com.odontoclinic.stuff.contratante.ContratanteRN;
 import br.com.odontoclinic.stuff.referencia.ReferenciaRN;
+import br.com.odontoclinic.util.HibernateUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -312,6 +321,27 @@ public class ContratanteBean implements Serializable {
 	public void salvarEditandoCamadaFuncional(){
 		this.contratante.setCamada("copa");
 		salvarEditando();
+	}
+	
+	//MÉTODO ESPECIAL PARA INTERAGIR COM RELATÓRIOS DO JASPER REPORT...
+	//testar com debug...antes de qualquer coisa...
+	public void imprimir(){
+		try {
+			String caminho = Faces.getRealPath("/pages/reports/Blank_A4.jasper");
+			
+			Map<String, Object> parametros = new HashMap<>();
+			
+			Connection conexao = HibernateUtil.getConexao();
+			
+			JasperPrint relatorio =JasperFillManager.fillReport(caminho, parametros, conexao);
+			
+			JasperPrintManager.printReport(relatorio, true);
+			
+		} catch (JRException erro) {
+			Messages.addGlobalError("Ocorreu um ERRO ao tentar gerar o Relatório!");
+			erro.printStackTrace();
+		}
+			
 	}
 	
 }

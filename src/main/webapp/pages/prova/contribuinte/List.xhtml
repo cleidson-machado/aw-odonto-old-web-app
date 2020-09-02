@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LIST CONTRIBUINTES ########################### INICIO -->
+<h:form id="listForm">
+
+<p:panel header="( CONTRIBUINTES - Listagem Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Contribuinte"
+								title="Cadastro de Novos Contribuintes..." 
+		 						actionListener="#{contribuinteBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastro:painel
+										:formCadastro:btns" />
+			<p:spacer width="5px"/>
+			<p:button icon="ui-icon-search"
+					  outcome="/pages/prova/buscas/Index"
+					  value="Buscas" />
+							 
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:overlayPanel id="panelLocalTest"
+				style="width:756px"
+				widgetVar="localPanelImoveis" 
+				showEffect="fade" 
+				hideEffect="fade" 
+				dismissable="false" 
+				showCloseIcon="true" 
+				appendToBody="false" >
+
+<p:outputPanel id="imoveisDetail" style="text-align:center;" >
+	<p:panel id="nomeTopo"
+			 header="( Lista de Imóveis para Contribuinte: 
+			 		 #{contribuinteBean.contribuinte.nome} 
+					 #{contribuinteBean.contribuinte.sobreNome} )">
+	<p:dataTable id="imoveisTesteDataTable"
+				 var="item" 
+				 value="#{contribuinteBean.imoveis}" 
+				 emptyMessage="Não existem IMÓVEIS Cadastrados para o CONTRIBUINTE Selecionado!"
+				 selectionMode="single"
+				 rowKey="#{item.codigo}" >
+
+	<p:column selectionMode="single" style="width:1px;text-align:center" rendered="false"/>
+	
+	<p:column style="text-align: center; width: 15px" sortBy="#{item.codigo}" rendered="false">
+	<f:facet name="header" ><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{item.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.zona}">
+	<f:facet name="header"><h:outputText value="ZONA" /></f:facet>
+						   <h:outputText value="#{item.zona}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.setor}">
+	<f:facet name="header"><h:outputText value="SETOR" /></f:facet>
+						   <h:outputText value="#{item.setor}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.quadra}">
+	<f:facet name="header"><h:outputText value="QUADRA" /></f:facet>
+						   <h:outputText value="#{item.quadra}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.lote}">
+	<f:facet name="header"><h:outputText value="LOTE" /></f:facet>
+						   <h:outputText value="#{item.lote}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.unidade}">
+	<f:facet name="header"><h:outputText value="UNIDADE" /></f:facet>
+						   <h:outputText value="#{item.unidade}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 30px" sortBy="#{item.inscricao}">
+	<f:facet name="header"><h:outputText value="INSCRIÇÃO" /></f:facet>
+						   <h:outputText value="#{item.inscricao}" />
+	</p:column>
+	
+	<f:facet name="footer">
+	Ao todo existem ( #{(contribuinteBean.imoveis.size())} ) registros.
+	</f:facet>
+	
+	</p:dataTable>
+	</p:panel>
+</p:outputPanel>
+
+</p:overlayPanel>
+
+<p:dataTable id="tabela" 
+			 var="item" 
+			 value="#{contribuinteBean.contribuintes}"
+			 emptyMessage="Nenhuma RUA cadastrada!"
+			 
+			 paginator="true" 
+			 	rows="15"
+			 	paginatorPosition="bottom"
+			 	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			 	rowsPerPageTemplate="5,10,15" >
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 9%" sortBy="#{item.rua.nomeRua}" rendered="true" >
+<f:facet name="header"><h:outputText value="RUA / ENDEREÇO" /></f:facet>
+					   <h:outputText value="#{item.rua.tipoRua}: #{item.rua.nomeRua}" />
+</p:column>
+
+<p:column style="text-align: center; width: 7%" sortBy="#{item.numContribuinte}" rendered="true" >
+<f:facet name="header"><h:outputText value="NUM. Contrib." /></f:facet>
+					   <h:outputText value="#{item.numContribuinte}" />
+</p:column>
+
+<p:column style="text-align: center; width: 7%" sortBy="#{item.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="NOME" /></f:facet>
+					   <h:outputText value="#{item.nome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 8%" sortBy="#{item.sobreNome}" rendered="true" >
+<f:facet name="header"><h:outputText value="SOBRE NOME" /></f:facet>
+					   <h:outputText value="#{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 7%" sortBy="#{item.cpf}" rendered="true" >
+<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+					   <h:outputText value="#{item.cpf}" />
+</p:column>
+
+<p:column style="text-align: center; width: 4%" rendered="true" >
+<f:facet name="header"><h:outputText value="IMOV." /></f:facet>
+			
+			<p:commandButton id="ORIGINAL"
+							 rendered="false" 
+							 icon="ui-icon-search"
+							 value="L1"
+					   		 actionListener="#{contribuinteBean.imoveisPorContribuinte}"
+					   		 update=":msgGlobal
+						 	 		 :listViewImoveisForm:imoveisTollBar 
+						 	 		 :listViewImoveisForm:imoveisDataTable"
+						 	 oncomplete="PF('listViewImoveisDialog').show()"
+						 	 ajax="true"
+						 	 disabled="#{item.tipo == null}" >
+						 	 
+			<f:attribute 	name="contribuinteSelecionado" value="#{item}" />
+			
+			</p:commandButton>
+			
+			<p:commandButton id="xxxTestOverlayPanel"
+							 rendered="true" 
+							 icon="ui-icon-search"
+							 value="L2"
+					   		 actionListener="#{contribuinteBean.imoveisPorContribuinte}"
+					   		 update=":msgGlobal 
+					   		 		 :listForm:nomeTopo
+					   		 		 :listForm:imoveisTesteDataTable"
+						 	 oncomplete="PF('localPanelImoveis').show()"
+						 	 disabled="#{item.tipo == null}" >
+						 	 
+			<f:attribute 	name="contribuinteSelecionado" value="#{item}" />
+			
+			</p:commandButton>
+			
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 7%" rendered="true" >	
+				<p:spacer width="5px"/>				
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!"
+									actionListener="#{contribuinteBean.editar}"
+									update=":msgGlobal 
+											:listForm:tabela
+											:formCadastro:painel
+											:formCadastro:btns"
+									
+									oncomplete="PF('dialogo').show();" >
+									
+				<f:attribute 		name="contribuinteSelecionado" value="#{item}" />
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-folder-open"
+									title="Visualização do Registro!" >
+				</p:commandButton>
+				
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!"
+									actionListener="#{contribuinteBean.excluir}"
+									update=":msgGlobal
+											:listForm:tabela" >
+									
+				<p:confirm 	header="Confirma a Exclusão?" 
+							message="Atenção essa ação não poderá ser Desfeita!"
+							icon="ui-icon-alert" />
+				
+				<f:attribute 	name="contribuinteSelecionado" value="#{item}" />
+				
+				</p:commandButton>
+					
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

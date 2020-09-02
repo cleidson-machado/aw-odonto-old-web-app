@@ -9,66 +9,63 @@
     <ui:composition>
         <h:form id="menuNorth">
             <p:menubar>
-                <p:menuitem value="#{msgBundle.Home}..." outcome="/Default" icon="ui-icon-home"/>
-                
-                <f:facet name="rigth"></f:facet>
+                <p:menuitem 
+                			 
+                			outcome="/Default" 
+                			icon="ui-icon-home"
+                			rendered="true"/>
                 
                 <p:submenu label="CADASTRO COMPLEMENTAR" icon="ui-icon-gear">
                 		<p:separator/>
-						<p:menuitem value="Contratadas" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Empresas Contratadas" outcome="/pages/contratada/Index" />
                 		<p:separator/>
                 		<p:menuitem value="Procedimentos Odonto..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
-						<p:separator/>
 						<p:menuitem value="Material Extra..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
-						<p:separator/>
-						<p:menuitem value="Terceiros / Conveniados..." outcome="/pages/item/procedimento/Index" />
+						<p:menuitem value="Terceiros Conveniados..." outcome="/pages/item/procedimento/Index" />
                 		<p:separator/>
                 </p:submenu>
                 
-                 <p:submenu label="VENDAS / CAIXA R$" icon="ui-icon-gear">
+                 <p:submenu label="VENDAS / CAIXA R$" icon="ui-icon-cart">
                 		<p:separator/>
 						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
                  		<p:separator/>
-                		<p:separator/>
 						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
 						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
 						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
 						<p:separator/>
                  </p:submenu>
                  
-                 <p:submenu label="RELATÓRIOS" icon="ui-icon-gear">
+                 <p:submenu label="RELATÓRIOS" icon="ui-icon-document">
                 		<p:separator/>
-						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Contratos Recentes..." outcome="/pages/contratada/Index" />
+						<p:separator/>
+						<p:menuitem value="Lista de Inadinplentes..." outcome="/pages/contratada/Index" />
+						<p:separator/>
+						<p:menuitem value="Analisador de Risco..." outcome="/pages/contratada/Index" />
                  		<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Valores e Datas..." outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Lista de Contratantes..." outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Lista de Endereços..." outcome="/pages/contratada/Index" />
+						<p:separator/>
+						<p:menuitem value="Lista de Usuários" outcome="/pages/contratada/Index" />
 						<p:separator/>
                  </p:submenu>
                  
-                 <p:submenu label="SOBRE O SISTEMA" icon="ui-icon-gear">
+                 <p:submenu label="SOBRE O SISTEMA" icon="ui-icon-lightbulb" rendered="false">
                 		<p:separator/>
-						<p:menuitem value="por Contrato" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Como Utilizar..." outcome="/pages/contratada/Index" />
                  		<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Procedimento" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Principais Funções..." outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Contratante" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Siga o Passo-a-Passo..." outcome="/pages/contratada/Index" />
 						<p:separator/>
-                		<p:separator/>
-						<p:menuitem value="por Paciente" outcome="/pages/contratada/Index" />
+						<p:menuitem value="Desenvolvido por..." outcome="/pages/contratada/Index" />
 						<p:separator/>
                  </p:submenu>
                 
@@ -76,6 +73,54 @@
                 	<p:menuitem value="Cadastro Procedimentos" outcome="/pages/item/procedimento/Index" />
                 	<p:separator/>
                 </p:submenu>
+                
+                <p:submenu label="PROJETO PAINEL" icon="ui-icon-lightbulb" rendered="true">
+                		<p:separator/>
+						<p:menuitem value="PAINEL" outcome="/pages/gestudo/painel2/Index" />
+                 		<p:separator/>
+						<p:menuitem value="CLIENTE" outcome="/pages/gestudo/cliente/Index" />
+						<p:separator/>
+                 </p:submenu>
+                
+                 <p:submenu label="CADASTRO PROVA" icon="ui-icon-gear">
+                		<p:separator/>
+						<p:menuitem value="IMÓVEIS" outcome="/pages/prova/imovel/Index" />
+                		<p:separator/>
+                		<p:menuitem value="CONTRIBUINTES" outcome="/pages/prova/contribuinte/Index" />
+                		<p:separator/>
+						<p:menuitem value="RUAS" outcome="/pages/prova/rua/Index" />
+                </p:submenu>
+                
+                <f:facet name="options">
+                
+                <p:button 	value="Bem-Vindo(a) : 
+                			#{autenticacaoBean.usuarioLogado.nome}" 
+                			disabled="true" />
+				
+				<p:button 	value="Imóvel. IN" 
+                			icon="ui-icon-person"
+                			outcome="/pages/prova/imovel/Index"
+                			rendered="false"/>
+                			
+				<p:button 	value="Contrib.. IN" 
+                			icon="ui-icon-person"
+                			outcome="/pages/prova/contribuinte/Index"
+                			rendered="false"/>
+
+				<p:button 	value="Rua IN" 
+                			icon="ui-icon-person"
+                			outcome="/pages/prova/rua/Index"
+                			rendered="false"/>	
+                			
+                <p:button 	value="#{msgBundle.User}..." 
+                			icon="ui-icon-person"
+                			outcome="/pages/usuario/Index"/>
+                
+                <p:commandButton
+                				icon="ui-icon-power" 
+                				value="Logoff" 
+                				action="#{autenticacaoBean.sair}"/>
+                </f:facet>
 
             </p:menubar>
         </h:form>

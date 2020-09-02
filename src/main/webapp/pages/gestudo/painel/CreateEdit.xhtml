@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DOS PAINEIS ########################### INICIO -->
+
+<p:dialog widgetVar="dialogo"
+		  header="PAINÉIS - Cadastro" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="false"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastro" >
+
+<h:panelGrid id="formCad" columns="2">
+
+	<p:outputLabel  value="FILA GERAL: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.qtdFilaGeral}" />
+	
+	<p:outputLabel  value="TIPO: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.tipoAtendimento}" />
+	
+	<p:outputLabel  value="NÍVEL: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.nivelAtendimento}" />
+					
+	<p:outputLabel  value="SUPORTE / RAMAL: " />
+	<p:selectOneMenu 
+					 filter="true"
+					 filterMatchMode="contains" 
+					 value="#{painelBean.painel.usuario}"
+					 converter="omnifaces.SelectItemsConverter" >
+	
+	<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+	<f:selectItems 	value="#{painelBean.usuarios}" 
+					var="usuario"
+					itemValue="#{usuario}"
+					itemLabel="#{usuario.nome}" />
+	
+	</p:selectOneMenu>
+
+	<p:outputLabel  value="FILA ESPERA: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.qtdFilaEspera}" />
+
+	<p:outputLabel  value="STATUS FLAG: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.statusFlag}" />
+					
+	<p:outputLabel  value="OBSERVAÇÃO: " />
+	<p:selectOneRadio 	id="console" 
+						value="#{painelBean.painel.itemObservacaoAlerta}"
+						disabled="false" >
+            
+            <f:selectItem 	itemLabel="ON - ATIVADO " 
+            				itemValue="true" />
+            
+            <f:selectItem 	itemLabel=" OFF -DESATIVADO" 
+            				itemValue="false" />
+    </p:selectOneRadio>
+    
+    <p:outputLabel  value="ORIGINAL?: " />
+	<p:selectOneRadio 	id="console2" 
+						value="#{painelBean.painel.original}"
+						disabled="false" 
+						immediate="true" >
+            
+            <f:selectItem 	itemLabel="ON - ATIVADO " 
+            				itemValue="true" />
+            
+            <f:selectItem 	itemLabel=" OFF -DESATIVADO" 
+            				itemValue="false" />
+    </p:selectOneRadio>
+
+	<p:outputLabel  value="ATIVIDADE: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.actionOnDemand}" />
+
+	<p:outputLabel  value="CONTATO: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.contatoNome}" />
+					
+	<p:outputLabel  value="CLIENTE: " />
+		<p:selectOneMenu 
+						 filter="true"
+						 filterMatchMode="contains" 
+						 value="#{painelBean.painel.cliente}"
+						 converter="omnifaces.SelectItemsConverter" >
+		
+		<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+		<f:selectItems 	value="#{painelBean.clientes}" 
+						var="cliente"
+						itemValue="#{cliente}" 
+						itemLabel="#{cliente.sobreNome}" />
+		
+		</p:selectOneMenu>
+
+	<p:outputLabel  value="RESUMO DO ATENDIMENTO: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.painel.resumoChamadoAtual}" />
+
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnSalvar"
+				 rendered="#{painelBean.painel.codigo == null}"
+				 value="Salvar" 
+				 actionListener="#{painelBean.salvar}"
+				 update=":msgGlobal 
+				 		 :formCadastro:formCad
+				 		 :formCadastro:btns 
+				 		 :listForm:tabela" />
+
+<p:commandButton id="btnEditar"
+				 rendered="#{painelBean.painel.codigo != null}"
+				 value="Editar" 
+				 actionListener="#{painelBean.salvarEditando}"
+				 update=":msgGlobal 
+					     :formCadastro:formCad
+					     :formCadastro:btns 
+					     :listForm:tabela"
+				 oncomplete="PF('dialogo').hide();" />
+
+<p:commandButton id="btnFechar" 
+				 value="Fechar"
+			     actionListener="#{painelBean.novo}"
+				 update=":formCadastro:formCad
+						 :formCadastro:btns
+						 :listForm:tabela"
+				 oncomplete="PF('dialogo').hide();" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

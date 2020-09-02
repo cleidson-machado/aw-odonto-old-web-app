@@ -8,7 +8,7 @@ public class GenericEndereco extends GenericPrimaryKey {
 
 	private static final long serialVersionUID = 1L;
 
-	//NOME DO LOGRADOURO como: sinônimo de Rua, Avenida, Travessa
+	//NOME DO LOGRADOURO como: sinônimo de nome da Rua, Avenida, Travessa..
 	@Column(length = 80)
 	private String logradouro;
 	

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog 	header="Usuário - Procedimentos de senha!"
+				widgetVar="changePassWd"
+				draggable="false" 
+				resizable="false" 
+				modal="true"
+				closeOnEscape="true" 
+				closable="true" 
+				appendTo="@(body)">
+
+<h:form id="formChangePass" >
+
+<h:panelGrid id="painel" columns="1">
+
+
+
+	<p:outputLabel 	value="Usuário: #{usuarioBean.usuario.nome} #{usuarioBean.usuario.sobreNome}" />
+	
+	<!-- SENHA ATUAL -->
+	<p:password 	value="#{usuarioBean.usuario.senhaSemCriptografia}"
+					placeholder="Senha Atual"
+					rendered="#{not empty usuarioBean.usuario.senha}"
+					required="true"
+					requiredMessage="Digite a Senha Atual!" />
+	
+	<!-- NOVA SENHA -->
+	<p:password 	value="#{usuarioBean.usuario.novaSenhaSemCripto}"
+					placeholder="Nova Senha"
+					required="true"
+					requiredMessage="Digite a Nova Senha!"
+					feedback="true" 
+					promptLabel="Criar senha de 6 a 8 Dígitos c/ Números e Letras!"
+					weakLabel="Fraca..."
+					goodLabel="Média..."
+					strongLabel="Forte..." />
+	
+	<!-- CONFIRMAÇÃO DA SENHA -->
+	<p:password  	value="#{usuarioBean.usuario.novaSenhaSemCriptoContraprova}"
+					placeholder="Confirme a Nova Senha"
+					required="true"
+					requiredMessage="Digite a Confirmação da Nova Senha!" />
+				
+	
+</h:panelGrid>
+
+	<h:panelGrid id="btnPass" columns="2" >
+	
+				<p:commandButton value="Alterar Senha Anterior..." 
+								 actionListener="#{usuarioBean.trocaPasswd}"
+								 update="	:msgGlobal 
+								 			:formCadastro:painel 
+								 			:usuarioListForm:tabela"
+								 rendered="#{not empty usuarioBean.usuario.senha}"
+								 oncomplete="PF('changePassWd').hide()" />
+				
+				<!-- USADO APENAS AO CRIAR UMA SENHA NOVA! -->
+				<p:commandButton value="Criar Nova Senha..." 
+								 actionListener="#{usuarioBean.salvarPassWd}"
+								 update="	:msgGlobal 
+								 			:formCadastro:painel 
+								 			:usuarioListForm:tabela"
+								 rendered="#{empty usuarioBean.usuario.senha}"
+								 oncomplete="PF('changePassWd').hide()" />
+				
+				<p:commandButton value="Fechar" 
+								 oncomplete="PF('changePassWd').hide();"
+								 process="@this"
+								 rendered="false" />
+	</h:panelGrid>
+
+</h:form>
+
+</p:dialog>	
+                
+</ui:composition>

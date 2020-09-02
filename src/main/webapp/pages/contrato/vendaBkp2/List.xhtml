@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- CARRINHO DE COMPRAS!! -->
+
+	<h:form id="comprasForm">
+	
+	<p:panel header="Item de Procedimentos a escolher">
+
+	<p:dataTable 
+					id="tabProcedimentos" 
+					var="item" 
+					value="#{checkOutProcedimentoBean2.itemProcedimentos}"
+					
+					emptyMessage="Nenhuma PROCEDIMENTO cadastrado!"
+					paginator="true" 
+			 		rows="3"
+			 		
+			 		paginatorPosition="bottom" >
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{item.codigo}" rendered="false" >
+	<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+						   <h:outputText value="#{item.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 90px" sortBy="#{item.nomeItem}" >
+	<f:facet name="header"><h:outputText value="Nome Procedimento" /></f:facet>
+						   <h:outputText value="#{item.nomeItem}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 20px" sortBy="#{item.preco}" >
+	<f:facet name="header"><h:outputText value="Preço R$" /></f:facet>
+						   <h:outputText value="#{item.preco}">
+						   <f:convertNumber locale="pt_br" minFractionDigits="2"/>
+						   </h:outputText>
+	</p:column>
+	
+	<p:column style="text-align: center; width: 20px" sortBy="#{item.notacaoCdiDente}" >
+	<f:facet name="header"><h:outputText value="Número do Dente" /></f:facet>
+						   <h:outputText value="#{item.notacaoCdiDente}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{item.estoque}" >
+	<f:facet name="header"><h:outputText value="Estoque" /></f:facet>
+						   <h:outputText value="#{item.estoque}" />
+	</p:column>
+	
+	<p:column headerText="Adicionar / Remove Item" style="text-align: center; width: 30px">
+				<p:commandButton 	icon="ui-icon-plus" 
+									actionListener="#{checkOutProcedimentoBean2.adicionar}"
+									update=":comprasForm:tabCheckOut 
+											:comprasForm:painelFinalizacao" >
+					<f:attribute name="procedimentoSelecionado" value="#{item}" />
+				</p:commandButton>
+				
+				<p:commandButton 	icon="ui-icon-minus" 
+									actionListener="#{checkOutProcedimentoBean2.subtrair}"
+									update=":comprasForm:tabCheckOut 
+											:comprasForm:painelFinalizacao" >
+					<f:attribute name="procedimentoSelecionado" value="#{item}" />
+				</p:commandButton>
+	</p:column>
+	
+	</p:dataTable>
+	</p:panel>
+
+	<p:panel header="Ckeck Out Procedimentos - Carrinho de Compras">
+	
+	<p:dataTable 
+					id="tabCheckOut" 
+					var="itemCheckOut" 
+					value="#{checkOutProcedimentoBean2.checkOutProcedimentos}"
+					
+					emptyMessage="Cesta de Compras Vazia!"
+					paginator="true" 
+			 		rows="3"
+			 		
+			 		paginatorPosition="bottom" >
+	
+	<p:column style="text-align: center; width: 90px" sortBy="#{itemCheckOut.itemProcedimento.nomeItem}" >
+		<f:facet name="header"><h:outputText value="Nome Procedimento" /></f:facet>
+							   <h:outputText value="#{itemCheckOut.itemProcedimento.nomeItem}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemCheckOut.itemProcedimento.notacaoCdiDente}" >
+		<f:facet name="header"><h:outputText value="CDI" /></f:facet>
+							   <h:outputText value="#{itemCheckOut.itemProcedimento.notacaoCdiDente}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 20px" sortBy="#{itemCheckOut.itemProcedimento.preco}" >
+		<f:facet name="header"><h:outputText value="Preço R$" /></f:facet>
+						   <h:outputText value="#{itemCheckOut.itemProcedimento.preco}">
+						   <f:convertNumber locale="pt_br" minFractionDigits="2"/>
+						   </h:outputText>
+	</p:column>
+	
+	<p:column style="text-align: center; width: 20px" sortBy="#{itemCheckOut.quantidade}" >
+		<f:facet name="header"><h:outputText value="Total Itens" /></f:facet>
+							   <h:outputText value="#{itemCheckOut.quantidade}" />
+		</p:column>
+		
+	<p:column style="text-align: center; width: 20px" sortBy="#{itemCheckOut.valorParcial}" >
+		<f:facet name="header"><h:outputText value="Preço R$ Total" /></f:facet>
+						   <h:outputText value="#{itemCheckOut.precoParcial}">
+						   <f:convertNumber locale="pt_br" minFractionDigits="2"/>
+						   </h:outputText>
+	</p:column>
+	
+	<p:column 	headerText="Excluir Item" 
+				style="text-align: center; 
+				width: 10px">
+				<p:commandButton 	icon="ui-icon-minus"
+									actionListener="#{checkOutProcedimentoBean2.remover}"
+									update=":comprasForm:tabCheckOut :comprasForm:painelFinalizacao" >
+									
+				<f:attribute name="itemProcedimentoSelecionado" value="#{itemCheckOut}" />
+						
+				</p:commandButton>
+	</p:column>
+	
+	</p:dataTable>
+	
+	</p:panel>
+	
+	<p:panel header="Finalização" >
+	
+	<p:panelGrid id="painelFinalizacao" columns="3" >
+		<p:outputLabel value="Total: R$" />
+			<h:outputText value="#{checkOutProcedimentoBean2.contrato.precoTotal}">
+				<f:convertNumber locale="pt_br" minFractionDigits="2"/>
+			</h:outputText>
+		<p:commandButton 	value="Finalizar"
+							actionListener="#{checkOutProcedimentoBean2.finalizar}" 
+							oncomplete="PF('dialogoFinaliza').show();"
+							update=":msgGlobal 
+									:formCadastroVenda:painel" />
+		
+	</p:panelGrid>
+	
+	</p:panel>
+
+	</h:form>
+
+</ui:composition>

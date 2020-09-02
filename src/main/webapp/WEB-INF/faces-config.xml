@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
     version="2.2" >
     
+    <!-- PROJETO AVISO!.. A Autenticação é feita a partir do phase-listener aqui tag lifecycle -->
     <lifecycle>
 		<phase-listener>br.com.odontoclinic.util.AutenticacaoListener</phase-listener>
 	</lifecycle>

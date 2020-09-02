@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LIST CLIENTE ########################### INICIO -->
+<h:form id="listForm">
+
+<p:panel header="( CLIENTE - Listagem Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>			
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Cliente"
+								title="Cadastro de novos Itens..." 
+		 						actionListener="#{clienteBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastro:formCad
+										:formCadastro:btns" />
+
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />				 
+
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{clienteBean.clientes}"
+				emptyMessage="Nenhum Item de CLIENTE cadastrado!"
+				paginator="true" 
+			 	rows="15"
+			 	paginatorPosition="bottom"  >
+
+<p:column style="text-align: center; width: 66%" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 55px" sortBy="#{item.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="NOME" /></f:facet>
+					   <h:outputText value="#{item.nome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 55px" sortBy="#{item.sobreNome}" rendered="true" >
+<f:facet name="header"><h:outputText value="NOME FANTASIA" /></f:facet>
+					   <h:outputText value="#{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.cnpj}" rendered="true" >
+<f:facet name="header"><h:outputText value="CNPJ" /></f:facet>
+					   <h:outputText value="#{item.cnpj}" />
+</p:column>
+
+<p:column style="text-align: center; width: 90px" sortBy="#{item.numClienteLegacy}" rendered="true" >
+<f:facet name="header"><h:outputText value="NUMERO LEGADO" /></f:facet>
+					   <h:outputText value="#{item.numClienteLegacy}" />
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 7%">
+<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!"
+									actionListener="#{clienteBean.editar}"
+									update=":msgGlobal 
+											:listForm:tabela
+											:formCadastro:formCad
+											:formCadastro:btns"
+
+									oncomplete="PF('dialogo').show();" >
+									
+				<f:attribute 		name="clienteSelecionado" value="#{item}" />
+				</p:commandButton>
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

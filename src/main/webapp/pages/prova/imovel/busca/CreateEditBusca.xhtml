@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DOS IMOVEIS ########################### INICIO -->
+
+<p:dialog widgetVar="dialogoBusca"
+		  header="Busca - Teste" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="false"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastroBusca" >
+
+<h:panelGrid id="painel" columns="2">
+	<p:outputLabel  value="NOME / SOBRE NOME: " />
+	<p:inputText 	maxlength="30" 
+					size="25" value="#{dtContextImovelView.contribuinte.nome}" />
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnBuscar"
+				 value="BUSCAR" 
+				 actionListener="#{dtContextImovelView.bucarNomeContratante}"
+				 oncomplete="PF('dialogoBusca').hide();"
+				 update=":msgGlobal 
+				 		:formCadastroBusca:painel 
+				 		:listForm:tabela" />
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog      
+				  widgetVar="viewdialog"
+				  header="Usuários - View" 
+				  draggable="false"  
+				  resizable="false"
+				  modal="true" 
+			 	  closeOnEscape="true"
+			 	  appendTo="@(body)">
+			
+	<h:form id="formView" >
+	
+	<h:panelGroup id="painel">
+	
+	<p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioBean.usuario != null}">
+	
+		<h:outputText value="Nível do Usuário:" />
+		<h:outputText 	value="ADMINISTRADOR" 
+						rendered="#{usuarioBean.usuario.tipo == 'A'}" />
+		<h:outputText 	value="USUÁRIO" 
+						rendered="#{usuarioBean.usuario.tipo == 'U'}" />
+	
+		<h:outputText value="Nome Completo:" />
+		<h:outputText value="#{usuarioBean.usuario.nome} #{usuarioBean.usuario.sobreNome}" />
+		
+		<h:outputText value="E-mail:" />
+		<h:outputText value="#{usuarioBean.usuario.email1}" />
+		
+		<h:outputText value="CPF:" />
+		<h:outputText value="#{usuarioBean.usuario.cpf}" />
+		
+		<h:outputText value="ON / OFF:" />
+		<h:outputText value="ON - ATIVADO" rendered="#{usuarioBean.usuario.ativo == true}" />
+		<h:outputText value="OFF - DESATIVADO" rendered="#{usuarioBean.usuario.ativo != true}" />
+		
+		<h:outputText value="Data Cadastral:" />
+		<h:outputText value="#{usuarioBean.usuario.dtaCadastro}">
+			<f:convertDateTime  pattern="dd-MM-YYYY"/>
+		</h:outputText>
+		
+	</p:panelGrid>
+	
+	<p:panelGrid id="btns" columns="2">
+	
+		<p:commandButton 	icon="ui-icon-trash"
+							title="Exluir o Cadastro!"
+							value="Excluir!"
+							actionListener="#{usuarioBean.excluir}"
+							update=":msgGlobal 
+									:usuarioListForm:tabela" 
+							oncomplete="PF('viewdialog').hide();" >
+						
+			<p:confirm 		header="ATENÇÃO! ( A Exclusão de Usuário é definitiva! )" 
+							message="EXCLUIR o REGISTRO de? #{usuarioBean.usuario.nome} "
+							icon="ui-icon-alert" />
+						
+			<f:attribute 	name="usuarioSelecionado" value="#{usuarioBean.usuario}" />
+					
+		</p:commandButton>
+	
+	</p:panelGrid>
+	
+	</h:panelGroup>
+	
+	</h:form>
+	 	  
+	</p:dialog>
+
+</ui:composition>

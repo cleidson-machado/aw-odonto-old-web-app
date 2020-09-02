@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<!-- IMÓVEL VIEW DIALOG -->
+
+	<p:dialog widgetVar="viewDialog" 
+			  header="IMÓVEL - View"
+			  draggable="true" 
+		  	  resizable="false" 
+		  	  modal="true"
+		  	  closable="true"
+		  	  closeOnEscape="true" 
+			  appendTo="@(body)" >
+
+
+		<h:form id="formView">
+
+			<h:panelGroup id="painel">
+
+				<p:toolbar>
+					<f:facet name="left">
+						<h:outputText value="CONTRIBUINTE: " />
+						<h:outputText value="#{dtContextImovelView.imovel.contribuinte.nome} #{dtContextImovelView.imovel.contribuinte.sobreNome}"/>
+					</f:facet>
+				</p:toolbar>
+
+				<p:panelGrid columns="2" 
+							 columnClasses="column"
+							 rendered="#{dtContextImovelView.imovel != null}" >
+				
+				<h:outputText value="INSCRIÇÃO: " />
+				<h:outputText value="#{dtContextImovelView.imovel.inscricao}"/>
+				
+				<h:outputText value="ZONA: " />
+				<h:outputText value="#{dtContextImovelView.imovel.zona}"/>
+				
+				<h:outputText value="SETOR: " />
+				<h:outputText value="#{dtContextImovelView.imovel.setor}"/>
+				
+				<h:outputText value="QUADRA: " />
+				<h:outputText value="#{dtContextImovelView.imovel.quadra}"/>
+				
+				<h:outputText value="LOTE: " />
+				<h:outputText value="#{dtContextImovelView.imovel.lote}"/>
+
+				</p:panelGrid>
+				
+				<p:commandButton value="Fechar"
+				 				 onclick="PF('viewDialog').hide()" />
+
+			</h:panelGroup>
+
+		</h:form>
+
+
+	</p:dialog>
+
+</ui:composition>

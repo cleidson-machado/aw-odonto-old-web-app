@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui" 
+				xmlns:jsf="http://xmlns.jcp.org/jsf" >
+
+	<div class="west-grid west-grid-responsive">
+		<div class="west-grid-row" id="navegabtn">
+
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-circle-triangle-w" 
+							value="anterior"
+							outcome="/pages/referencia/Index"/>
+			</div>
+
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-home" 
+							value="Home"
+							outcome="/Default"/>
+			</div>
+
+			<div class="west-grid-col-4" align="center">
+				<p:button 	icon="ui-icon-circle-triangle-e" 
+							value="proximo"
+							outcome="/pages/endereco/Index"/>
+			</div>
+
+		</div>
+
+		<div class="west-grid-row" id="imgpasso">	
+			<h:graphicImage value="/resources/imgs/03passotba.png" />
+		</div>
+
+		<div class="west-grid-row">
+			<div class="west-grid-col-8" id="txtdescritivo">
+				<label>PACIENTES --- pretium quam et urna. Fusce nibh. Duis risus. Curabitur sagittis hendrerit ante. Aliquam erat volutpat. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Duis condimentum augue id magna semper rutrum. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Fusce consectetuer risus a nunc. Aliquam ornare wisi eu metus.  Duis condimentum augue id magna semper rutrum. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Integer pellentesque quam vel velit. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Integer pellentesque quam vel velit.</label>
+			</div>
+			<div class="west-grid-col-4">
+				<h:graphicImage value="#{resource['imgs/icone_lateral.png']}" />
+			</div>
+		</div>
+		
+	</div>
+
+</ui:composition>

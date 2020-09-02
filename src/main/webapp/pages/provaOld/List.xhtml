@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- FORMULARIO BASE DA LIST CONTRIBUINTE ########################### INICIO -->
+<h:form id="contribuinteListForm">
+
+<p:panel header="( CONTRIBUINTES - Listagem Base )">
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="Novo Contr."
+								title="Novo Contribuinte..." 
+		 						actionListener="#{contribuinteBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:contribuinteListForm:tabela
+										:formCadastro:painel
+										:formCadastro:btns" />
+			<p:spacer width="5px"/>
+			<p:button icon="ui-icon-search"
+					  outcome="/pages/prova/buscas/Index"
+					  value="Buscas" />
+							 
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-closethick" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{contribuinteBean.contribuintes}"
+				emptyMessage="Nenhum CONTRIBUINTE cadastrado!"
+				paginator="true" 
+			 	rows="5"
+			 	paginatorPosition="bottom"  >
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.codigo}" rendered="true" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+			 	
+<p:column style="text-align: center; width: 25%" sortBy="#{item.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="Contribuinte NOME COMPLETO" /></f:facet>
+					   <h:outputText value="#{item.nome} #{item.sobreNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 10%" sortBy="#{item.cpf}" rendered="true" >
+<f:facet name="header"><h:outputText value="CPF" /></f:facet>
+					   <h:outputText value="#{item.cpf}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" sortBy="#{item.numContribuinte}" rendered="true" >
+<f:facet name="header"><h:outputText value="Contribuinte NUM." /></f:facet>
+					   <h:outputText value="#{item.numContribuinte}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15%" rendered="true" >
+<f:facet name="header"><h:outputText value="RUA / ENDEREÇO" /></f:facet>
+					   <p:commandButton icon="ui-icon-flag" 
+										title="Nova Rua!"
+										value="S/ RUAS Cad."
+										actionListener="#{ruaBean.novo}"
+										update=":msgGlobal
+												:formCadastroRuaAdd:painel22"
+										oncomplete="PF('dialogoAddRua').show();" >
+					   
+					   <f:attribute     name="contribuinteSelecionado" value="#{item}" />
+                       </p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 17%" rendered="true" >
+<f:facet name="header"><h:outputText value="QTD. IMÓVEIS" /></f:facet>
+					   <p:commandButton icon="ui-icon-home" 
+										title="Novo Imóvel!"
+										value="S/ IMÓVEIS Cad."
+										actionListener="#{imovelBean.novo}"
+										oncomplete="PF('dialogoImovel').show();"
+										update=":msgGlobal 
+												:contribuinteListForm:tabela
+												:formCadastroRua:painel
+												:formCadastroRua:btns" >
+                       </p:commandButton>
+</p:column>
+
+<p:column headerText="OPÇÕES" style="text-align: center; width: 14%">
+	
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-pencil"
+									title="Editar Registro!" >
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-folder-open"
+									title="Visualização do Registro!"
+									actionListener="#{contribuinteBean.editar}"
+								 	update=":msgGlobal 
+								 	        :formContrbuinteView:painel"
+								 	oncomplete="PF('viewContribuintedialog').show()" >
+									
+				<f:attribute 	 name="contribuinteSelecionado" value="#{item}" />
+
+				</p:commandButton>
+				
+				<p:spacer width="5px"/>
+				<p:commandButton 	icon="ui-icon-trash"
+									title="Exluir o Cadastro!"
+									actionListener="#{contribuinteBean.excluir}"
+									update=":contribuinteListForm:tabela :msgGlobal" >
+									
+				<p:confirm 	header="Confirma a Exclusão?" 
+							message="Atenção essa ação não poderá ser Desfeita!"
+							icon="ui-icon-alert" />
+				
+				<f:attribute 	name="contribuinteSelecionado" value="#{item}" />
+				
+				</p:commandButton>
+	
+</p:column>
+
+</p:dataTable>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>

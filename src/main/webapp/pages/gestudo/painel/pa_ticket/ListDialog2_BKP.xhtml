@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG COM LIST DOS TICKETS NÃO ASSUMIDOS ########################### INICIO -->
+
+<p:dialog widgetVar="pa7Dialogo"
+		  header="LISTA de TICKETS - NÃO ASSUMIDOS" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="true"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="pa7FormCadastro" >
+
+<h:panelGrid id="formCad" columns="2">
+
+<p:dataTable id="ticketsDataTable"
+				 var="itemTicket" 
+				 value="#{painelBean.tickets}"
+				 emptyMessage="Não existem TICKETS (NOVOS) Registrados!"
+				 rendered="false" >
+				 
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemTicket.codigo}" rendered="false">
+	<f:facet name="header" ><h:outputText value="CODIGO" /></f:facet>
+						   <h:outputText value="#{itemTicket.codigo}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemTicket.txtRecado}" rendered="true">
+	<f:facet name="header" ><h:outputText value="RECADO" /></f:facet>
+						   <h:outputText value="#{itemTicket.txtRecado}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemTicket.nome}" rendered="true">
+	<f:facet name="header" ><h:outputText value="CONTATO NOME" /></f:facet>
+						   <h:outputText value="#{itemTicket.nome}" />
+	</p:column>
+	
+	<p:column style="text-align: center; width: 10px" sortBy="#{itemTicket.cliente.sobreNome}" rendered="true">
+	<f:facet name="header" ><h:outputText value="CLIENTE" /></f:facet>
+						   <h:outputText value="#{itemTicket.cliente.sobreNome}" />
+	</p:column>
+
+</p:dataTable>
+
+				<p:repeat value="#{painelBean.ticketsNaoAtendidos}" var="itemTicket">
+					<h:panelGrid columns="2" style="width:100%">
+						<p:commandLink >
+								<h:graphicImage value="/resources/imgs/ticket_icon_page.png"
+												rendered="#{ticketBean.ticket.codigo == null}" />
+							</p:commandLink>
+						<p:outputPanel>
+						<hr />
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="RECADO:" />
+								<h:outputText value="#{itemTicket.txtRecado}"
+									style="font-weight: bold" />
+
+								<h:outputText value="CONTATO NOME:" />
+								<h:outputText value="#{itemTicket.nome}"
+									style="font-weight: bold" />
+
+								<h:outputText value="CLIENTE:" />
+								<h:outputText value="#{itemTicket.cliente.sobreNome}"
+									style="font-weight: bold" />
+								
+								<h:outputText value="" />
+								<p:commandButton id="btnAtende" 
+												 value="Editar Cod:  #{itemTicket.codigo}"
+												 actionListener= "#{painelBean.updateTicketFromPainel}"
+												 update=":msgGlobal 
+												 		 :pa7FormCadastro:formCad
+												 		 :pa7FormCadastro:btns 
+												 		 :listForm:tabela"
+												 oncomplete="PF('pa7Dialogo').hide();" >
+							
+								<f:attribute name="ticketSelecionado" value="#{itemTicket}" />					 
+							
+								</p:commandButton>
+
+							</h:panelGrid>
+							<hr />
+						</p:outputPanel>
+					</h:panelGrid>
+				</p:repeat>
+
+			</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnAtende"
+				 
+				 value="Atender !" 
+				 update=":msgGlobal 
+				 		 :pa7FormCadastro:formCad
+				 		 :pa7FormCadastro:btns 
+				 		 :listForm:tabela"
+				 oncomplete="PF('pa7Dialogo').hide();"
+				 rendered="false" />
+
+<p:commandButton id="btnRepasse"
+				 
+				 value="Repassar !" 
+				 update=":msgGlobal 
+				 		 :pa7FormCadastro:formCad
+				 		 :pa7FormCadastro:btns 
+				 		 :listForm:tabela"
+				 oncomplete="PF('pa7Dialogo').hide();"
+				 rendered="false" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

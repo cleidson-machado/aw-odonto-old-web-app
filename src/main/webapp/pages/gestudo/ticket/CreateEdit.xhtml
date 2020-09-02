@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<!-- DIALOG BASE DOS TICKETS BASEADOS NA LIST DO PAINEL ########################### INICIO -->
+
+<p:dialog widgetVar="dialogoTK"
+		  header="TICKETS - Cadastro" 
+		  draggable="true" 
+		  resizable="false" 
+		  modal="true"
+		  closable="false"
+		  closeOnEscape="true" 
+		  appendTo="@(body)">
+
+<h:form id="formCadastroTK" >
+
+<h:panelGrid id="formCad" columns="2">
+
+	<p:outputLabel  value="RECADO: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.ticket.txtRecado}" />
+	
+	<p:outputLabel  value="NOME DO CONTATO: " />
+	<p:inputText 	maxlength="50" 
+					size="30" value="#{painelBean.ticket.nome}" />
+
+<p:outputLabel  value="CLIENTE: " />
+	<p:selectOneMenu 
+					 filter="true"
+					 filterMatchMode="contains" 
+					 value="#{painelBean.ticket.cliente}"
+					 converter="omnifaces.SelectItemsConverter" >
+	
+	<f:selectItem 	noSelectionOption="true" itemLabel="Selecione..." />
+	<f:selectItems 	value="#{painelBean.clientes}" 
+					var="cliente"
+					itemValue="#{cliente}" 
+					itemLabel="#{cliente.sobreNome}" />
+	
+	</p:selectOneMenu>
+
+</h:panelGrid>
+
+<h:panelGrid id="btns" columns="2">
+
+<p:commandButton id="btnSalvar"
+				 rendered="#{ticketBean.ticket.codigo == null}"
+				 value="Salvar" 
+				 actionListener="#{painelBean.salvarTicket}"
+				 update=":msgGlobal 
+				 		 :formCadastroTK:formCad
+				 		 :formCadastroTK:btns 
+				 		 :listForm:tabela"
+				 oncomplete="PF('dialogoTK').hide();" />
+
+<p:commandButton id="btnEditar"
+				 rendered="#{ticketBean.ticket.codigo != null}"
+				 value="Editar" 
+				 actionListener="#{painelBean.salvarTicket}"
+				 update=":msgGlobal 
+					     :formCadastroTK:formCad 
+					     :listForm:tabela"
+				 oncomplete="PF('dialogoTK').hide();" />
+
+<p:commandButton id="btnFechar" 
+				 value="Fechar"
+			     actionListener="#{painelBean.novoTicket}"
+				 update=":formCadastroTK:formCad
+						 :formCadastroTK:btns
+						 :listForm:tabela"
+				 oncomplete="PF('dialogoTK').hide();" />
+
+</h:panelGrid>
+
+</h:form>
+
+</p:dialog>
+
+</ui:composition>
+

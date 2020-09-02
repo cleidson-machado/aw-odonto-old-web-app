@@ -21,9 +21,9 @@
 	<!-- TEMAS A UTILIZAR NO PRIMEFACES -->
 	<context-param>
 	<param-name>primefaces.THEME</param-name>
-	<param-value>afterwork</param-value>
+<!-- 	<param-value>afterwork</param-value> -->
 <!-- 	<param-value>redmond</param-value> -->
-<!-- 	<param-value>bootstrap</param-value> -->
+	<param-value>bootstrap</param-value>
 <!-- 	<param-value>bluesky</param-value> -->
 <!-- 	<param-value>cupertino</param-value> -->
 <!-- 	<param-value>blitzer</param-value> -->

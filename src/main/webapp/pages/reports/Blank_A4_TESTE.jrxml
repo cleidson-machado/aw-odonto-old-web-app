@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_TESTE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d3be9917-ca6f-4121-92ac-b2b33e4bd455">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[b2RvbnRvY29udHJhY3RlLmVuZGVyZWNvIEFTICw0NywxNyw3NWQ0M2JmMy01YWQ4LTRmMjEtYjQ1
+Ny0wMjc5NWU1ZDE2YjY7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="OdontoContractE Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT odontocontracte.endereco.`bairroDistrito`,
+	odontocontracte.endereco.`cepPostal`,
+	odontocontracte.endereco.complemento,
+	odontocontracte.endereco.logradouro,
+	odontocontracte.endereco.`numImovelLote`,
+	odontocontracte.endereco.`tipoEnd`,
+	odontocontracte.endereco.`tipoLogradouro`,
+	odontocontracte.endereco.dta_alteracao,
+	odontocontracte.endereco.dta_cadastro,
+	odontocontracte.endereco.rotulagem
+FROM odontocontracte.endereco]]>
+	</queryString>
+	<field name="bairroDistrito" class="java.lang.String"/>
+	<field name="cepPostal" class="java.lang.String"/>
+	<field name="complemento" class="java.lang.String"/>
+	<field name="logradouro" class="java.lang.String"/>
+	<field name="numImovelLote" class="java.lang.String"/>
+	<field name="tipoEnd" class="java.lang.String"/>
+	<field name="tipoLogradouro" class="java.lang.String"/>
+	<field name="dta_alteracao" class="java.sql.Timestamp"/>
+	<field name="dta_cadastro" class="java.sql.Timestamp"/>
+	<field name="rotulagem" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

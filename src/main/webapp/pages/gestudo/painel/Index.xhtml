@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/north_layout_painel.xhtml">
+	
+	<!-- INDEX PAINEL -->
+	<ui:define name="title">
+		<h:outputText value="NEW PAINEL - PROJECT"></h:outputText>
+	</ui:define>
+
+	<ui:define name="painelWestList">
+			<ui:include src="/pages/gestudo/ListWest.xhtml" />
+	</ui:define>
+	
+	<ui:define name="body">
+	
+	<ui:include src="/pages/gestudo/painel/List.xhtml" />
+	
+	<ui:include src="/pages/gestudo/painel/CreateEdit.xhtml" />
+	
+	<!-- 	dialogoTK -->
+	<ui:include src="/pages/gestudo/ticket/CreateEdit.xhtml" />
+	
+	<!-- 	pa1Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_cliente/CreateEdit.xhtml" />
+	
+	<!-- 	pa2Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_observacao/CreateEdit.xhtml" />
+	
+	<!-- 	pa3Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_status/CreateEdit.xhtml" />
+	
+	<!-- 	pa4Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_espera/CreateEdit.xhtml" />
+	
+	<!-- 	pa5Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_nivel/CreateEdit.xhtml" />
+	
+	<!-- 	pa6Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_geral/CreateEdit.xhtml" />
+	
+	<!-- 	pa7Dialogo -->
+	<ui:include src="/pages/gestudo/painel/pa_ticket/ListDialog.xhtml" />
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui">
+
+<!-- LIST PAINEL ########################### INICIO -->
+
+<h:form id="listForm">
+
+<script type="text/javascript">
+	//var xfile = "TESTES AFINS JAVASCRIP";
+	 	//document.write(xfile);
+	
+	
+	//ESSE ABAIXO ATUALIZA A PÁGINA TODA!
+	
+// 	setTimeout(function(){
+//    		window.location.reload(1);
+// 	}, 15000);
+	
+</script>
+
+<p:panel id="principal" header="( PAINEL de SUPORTE a Clientes - Fila Principal )" >
+
+<p:poll interval="3" 
+		listener="#{painelBean.atualizador}" 
+		update="tabela"
+		rendered="false" />
+
+<p:toolbar>
+	<f:facet name="left">
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="N"
+								title="Cadastro de novos Itens..." 
+		 						actionListener="#{painelBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastro:formCad
+										:formCadastro:btns"
+								rendered="false" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton 	icon="ui-icon-disk"
+								value="TICKET"
+								title="Cadastro de novos Tickets..." 
+		 						actionListener="#{painelBean.novoTicket}"
+								oncomplete="PF('dialogoTK').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastroTK:formCad
+										:formCadastroTK:btns" />				 
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-extlink" disabled="true" />
+			
+	</f:facet>
+	
+	<f:facet name="right">
+	
+			<p:commandButton 	icon="ui-icon-plusthick"
+								value="INÍCIO"
+								title="Cadastro de novos Itens..." 
+		 						actionListener="#{painelBean.novo}"
+								oncomplete="PF('dialogo').show();"
+								update=":msgGlobal 
+										:listForm:tabela
+										:formCadastro:formCad
+										:formCadastro:btns" />
+			<p:spacer width="5px"/>
+			<p:commandButton icon="ui-icon-print" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Relatórios GERAIS DO SISTEMA!"/>
+
+			<p:spacer width="5px"/>
+			<p:commandButton value="Ajuda" 
+							 icon="ui-icon-help" 
+							 disabled="false" 
+							 rendered="true"
+							 title="Tutoriais UNIVERSAIS da Aplicação"/>
+			<p:spacer width="5px"/>
+	</f:facet>
+</p:toolbar>
+
+<p:dataTable 	id="tabela" 
+				var="item" 
+				value="#{painelBean.paineis}"
+				emptyMessage="Nenhum Item de PAINEL cadastrado!"
+				
+				paginator="true" 
+			 	rows="12"
+			 	paginatorPosition="bottom"
+			 	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			 	rowsPerPageTemplate="1,5,12,22"
+			 	
+			 	selectionMode="single"
+			 	selection="#{painelBean.painel}"
+			 	rowKey="#{item.codigo}"
+			 	
+			 	  >
+
+<p:column style="text-align: center; width: 5%" sortBy="#{item.codigo}" rendered="false" >
+<f:facet name="header"><h:outputText value="Ordem" /></f:facet>
+					   <h:outputText value="#{item.codigo}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5px" sortBy="#{item.qtdFilaGeral}" rendered="true" >
+<f:facet name="header"><h:outputText value="FG" /></f:facet>
+					   <p:commandButton 	rendered="true"
+					   						icon="ui-icon-pin-s"
+											title="FILA GERAL ATENDIMENTOS!"
+											value="#{painelBean.paineisFull.size()}"
+											actionListener="#{painelBean.showFirstTicketToWork}"
+											update=":msgGlobal 
+													:listForm:tabela
+													:pa7FormCadastro:formCad
+													:pa7FormCadastro:btns"
+
+											oncomplete="PF('pa7Dialogo').show();" >
+
+
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+
+						</p:commandButton>
+				
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.tipoAtendimento}" rendered="true" >
+<f:facet name="header"><h:outputText value="TIPO" /></f:facet>
+					   <h:outputText value="#{item.tipoAtendimento}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5px" sortBy="#{item.nivelAtendimento}" rendered="true" >
+<f:facet name="header"><h:outputText value="NV" /></f:facet>
+					   <p:commandButton 	icon="ui-icon-check"
+											title="NÍVEL DE COMPLEXIDADE DO ATENDIMENTO!"
+											value="#{item.nivelAtendimento}"
+											actionListener="#{painelBean.editar}"
+											update=":msgGlobal 
+													:listForm:tabela
+													:formCadastro:formCad
+													:formCadastro:btns"
+
+											oncomplete="PF('pa5Dialogo').show();" >
+
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+
+						</p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.usuario.ramal}" rendered="true" >
+<f:facet name="header"><h:outputText value="RAMAL" /></f:facet>
+					   <h:outputText value="#{item.usuario.ramal}" />
+</p:column>
+
+<p:column style="text-align: center; width: 5px" sortBy="#{item.qtdFilaEspera}" rendered="true" >
+<f:facet name="header"><h:outputText value="FE" /></f:facet>
+					   <p:commandButton 	icon="ui-icon-clock"
+											title="FILA DE ESPERA!"
+											value="#{item.qtdFilaEspera}"
+											actionListener="#{painelBean.editar}"
+											update=":msgGlobal 
+													:listForm:tabela
+													:formCadastro:formCad
+													:formCadastro:btns"
+											oncomplete="PF('pa4Dialogo').show();" >
+
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+
+						</p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 38px" sortBy="#{item.usuario.nome}" rendered="true" >
+<f:facet name="header"><h:outputText value="COLABORADOR" /></f:facet>
+					   <h:outputText value="#{item.usuario.nome}" />
+					   
+					   <p:commandButton rendered="false" 
+					   					value="#{item.usuario.nome}" >
+					   </p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.statusFlag}" rendered="true" >
+<f:facet name="header"><h:outputText value="ST" /></f:facet>
+					   <h:outputText value="#{item.statusFlag}" rendered="false" />
+					   
+					   <p:commandButton id="btnStatusBlue"
+					   					rendered="#{item.statusFlag == 'BLU'}" 
+					   					icon="ui-icon-flag"
+					   					value="BLU"
+					   					title="STATUS AZUL!"
+										actionListener="#{painelBean.editar}"
+										update=":msgGlobal
+												:listForm:tabela
+												:formCadastro:formCad
+												:formCadastro:btns"
+										oncomplete="PF('pa3Dialogo').show();"
+					   					style="color: blue" styleClass="" >
+					   
+					   <f:attribute 		name="painelSelecionado" value="#{item}" />
+					   
+					   </p:commandButton>
+					   
+					   <p:commandButton id="btnStatusGreen"
+					   					rendered="#{item.statusFlag == 'GRE'}" 
+					   					icon="ui-icon-flag"
+					   					value="GRE"
+					   					title="STATUS VERDE!"
+										actionListener="#{painelBean.editar}"
+										update=":msgGlobal
+												:listForm:tabela
+												:formCadastro:formCad
+												:formCadastro:btns"
+										oncomplete="PF('pa3Dialogo').show();"
+					   					style="color:green" styleClass="" >
+					   
+					   <f:attribute 		name="painelSelecionado" value="#{item}" />
+					   
+					   </p:commandButton>
+					   
+					   <p:commandButton id="btnStatusRed"
+					   					rendered="#{item.statusFlag == 'RED'}" 
+					   					icon="ui-icon-flag"
+					   					value="RED"
+					   					title="STATUS VERMELHO!"
+										actionListener="#{painelBean.editar}"
+										update=":msgGlobal
+												:listForm:tabela
+												:formCadastro:formCad
+												:formCadastro:btns"
+										oncomplete="PF('pa3Dialogo').show();"
+					   					style="color:red" styleClass="" >
+					   
+					   <f:attribute 		name="painelSelecionado" value="#{item}" />
+					   
+					   </p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 10px" sortBy="#{item.itemObservacaoAlerta}" rendered="true" >
+<f:facet name="header"><h:outputText value="OBS" /></f:facet>
+					   <p:commandButton 	icon="ui-icon-alert"
+											rendered="#{item.itemObservacaoAlerta == true}"
+											disabled="false"
+											title="OBSERVAÇÕES SOBRE O ATENDIMENTO!"
+											value="ATN"
+											actionListener="#{painelBean.editar}"
+											update=":msgGlobal
+													:listForm:tabela
+													:formCadastro:formCad
+													:formCadastro:btns"
+
+											oncomplete="PF('pa2Dialogo').show();" >
+									
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+						</p:commandButton>
+						
+						<p:commandButton 	icon="ui-icon-alert"
+											rendered="#{item.itemObservacaoAlerta == false}"
+											disabled="true"
+											title="OBSERVAÇÕES SOBRE O ATENDIMENTO!"
+											value="-----" >
+									
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+						</p:commandButton>		   
+</p:column>
+
+<p:column style="text-align: center; width: 28px" sortBy="#{item.actionOnDemand}" rendered="true" >
+<f:facet name="header"><h:outputText value="ATIVIDADE" /></f:facet>
+					   <h:outputText value="#{item.actionOnDemand}" />
+</p:column>
+
+<p:column style="text-align: center; width: 20px" sortBy="#{item.contatoNome}" rendered="true" >
+<f:facet name="header"><h:outputText value="CONTATO" /></f:facet>
+					   <h:outputText value="#{item.contatoNome}" />
+</p:column>
+
+<p:column style="text-align: center; width: 15px" sortBy="#{item.cliente.numClienteLegacy}" rendered="true" >
+<f:facet name="header"><h:outputText value="CLIENTE" /></f:facet>
+					   <h:outputText value="#{item.cliente.numClienteLegacy}" rendered="false" />
+					   
+					   <p:commandButton 	icon="ui-icon-person"
+											title="Editar Registro!"
+											value="#{item.cliente.numClienteLegacy}"
+											actionListener="#{painelBean.editar}"
+											update=":msgGlobal 
+													:listForm:tabela
+													:formCadastro:formCad
+													:formCadastro:btns"
+
+											oncomplete="PF('pa1Dialogo').show();" >
+									
+							<f:attribute 		name="painelSelecionado" value="#{item}" />
+						</p:commandButton>
+</p:column>
+
+<p:column style="text-align: center; width: 80px" sortBy="#{item.resumoChamadoAtual}" rendered="true" >
+<f:facet name="header"><h:outputText value="RESUMO ATENDIMENTO" /></f:facet>
+					   <h:outputText value="#{item.resumoChamadoAtual}" />
+</p:column>
+
+<f:facet name="footer">
+	Ao todo existem ( #{(painelBean.paineisFull.size())} ) registros.
+</f:facet>
+
+</p:dataTable>
+
+<p:contextMenu for="tabela">
+
+		<p:menuitem value="Editar" 
+        			icon="ui-icon-pencil"
+        			update=":formCadastro:formCad
+							:formCadastro:btns"
+					oncomplete="PF('dialogo').show();" />
+		
+		<p:menuitem value="Visualizar" 
+        			icon="ui-icon-folder-open"
+        			update=":formCadastro:formCad
+							:formCadastro:btns"
+					oncomplete="PF('dialogo').show();" />
+
+		<p:menuitem value="Apagar" 
+        			icon="ui-icon-trash"
+        			
+				    actionListener="#{painelBean.excluir}" >
+				    
+		<p:confirm 	header="Confirma a Exclusão?" 
+					message="Atenção essa ação não poderá ser Desfeita!"
+					icon="ui-icon-alert" />
+		
+		</p:menuitem>
+
+</p:contextMenu>
+
+<ui:include src="/confirmation.xhtml"/>
+
+</p:panel>
+
+</h:form>
+
+</ui:composition>
